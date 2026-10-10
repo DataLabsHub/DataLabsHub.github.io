@@ -1,0 +1,40 @@
+name: Update exchange rates
+
+on:
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+          path: main
+
+      - uses: actions/checkout@v7
+        with:
+          ref: rates
+          path: rates
+
+      - name: Fetch exchange rates
+        run: python3 main/.github/scripts/update_rates.py rates/rates.json
+
+      - name: Commit rates if changed
+        working-directory: rates
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -am "Update exchange rates"
+            git push origin rates
+          fi

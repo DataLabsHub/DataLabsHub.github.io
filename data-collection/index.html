@@ -52,15 +52,19 @@
   }
 
   .nav .mark {
+    flex: none;
     font-family: var(--serif);
     font-size: 17px;
     font-weight: 600;
     letter-spacing: -0.02em;
+    white-space: nowrap;
     color: var(--ink);
   }
 
   .nav .links {
     display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
     gap: 1.35rem;
     overflow-x: auto;
     scrollbar-width: none;
@@ -749,7 +753,15 @@
     .scale article:last-child { border-bottom: 0; }
     .lineup, .channels, .steps, .prices, .trio, .meters, .scale { grid-template-columns: 1fr; }
     .specs div { grid-template-columns: 1fr; gap: 0.25rem; }
-    .nav { padding: 0 16px; gap: 1rem; }
+    .nav { flex-wrap: wrap; height: auto; padding: 0.6rem 16px; gap: 0.5rem 1rem; }
+    .nav .mark { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    .nav .links { order: 3; flex: 1 0 100%; gap: 1.1rem; padding-bottom: 0.15rem; }
+    .lang { margin-left: 0; }
+    .hero h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+    h2 .sub { font-size: 14px; }
+    .card h3 { font-size: 26px; }
+    .wrap { width: calc(100% - 32px); }
     .band { padding-top: 4.5rem; }
   }
 </style>
@@ -1336,7 +1348,7 @@
   const initial = match(new URLSearchParams(location.search).get("lang")) || match(saved) || fromBrowser || "zh-CN";
   apply(initial);
 
-  fetch("rates.json", { cache: "no-store" })
+  fetch("https://raw.githubusercontent.com/DataLabsHub/DataLabsHub.github.io/rates/rates.json")
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
       const needed = Object.keys(FX.rates).filter((c) => c !== "CNY");

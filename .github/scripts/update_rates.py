@@ -1,36 +1,30 @@
-"""Fetch CNY exchange rates and write them to a JSON file used by the handbook pages.
+"""Fetch CNY exchange rates and write them to a JSON file read by the handbook pages.
 
 Keeps the existing file when every source fails or returns implausible values,
 so a bad upstream day never breaks the published prices.
 """
+import datetime
 import json
 import sys
 import urllib.request
 
 CURRENCIES = ["TWD", "USD", "JPY", "KRW", "EUR", "BRL", "RUB"]
 MAX_DAILY_SWING = 0.3
+MIRROR = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{tag}/v1/currencies/cny.json"
 
 
-def from_currency_api(url):
-    data = json.load(urllib.request.urlopen(url, timeout=20))
+def sources():
+    today = datetime.datetime.now(datetime.timezone.utc).date()
+    for offset in (0, 1):
+        yield MIRROR.format(tag=(today - datetime.timedelta(days=offset)).isoformat())
+    yield "https://latest.currency-api.pages.dev/v1/currencies/cny.json"
+    yield MIRROR.format(tag="latest")
+
+
+def fetch(url):
+    with urllib.request.urlopen(url, timeout=20) as resp:
+        data = json.load(resp)
     return data["date"], {c: float(data["cny"][c.lower()]) for c in CURRENCIES}
-
-
-def from_er_api(url):
-    data = json.load(urllib.request.urlopen(url, timeout=20))
-    if data.get("result") != "success":
-        raise ValueError("upstream error")
-    date = data["time_last_update_utc"]
-    months = {m: i for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], 1)}
-    _, day, mon, year = date.split()[:4]
-    return f"{year}-{months[mon]:02d}-{int(day):02d}", {c: float(data["rates"][c]) for c in CURRENCIES}
-
-
-SOURCES = [
-    (from_currency_api, "https://latest.currency-api.pages.dev/v1/currencies/cny.json"),
-    (from_currency_api, "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/cny.json"),
-    (from_er_api, "https://open.er-api.com/v6/latest/CNY"),
-]
 
 
 def plausible(rates, previous):
@@ -52,7 +46,7 @@ def main(path):
         previous = {}
 
     candidates = []
-    for fetch, url in SOURCES:
+    for url in sources():
         try:
             date, rates = fetch(url)
         except Exception as exc:
