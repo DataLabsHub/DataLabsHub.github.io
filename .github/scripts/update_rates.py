@@ -51,6 +51,7 @@ def main(path):
     except (OSError, ValueError):
         previous = {}
 
+    candidates = []
     for fetch, url in SOURCES:
         try:
             date, rates = fetch(url)
@@ -60,14 +61,19 @@ def main(path):
         if not plausible(rates, previous):
             print(f"skip {url}: implausible values {rates}")
             continue
-        payload = {"base": "CNY", "date": date, "rates": {c: round(rates[c], 6) for c in CURRENCIES}}
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, ensure_ascii=False, indent=2)
-            f.write("\n")
-        print(f"updated from {url}: {payload}")
+        print(f"ok {url}: {date}")
+        candidates.append((date, url, rates))
+
+    if not candidates:
+        print("all sources failed, keeping previous rates")
         return
 
-    print("all sources failed, keeping previous rates")
+    date, url, rates = max(candidates, key=lambda c: c[0])
+    payload = {"base": "CNY", "date": date, "rates": {c: round(rates[c], 6) for c in CURRENCIES}}
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"updated from {url}: {payload}")
 
 
 if __name__ == "__main__":
