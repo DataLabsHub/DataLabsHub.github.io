@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>数据采集定制</title>
+<style>
+  :root {
+    --ink: #1c1b19;
+    --gray: #6f6d66;
+    --gray-2: #5c5a54;
+    --line: rgba(28, 27, 25, 0.12);
+    --wash: #f4f1ea;
+    --paper: #faf8f4;
+    --blue: #c45c36;
+    --max: 1080px;
+    --serif: "Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", "Source Han Serif SC", "PMingLiU", serif;
+    --sans: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    height: 58px;
+    padding: 0 28px;
+    background: rgba(250, 248, 244, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav .mark {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .nav .links {
+    display: flex;
+    gap: 1.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav .links::-webkit-scrollbar { display: none; }
+
+  .nav a {
+    flex: none;
+    color: var(--ink);
+    font-size: 14px;
+    opacity: 0.72;
+  }
+
+  .nav a:hover { opacity: 1; text-decoration: none; }
+
+  .hero {
+    background: var(--paper);
+    color: var(--ink);
+    width: min(var(--max), calc(100% - 44px));
+    padding: 6.5rem 0 2.5rem;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray);
+  }
+
+  .hero h1 {
+    margin: 0;
+    max-width: 11em;
+    font-family: var(--serif);
+    font-size: clamp(48px, 6.4vw, 80px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+
+  .hero .statement {
+    margin: 1.25rem 0 0;
+    max-width: 34rem;
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.55;
+    color: var(--gray-2);
+  }
+
+  .hero .statement b {
+    display: inline;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .hero .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1.4rem;
+    margin: 1.6rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--gray);
+    font-size: 14px;
+  }
+
+  .hero .facts strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .cta {
+    display: flex;
+    gap: 0.75rem;
+    margin: 2.4rem 0 0;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn:hover { text-decoration: none; opacity: 0.88; }
+
+  .btn {
+    background: var(--ink);
+    color: #faf8f4;
+    border-radius: 10px;
+  }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid rgba(28, 27, 25, 0.22);
+  }
+
+  section { scroll-margin-top: 52px; }
+
+  .band { padding: 5.25rem 0; }
+
+  .band.wash { background: #efece4; }
+
+  .band.ink {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .wrap {
+    width: min(var(--max), calc(100% - 44px));
+    margin: 0 auto;
+  }
+
+  .label {
+    margin: 0 0 0.85rem;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+  }
+
+  .ink .label { color: var(--gray-2); }
+
+  h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  h2 span {
+    display: block;
+    color: var(--gray);
+    font-family: var(--sans);
+    font-size: 0.42em;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-top: 0.55rem;
+  }
+
+  .ink h2 span { color: var(--gray); }
+
+  .lede {
+    max-width: 40rem;
+    margin: 1.4rem 0 0;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--gray-2);
+  }
+
+  .ink .lede { color: var(--gray-2); }
+
+  .lineup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 2.4rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 168px;
+    padding: 26px 28px 24px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+
+  .card.dark {
+    background: #fff;
+    color: var(--ink);
+    border-color: rgba(196, 92, 54, 0.45);
+  }
+
+  .card .flag {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--blue);
+  }
+
+  .card.dark .flag { color: var(--blue); }
+
+  .card h3 {
+    margin: 0.85rem 0 0.55rem;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .card .one {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--gray-2);
+  }
+
+  .card.dark .one { color: var(--gray-2); }
+
+  .card ul {
+    margin: 1.1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card li {
+    position: relative;
+    margin: 0.45rem 0;
+    padding-left: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  .card.dark li { color: var(--ink); }
+
+  .card .foot {
+    margin-top: auto;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--gray);
+  }
+
+  .card.dark .foot { border-top-color: var(--line); }
+
+  .aside {
+    margin: 1.1rem 0 0;
+    font-size: 14px;
+    color: var(--gray);
+  }
+
+  .split {
+    margin-top: 3.5rem;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 2rem 4rem;
+    padding: 2.1rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .row h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .row p {
+    margin: 0;
+    color: var(--gray-2);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .row p + p { margin-top: 0.75rem; }
+
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 3rem;
+  }
+
+  .channel {
+    min-height: 0;
+    padding: 28px 22px 24px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .channel .price {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .channel .unit {
+    margin: 0.45rem 0 0;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .channel h3 {
+    margin: 1.6rem 0 0.55rem;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+  }
+
+  .channel p {
+    margin: 0;
+    color: var(--gray-2);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .channel .meta {
+    margin-top: auto;
+    padding-top: 1.3rem;
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.45;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 2.2rem;
+  }
+
+  .step {
+    padding: 28px 22px 32px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+
+  .step .n {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--blue);
+    line-height: 1;
+  }
+
+  .step h3 {
+    margin: 1.4rem 0 0.45rem;
+    font-size: 28px;
+    letter-spacing: -0.03em;
+  }
+
+  .step p {
+    margin: 0;
+    color: var(--gray-2);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .prices {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 2.2rem;
+    gap: 12px;
+  }
+
+  .prices article {
+    padding: 1.6rem 1.35rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    min-height: 168px;
+  }
+
+  .prices .num {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(36px, 3.6vw, 48px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prices .num small {
+    font-size: 0.38em;
+    letter-spacing: 0;
+    margin-left: 0.15em;
+    color: var(--gray);
+    font-weight: 400;
+    font-family: var(--sans);
+  }
+
+  .prices h3 {
+    margin: 0.9rem 0 0.25rem;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .prices p {
+    margin: 0;
+    color: var(--gray);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 3rem;
+  }
+
+  .trio article {
+    min-height: 240px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+
+  .trio h3,
+  .step h3,
+  .channel h3,
+  .row h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+  }
+
+  .trio h3 {
+    margin: 0 0 0.7rem;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+  }
+
+  .trio p {
+    margin: 0;
+    color: var(--gray-2);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .specs {
+    margin: 3rem 0 0;
+    padding: 0;
+  }
+
+  .specs div {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .specs dt {
+    margin: 0;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .specs dd {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .meters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 1.8rem 0 0.4rem;
+  }
+
+  .meters article {
+    padding: 22px 18px 20px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  .meters .num {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .meters p {
+    margin: 0.55rem 0 0;
+    color: var(--gray-2);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .facts3 {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 0.9fr;
+    gap: 12px;
+    margin-top: 1.6rem;
+  }
+
+  .facts3 article {
+    padding: 28px 24px 26px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  .scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 2.2rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .scale article {
+    padding: 1.5rem 1.15rem 1.35rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .scale article:last-child { border-right: 0; }
+
+  .scale .num {
+    margin: 0;
+    white-space: nowrap;
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .scale p {
+    margin: 0.45rem 0 0;
+    color: var(--gray);
+    font-size: 13px;
+  }
+
+  .facts3 h2 span { display: none; }
+
+  .facts3 ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .facts3 li {
+    margin: 0.4rem 0;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--gray-2);
+  }
+
+  .facts3 li strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .facts3 .price {
+    margin: 0 0 0.2rem;
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .facts3 .unit {
+    margin: 0 0 0.9rem;
+    color: var(--gray);
+    font-size: 13px;
+  }
+
+  footer {
+    padding: 2.5rem 0 3.5rem;
+    background: var(--paper);
+    color: var(--gray);
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+  }
+
+  footer .wrap { width: min(var(--max), calc(100% - 44px)); }
+
+  @media (max-width: 980px) {
+    .lineup, .channels, .prices, .trio, .meters { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .facts3 { grid-template-columns: 1fr; }
+    .prices article { padding-right: 1rem; }
+    .row { grid-template-columns: 1fr; gap: 0.6rem; }
+    .card, .channel { min-height: 0; }
+  }
+
+  @page { size: A4; margin: 0; }
+
+  @media print {
+    html, body, .band, .hero, .nav, .card, .step, .scale, .prices article, .btn {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .nav { position: static; padding: 0 48px; }
+    .wrap, .hero { width: calc(100% - 96px); }
+    .band { padding: 2.25rem 0; }
+    .hero { padding: 3rem 0 0.75rem; }
+    .scale .num { font-size: 30px; white-space: nowrap; }
+    .wrap,
+    .lineup,
+    .prices,
+    .steps,
+    .scale,
+    .specs div,
+    .card,
+    .step {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .label,
+    h2 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    a { text-decoration: none; }
+  }
+
+  @media (max-width: 680px) {
+    .hero { min-height: auto; width: min(var(--max), calc(100% - 32px)); padding: 3.5rem 0 1.5rem; }
+    .scale article { border-right: 0; border-bottom: 1px solid var(--line); }
+    .scale article:last-child { border-bottom: 0; }
+    .lineup, .channels, .steps, .prices, .trio, .meters, .scale { grid-template-columns: 1fr; }
+    .specs div { grid-template-columns: 1fr; gap: 0.25rem; }
+    .nav { padding: 0 16px; gap: 1rem; }
+    .band { padding-top: 4.5rem; }
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="mark">数据采集定制</span>
+    <div class="links">
+      <a href="#custom">定制</a>
+      <a href="#sheet">规模</a>
+      <a href="#domains">来源</a>
+      <a href="#fee">按次采集</a>
+      <a href="#bounds">边界与支持</a>
+      <a href="#start">定制流程</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">产品手册</p>
+    <h1>按需求定制数据采集。</h1>
+    <p class="statement">采集对象、字段结构、交付方式与更新周期，均依需求方的规格确定。</p>
+  </header>
+
+  <section class="band wash" id="custom">
+    <div class="wrap">
+      <p class="label">定制</p>
+      <h2>目录之内可直接调用。<span>目录之外，按需求单独立项。</span></h2>
+      <dl class="specs">
+        <div><dt>可指定的范围</dt><dd>目标站点或网址、字段、语种、地区、时间范围、清晰度与字幕语言。</dd></div>
+        <div><dt>可指定的交付</dt><dd>表格、接口或对象存储。一次性交付、按次补采，或按约定增量更新。</dd></div>
+        <div><dt>评估周期</dt><dd>字段、站点或交付方式超出现成目录时，约 48 小时返回评估。</dd></div>
+        <div><dt>适用对象</dt><dd>凡有定制采集需求的团队均可提出，包括模型训练、业务监测与研究取数。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band wash" id="sheet">
+    <div class="wrap">
+      <p class="label">规模</p>
+      <h2>现有数据的规模。</h2>
+      <div class="scale">
+        <article>
+          <p class="num">2,000 亿+</p>
+          <p>多模态记录</p>
+        </article>
+        <article>
+          <p class="num">1,700 亿+</p>
+          <p>音视频</p>
+        </article>
+        <article>
+          <p class="num">百亿级</p>
+          <p>文本</p>
+        </article>
+        <article>
+          <p class="num">39 亿+</p>
+          <p>图像</p>
+        </article>
+        <article>
+          <p class="num">360+</p>
+          <p>成品数据集</p>
+        </article>
+      </div>
+      <dl class="specs">
+        <div><dt>亦可按训练阶段组织</dt><dd>需要用于模型训练时，可按预训练、微调、评测组织，并附来源说明。某一来源能否用于训练，由该来源的使用条款决定。</dd></div>
+        <div><dt>数据洁净度</dt><dd>成品数据经去重并整理为稳定字段。视频与字幕、转写时间对齐，字幕覆盖一百余种语言。按地址临时采集的页面保留当次内容。</dd></div>
+        <div><dt>交付链路</dt><dd>成品数据写入对象存储，按分区拉取，支持增量更新。临时补采经接口完成。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band" id="domains">
+    <div class="wrap">
+      <p class="label">来源</p>
+      <h2>现成目录覆盖四类。</h2>
+      <div class="lineup">
+        <article class="card">
+          <p class="flag">商品与评价</p>
+          <h3>电商</h3>
+          <p class="one">标题、价格、类目、卖家、库存、评价。亚马逊、eBay、沃尔玛已就绪。</p>
+        </article>
+        <article class="card">
+          <p class="flag">对话与音视频</p>
+          <h3>社交</h3>
+          <p class="one">帖子、评论、播放与互动，以及与画面对齐的字幕。覆盖 Facebook、Instagram、Reddit、TikTok、YouTube，以及领英与 X 的主页。</p>
+        </article>
+        <article class="card">
+          <p class="flag">查询与结果</p>
+          <h3>搜索</h3>
+          <p class="one">查询词与结果页成对返回，可按国家或城市定位。引擎含 Google、Bing、Yandex、DuckDuckGo。平均响应时间低于 1 秒。</p>
+        </article>
+        <article class="card">
+          <p class="flag">垂直文本</p>
+          <h3>公司与行业</h3>
+          <p class="one">融资、营收、创始人、公告，以及医疗、法律、招聘等行业文本。不提供股价与逐笔成交数据。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band wash" id="fee">
+    <div class="wrap">
+      <p class="label">按次采集</p>
+      <h2>增量补采，按次计价。<span>整库采购另议。</span></h2>
+      <div class="prices">
+        <article>
+          <p class="num">¥8<small>/千条</small></p>
+          <h3>热门网站</h3>
+          <p>体验包约 6,000 条</p>
+        </article>
+        <article>
+          <p class="num">¥1<small>/千次</small></p>
+          <h3>搜索</h3>
+          <p>体验包约 5,000 次</p>
+        </article>
+        <article>
+          <p class="num">¥15<small>/千次</small></p>
+          <h3>任意网页</h3>
+          <p>体验包约 3,300 次</p>
+        </article>
+        <article>
+          <p class="num">¥4.8<small>/GB</small></p>
+          <h3>视频</h3>
+          <p>体验包约 10 GB。单批可提交一万个以上地址</p>
+        </article>
+      </div>
+      <p class="lede">未交付的请求不计费。各方式均提供 50 元、7 天体验包。搜索服务可用性目标为 99.9%。</p>
+    </div>
+  </section>
+
+  <section class="band" id="bounds">
+    <div class="wrap">
+      <p class="label">边界与支持</p>
+      <h2>纳入合同前需确认的三项。</h2>
+      <dl class="specs">
+        <div><dt>不采集的范围</dt><dd>需登录、付费或设有访问限制的数据，以及组织内部数据，数据控制者另行授权的除外；证券行情类数据，如股价、逐笔成交与交易所公告；中国境内来源的数据。涉及个人信息的数据，交付前作去标识化处理，处理范围以必要为限。</dd></div>
+        <div><dt>质量巡检</dt><dd>交付期内每周核查一次数据质量，问题项按约定周期修正。</dd></div>
+        <div><dt>响应与 SLA</dt><dd>7×24 可联系，首次响应不超过 15 分钟。可用性与并发可写入合同。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band wash" id="start">
+    <div class="wrap">
+      <p class="label">定制流程</p>
+      <h2>先定范围，再交付。</h2>
+      <div class="steps">
+        <article class="step">
+          <p class="n">01</p>
+          <h3>提出需求</h3>
+          <p>提交需求说明，列明采集对象、字段结构与交付要求。</p>
+        </article>
+        <article class="step">
+          <p class="n">02</p>
+          <h3>评估与样本</h3>
+          <p>评估通过后提供样本，核对字段与格式是否符合约定。</p>
+        </article>
+        <article class="step">
+          <p class="n">03</p>
+          <h3>按约定交付</h3>
+          <p>按约定格式与周期交付。需要持续更新的，按增量执行。</p>
+        </article>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#bounds">查看边界与支持</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
