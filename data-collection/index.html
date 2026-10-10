@@ -10,12 +10,26 @@
     --gray: #6f6d66;
     --gray-2: #5c5a54;
     --line: rgba(28, 27, 25, 0.12);
-    --wash: #f4f1ea;
     --paper: #faf8f4;
-    --blue: #c45c36;
+    --accent: #c45c36;
     --max: 1080px;
     --serif: "Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", "Source Han Serif SC", "PMingLiU", serif;
     --sans: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+
+  html:lang(zh-TW) {
+    --sans: "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+    --serif: "Palatino Linotype", Palatino, "Songti TC", "Noto Serif TC", "PMingLiU", serif;
+  }
+
+  html:lang(ja) {
+    --sans: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Segoe UI", sans-serif;
+    --serif: "Palatino Linotype", Palatino, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  }
+
+  html:lang(ko) {
+    --sans: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+    --serif: "Palatino Linotype", Palatino, "AppleMyungjo", "Noto Serif KR", "Batang", serif;
   }
 
   * { box-sizing: border-box; }
@@ -33,8 +47,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  a { color: var(--blue); text-decoration: none; }
+  a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
+
+  /* Navigation */
 
   .nav {
     position: sticky;
@@ -80,6 +96,8 @@
     opacity: 0.72;
   }
 
+  .nav a:hover { opacity: 1; text-decoration: none; }
+
   .lang {
     flex: none;
     margin-left: auto;
@@ -99,33 +117,16 @@
   }
 
   .lang select:focus-visible {
-    outline: 2px solid var(--blue);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 
-  html:lang(zh-TW) {
-    --sans: "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
-    --serif: "Palatino Linotype", Palatino, "Songti TC", "Noto Serif TC", "PMingLiU", serif;
-  }
-
-  html:lang(ja) {
-    --sans: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Segoe UI", sans-serif;
-    --serif: "Palatino Linotype", Palatino, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
-  }
-
-  html:lang(ko) {
-    --sans: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
-    --serif: "Palatino Linotype", Palatino, "AppleMyungjo", "Noto Serif KR", "Batang", serif;
-  }
-
-  .nav a:hover { opacity: 1; text-decoration: none; }
+  /* Hero */
 
   .hero {
-    background: var(--paper);
-    color: var(--ink);
     width: min(var(--max), calc(100% - 44px));
-    padding: 6.5rem 0 2.5rem;
     margin: 0 auto;
+    padding: 6.5rem 0 2.5rem;
   }
 
   .eyebrow {
@@ -149,76 +150,17 @@
     margin: 1.25rem 0 0;
     max-width: 34rem;
     font-size: 19px;
-    font-weight: 400;
-    letter-spacing: 0;
     line-height: 1.55;
     color: var(--gray-2);
   }
 
-  .hero .statement b {
-    display: inline;
-    font-weight: 500;
-    color: var(--ink);
-  }
-
-  .hero .facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem 1.4rem;
-    margin: 1.6rem 0 0;
-    padding: 0;
-    list-style: none;
-    color: var(--gray);
-    font-size: 14px;
-  }
-
-  .hero .facts strong {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .cta {
-    display: flex;
-    gap: 0.75rem;
-    margin: 2.4rem 0 0;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.7rem 1.5rem;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-
-  .btn:hover { text-decoration: none; opacity: 0.88; }
-
-  .btn {
-    background: var(--ink);
-    color: #faf8f4;
-    border-radius: 10px;
-  }
-
-  .btn.ghost {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid rgba(28, 27, 25, 0.22);
-  }
+  /* Sections */
 
   section { scroll-margin-top: 52px; }
 
   .band { padding: 5.25rem 0; }
 
   .band.wash { background: #efece4; }
-
-  .band.ink {
-    background: transparent;
-    color: var(--ink);
-  }
 
   .wrap {
     width: min(var(--max), calc(100% - 44px));
@@ -230,10 +172,8 @@
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: var(--blue);
+    color: var(--accent);
   }
-
-  .ink .label { color: var(--gray-2); }
 
   h2 {
     margin: 0;
@@ -246,15 +186,13 @@
 
   h2 .sub {
     display: block;
-    color: var(--gray);
+    margin-top: 0.55rem;
     font-family: var(--sans);
     font-size: 0.42em;
     font-weight: 400;
     letter-spacing: 0;
-    margin-top: 0.55rem;
+    color: var(--gray);
   }
-
-  .ink h2 .sub { color: var(--gray); }
 
   .lede {
     max-width: 40rem;
@@ -264,11 +202,78 @@
     color: var(--gray-2);
   }
 
-  .ink .lede { color: var(--gray-2); }
+  .aside {
+    margin: 1.1rem 0 0;
+    font-size: 14px;
+    color: var(--gray);
+  }
+
+  /* Blocks: specification list */
+
+  .specs {
+    margin: 3rem 0 0;
+    padding: 0;
+  }
+
+  .specs div {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    padding: 1.35rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .specs dt {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .specs dd {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  /* Blocks: headline figures */
+
+  .scale {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 5), 1fr);
+    margin-top: 2.2rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .scale article {
+    margin: 0 -1px -1px 0;
+    padding: 1.5rem 1.15rem 1.35rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .scale .num {
+    margin: 0;
+    white-space: nowrap;
+    font-family: var(--serif);
+    font-size: clamp(24px, 2.6vw, 36px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .scale p {
+    margin: 0.45rem 0 0;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  /* Blocks: cards */
 
   .lineup {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(var(--cols, 2), 1fr);
     gap: 16px;
     margin-top: 2.4rem;
   }
@@ -278,15 +283,9 @@
     flex-direction: column;
     min-height: 168px;
     padding: 26px 28px 24px;
+    border: 1px solid var(--line);
     border-radius: 16px;
     background: #fff;
-    border: 1px solid var(--line);
-  }
-
-  .card.dark {
-    background: #fff;
-    color: var(--ink);
-    border-color: rgba(196, 92, 54, 0.45);
   }
 
   .card .flag {
@@ -294,10 +293,8 @@
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--blue);
+    color: var(--accent);
   }
-
-  .card.dark .flag { color: var(--blue); }
 
   .card h3 {
     margin: 0.85rem 0 0.55rem;
@@ -315,175 +312,21 @@
     color: var(--gray-2);
   }
 
-  .card.dark .one { color: var(--gray-2); }
-
-  .card ul {
-    margin: 1.1rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .card li {
-    position: relative;
-    margin: 0.45rem 0;
-    padding-left: 0;
-    font-size: 14px;
-    line-height: 1.45;
-    color: var(--ink);
-  }
-
-  .card.dark li { color: var(--ink); }
-
-  .card .foot {
-    margin-top: auto;
-    padding-top: 1.4rem;
-    border-top: 1px solid var(--line);
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--gray);
-  }
-
-  .card.dark .foot { border-top-color: var(--line); }
-
-  .aside {
-    margin: 1.1rem 0 0;
-    font-size: 14px;
-    color: var(--gray);
-  }
-
-  .split {
-    margin-top: 3.5rem;
-  }
-
-  .row {
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 2rem 4rem;
-    padding: 2.1rem 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .row h3 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-  }
-
-  .row p {
-    margin: 0;
-    color: var(--gray-2);
-    font-size: 17px;
-    line-height: 1.55;
-  }
-
-  .row p + p { margin-top: 0.75rem; }
-
-  .channels {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 3rem;
-  }
-
-  .channel {
-    min-height: 0;
-    padding: 28px 22px 24px;
-    border-radius: 16px;
-    background: #fff;
-    border: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .channel .price {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 40px;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .channel .unit {
-    margin: 0.45rem 0 0;
-    font-size: 13px;
-    color: var(--gray);
-  }
-
-  .channel h3 {
-    margin: 1.6rem 0 0.55rem;
-    font-size: 24px;
-    letter-spacing: -0.03em;
-  }
-
-  .channel p {
-    margin: 0;
-    color: var(--gray-2);
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .channel .meta {
-    margin-top: auto;
-    padding-top: 1.3rem;
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.45;
-  }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 2.2rem;
-  }
-
-  .step {
-    padding: 28px 22px 32px;
-    border-radius: 16px;
-    background: #fff;
-    border: 1px solid var(--line);
-  }
-
-  .step .n {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--blue);
-    line-height: 1;
-  }
-
-  .step h3 {
-    margin: 1.4rem 0 0.45rem;
-    font-size: 28px;
-    letter-spacing: -0.03em;
-  }
-
-  .step p {
-    margin: 0;
-    color: var(--gray-2);
-    font-size: 15px;
-    line-height: 1.5;
-  }
+  /* Blocks: prices */
 
   .prices {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 2.2rem;
+    grid-template-columns: repeat(var(--cols, 4), 1fr);
     gap: 12px;
+    margin-top: 2.2rem;
   }
 
   .prices article {
+    min-height: 168px;
     padding: 1.6rem 1.35rem 1.5rem;
-    background: #fff;
     border: 1px solid var(--line);
     border-radius: 16px;
-    min-height: 168px;
+    background: #fff;
   }
 
   .prices .num {
@@ -499,12 +342,12 @@
   .prices .num small {
     display: block;
     margin-top: 0.5rem;
+    font-family: var(--sans);
     font-size: 13px;
+    font-weight: 400;
     letter-spacing: 0;
     line-height: 1.3;
     color: var(--gray);
-    font-weight: 400;
-    font-family: var(--sans);
   }
 
   .prices h3 {
@@ -515,202 +358,81 @@
 
   .prices p {
     margin: 0;
-    color: var(--gray);
     font-size: 14px;
     line-height: 1.45;
+    color: var(--gray);
   }
 
-  .trio {
+  /* Blocks: steps */
+
+  .steps {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 3rem;
-  }
-
-  .trio article {
-    min-height: 240px;
-    padding: 28px 24px;
-    border-radius: 16px;
-    background: #fff;
-    border: 1px solid var(--line);
-  }
-
-  .trio h3,
-  .step h3,
-  .channel h3,
-  .row h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-  }
-
-  .trio h3 {
-    margin: 0 0 0.7rem;
-    font-size: 28px;
-    letter-spacing: -0.02em;
-  }
-
-  .trio p {
-    margin: 0;
-    color: var(--gray-2);
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .specs {
-    margin: 3rem 0 0;
-    padding: 0;
-  }
-
-  .specs div {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 2rem;
-    padding: 1.35rem 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .specs dt {
-    margin: 0;
-    color: var(--ink);
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .specs dd {
-    margin: 0;
-    font-size: 15px;
-  }
-
-  .meters {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 1.8rem 0 0.4rem;
-  }
-
-  .meters article {
-    padding: 22px 18px 20px;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-  }
-
-  .meters .num {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .meters p {
-    margin: 0.55rem 0 0;
-    color: var(--gray-2);
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .facts3 {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr 0.9fr;
-    gap: 12px;
-    margin-top: 1.6rem;
-  }
-
-  .facts3 article {
-    padding: 28px 24px 26px;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-  }
-
-  .scale {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
+    grid-template-columns: repeat(var(--cols, 3), 1fr);
+    gap: 16px;
     margin-top: 2.2rem;
-    background: #fff;
+  }
+
+  .step {
+    padding: 28px 22px 32px;
     border: 1px solid var(--line);
     border-radius: 16px;
-    overflow: hidden;
+    background: #fff;
   }
 
-  .scale article {
-    padding: 1.5rem 1.15rem 1.35rem;
-    border-right: 1px solid var(--line);
-  }
-
-  .scale article:last-child { border-right: 0; }
-
-  .scale .num {
+  .step .n {
     margin: 0;
-    white-space: nowrap;
     font-family: var(--serif);
-    font-size: clamp(24px, 2.6vw, 36px);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .step h3 {
+    margin: 1.4rem 0 0.45rem;
+    font-family: var(--serif);
+    font-size: 28px;
     font-weight: 500;
     letter-spacing: -0.03em;
-    line-height: 1;
   }
 
-  .scale p {
-    margin: 0.45rem 0 0;
-    color: var(--gray);
-    font-size: 13px;
-  }
-
-  .facts3 h2 span { display: none; }
-
-  .facts3 ul {
+  .step p {
     margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .facts3 li {
-    margin: 0.4rem 0;
     font-size: 15px;
-    line-height: 1.45;
+    line-height: 1.5;
     color: var(--gray-2);
   }
 
-  .facts3 li strong {
-    color: var(--ink);
-    font-weight: 600;
+  /* Blocks: call to action */
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 2.4rem 0 0;
   }
 
-  .facts3 .price {
-    margin: 0 0 0.2rem;
-    font-family: var(--serif);
-    font-size: 34px;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    background: var(--ink);
+    color: #faf8f4;
+    font-size: 15px;
     font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1;
+    transition: opacity 0.2s;
   }
 
-  .facts3 .unit {
-    margin: 0 0 0.9rem;
-    color: var(--gray);
-    font-size: 13px;
-  }
+  .btn:hover { text-decoration: none; opacity: 0.88; }
 
-  footer {
-    padding: 2.5rem 0 3.5rem;
-    background: var(--paper);
-    color: var(--gray);
-    border-top: 1px solid var(--line);
-    font-size: 12px;
-  }
-
-  footer .wrap { width: min(var(--max), calc(100% - 44px)); }
+  /* Responsive */
 
   @media (max-width: 980px) {
-    .lineup, .channels, .prices, .trio, .meters { grid-template-columns: 1fr 1fr; }
+    .lineup, .prices { grid-template-columns: 1fr 1fr; }
     .steps { grid-template-columns: 1fr; }
-    .facts3 { grid-template-columns: 1fr; }
     .prices article { padding-right: 1rem; }
-    .row { grid-template-columns: 1fr; gap: 0.6rem; }
-    .card, .channel { min-height: 0; }
+    .card { min-height: 0; }
   }
 
   @page { size: A4; margin: 0; }
@@ -724,58 +446,47 @@
     .wrap, .hero { width: calc(100% - 96px); }
     .band { padding: 2.25rem 0; }
     .hero { padding: 3rem 0 0.75rem; }
-    .scale .num { font-size: 28px; white-space: nowrap; }
+    .scale .num { font-size: 28px; }
     .lang { display: none; }
     .prices article { min-height: 0; }
     .prices .num small { display: inline; margin: 0 0 0 0.3em; }
-    .wrap,
-    .lineup,
-    .prices,
-    .steps,
-    .scale,
-    .specs div,
-    .card,
-    .step {
+    .wrap, .lineup, .prices, .steps, .scale, .specs div, .card, .step {
       break-inside: avoid;
       page-break-inside: avoid;
     }
-    .label,
-    h2 {
+    .label, h2 {
       break-after: avoid;
       page-break-after: avoid;
     }
-    a { text-decoration: none; }
   }
 
   @media (max-width: 680px) {
-    .hero { min-height: auto; width: min(var(--max), calc(100% - 32px)); padding: 3.5rem 0 1.5rem; }
-    .scale article { border-right: 0; border-bottom: 1px solid var(--line); }
-    .scale article:last-child { border-bottom: 0; }
-    .lineup, .channels, .steps, .prices, .trio, .meters, .scale { grid-template-columns: 1fr; }
-    .specs div { grid-template-columns: 1fr; gap: 0.25rem; }
     .nav { flex-wrap: wrap; height: auto; padding: 0.6rem 16px; gap: 0.5rem 1rem; }
     .nav .mark { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
     .nav .links { order: 3; flex: 1 0 100%; gap: 1.1rem; padding-bottom: 0.15rem; }
     .lang { margin-left: 0; }
+    .hero { width: calc(100% - 32px); padding: 3.5rem 0 1.5rem; }
     .hero h1 { font-size: 36px; }
+    .wrap { width: calc(100% - 32px); }
+    .band { padding-top: 4.5rem; }
     h2 { font-size: 28px; }
     h2 .sub { font-size: 14px; }
     .card h3 { font-size: 26px; }
-    .wrap { width: calc(100% - 32px); }
-    .band { padding-top: 4.5rem; }
+    .lineup, .steps, .prices, .scale { grid-template-columns: 1fr; }
+    .specs div { grid-template-columns: 1fr; gap: 0.25rem; }
   }
 </style>
 </head>
 <body>
   <nav class="nav">
-    <span class="mark" data-i18n="nav.mark">数据采集定制</span>
+    <span class="mark" data-i18n="site.mark">数据采集定制</span>
     <div class="links">
       <a href="#custom" data-i18n="nav.custom">定制</a>
-      <a href="#sheet" data-i18n="nav.scale">规模</a>
-      <a href="#domains" data-i18n="nav.sources">来源</a>
+      <a href="#sheet" data-i18n="nav.sheet">规模</a>
+      <a href="#domains" data-i18n="nav.domains">来源</a>
       <a href="#fee" data-i18n="nav.fee">按次采集</a>
       <a href="#bounds" data-i18n="nav.bounds">边界与支持</a>
-      <a href="#start" data-i18n="nav.process">定制流程</a>
+      <a href="#start" data-i18n="nav.start">定制流程</a>
     </div>
     <label class="lang"><select id="lang" aria-label="Language"></select></label>
   </nav>
@@ -790,75 +501,24 @@
     <div class="wrap">
       <p class="label" data-i18n="custom.label">定制</p>
       <h2><span data-i18n="custom.title">目录之内可直接调用</span><span class="sub" data-i18n="custom.sub">目录之外，按需求单独立项</span></h2>
-      <dl class="specs">
-        <div><dt data-i18n="custom.scope.k">可指定的范围</dt><dd data-i18n="custom.scope.v">目标站点或网址、字段、语种、地区、时间范围、清晰度与字幕语言</dd></div>
-        <div><dt data-i18n="custom.delivery.k">可指定的交付</dt><dd data-i18n="custom.delivery.v">表格、接口或对象存储，可一次性交付、按次补采或按约定增量更新</dd></div>
-        <div><dt data-i18n="custom.eval.k">评估周期</dt><dd data-i18n="custom.eval.v">字段、站点或交付方式超出现成目录时，约 48 小时返回评估</dd></div>
-        <div><dt data-i18n="custom.audience.k">适用对象</dt><dd data-i18n="custom.audience.v">凡有定制采集需求的团队均可提出，包括模型训练、业务监测与研究取数</dd></div>
-      </dl>
+      <dl class="specs"><div><dt data-i18n="custom.b0.i0.term">可指定的范围</dt><dd data-i18n="custom.b0.i0.text">目标站点或网址、字段、语种、地区、时间范围、清晰度与字幕语言</dd></div><div><dt data-i18n="custom.b0.i1.term">可指定的交付</dt><dd data-i18n="custom.b0.i1.text">表格、接口或对象存储，可一次性交付、按次补采或按约定增量更新</dd></div><div><dt data-i18n="custom.b0.i2.term">评估周期</dt><dd data-i18n="custom.b0.i2.text">字段、站点或交付方式超出现成目录时，约 48 小时返回评估</dd></div><div><dt data-i18n="custom.b0.i3.term">适用对象</dt><dd data-i18n="custom.b0.i3.text">凡有定制采集需求的团队均可提出，包括模型训练、业务监测与研究取数</dd></div></dl>
     </div>
   </section>
 
   <section class="band wash" id="sheet">
     <div class="wrap">
-      <p class="label" data-i18n="scale.label">规模</p>
-      <h2 data-i18n="scale.title">现有数据的规模</h2>
-      <div class="scale">
-        <article>
-          <p class="num" data-i18n="scale.n1">2,000 亿+</p>
-          <p data-i18n="scale.l1">多模态记录</p>
-        </article>
-        <article>
-          <p class="num" data-i18n="scale.n2">1,700 亿+</p>
-          <p data-i18n="scale.l2">音视频</p>
-        </article>
-        <article>
-          <p class="num" data-i18n="scale.n3">百亿级</p>
-          <p data-i18n="scale.l3">文本</p>
-        </article>
-        <article>
-          <p class="num" data-i18n="scale.n4">39 亿+</p>
-          <p data-i18n="scale.l4">图像</p>
-        </article>
-        <article>
-          <p class="num">360+</p>
-          <p data-i18n="scale.l5">成品数据集</p>
-        </article>
-      </div>
-      <dl class="specs">
-        <div><dt data-i18n="scale.train.k">亦可按训练阶段组织</dt><dd data-i18n="scale.train.v">需要用于模型训练时，可按预训练、微调、评测组织，并附来源说明。某一来源能否用于训练，由该来源的使用条款决定。</dd></div>
-        <div><dt data-i18n="scale.clean.k">数据洁净度</dt><dd data-i18n="scale.clean.v">成品数据经去重并整理为稳定字段。视频与字幕、转写时间对齐，字幕覆盖一百余种语言。按地址临时采集的页面保留当次内容。</dd></div>
-        <div><dt data-i18n="scale.delivery.k">交付链路</dt><dd data-i18n="scale.delivery.v">成品数据写入对象存储，按分区拉取，支持增量更新。临时补采经接口完成。</dd></div>
-      </dl>
+      <p class="label" data-i18n="sheet.label">规模</p>
+      <h2 data-i18n="sheet.title">现有数据的规模</h2>
+      <div class="scale" style="--cols:5"><article><p class="num" data-i18n="sheet.b0.i0.value">2,000 亿+</p><p data-i18n="sheet.b0.i0.caption">多模态记录</p></article><article><p class="num" data-i18n="sheet.b0.i1.value">1,700 亿+</p><p data-i18n="sheet.b0.i1.caption">音视频</p></article><article><p class="num" data-i18n="sheet.b0.i2.value">百亿级</p><p data-i18n="sheet.b0.i2.caption">文本</p></article><article><p class="num" data-i18n="sheet.b0.i3.value">39 亿+</p><p data-i18n="sheet.b0.i3.caption">图像</p></article><article><p class="num">360+</p><p data-i18n="sheet.b0.i4.caption">成品数据集</p></article></div>
+      <dl class="specs"><div><dt data-i18n="sheet.b1.i0.term">亦可按训练阶段组织</dt><dd data-i18n="sheet.b1.i0.text">需要用于模型训练时，可按预训练、微调、评测组织，并附来源说明。某一来源能否用于训练，由该来源的使用条款决定。</dd></div><div><dt data-i18n="sheet.b1.i1.term">数据洁净度</dt><dd data-i18n="sheet.b1.i1.text">成品数据经去重并整理为稳定字段。视频与字幕、转写时间对齐，字幕覆盖一百余种语言。按地址临时采集的页面保留当次内容。</dd></div><div><dt data-i18n="sheet.b1.i2.term">交付链路</dt><dd data-i18n="sheet.b1.i2.text">成品数据写入对象存储，按分区拉取，支持增量更新。临时补采经接口完成。</dd></div></dl>
     </div>
   </section>
 
   <section class="band" id="domains">
     <div class="wrap">
-      <p class="label" data-i18n="src.label">来源</p>
-      <h2 data-i18n="src.title">现成目录覆盖四类</h2>
-      <div class="lineup">
-        <article class="card">
-          <p class="flag" data-i18n="src.ec.flag">商品与评价</p>
-          <h3 data-i18n="src.ec.title">电商</h3>
-          <p class="one" data-i18n="src.ec.text">标题、价格、类目、卖家、库存、评价。亚马逊、eBay、沃尔玛已就绪。</p>
-        </article>
-        <article class="card">
-          <p class="flag" data-i18n="src.social.flag">对话与音视频</p>
-          <h3 data-i18n="src.social.title">社交</h3>
-          <p class="one" data-i18n="src.social.text">帖子、评论、播放与互动，以及与画面对齐的字幕。覆盖 Facebook、Instagram、Reddit、TikTok、YouTube，以及领英与 X 的主页。</p>
-        </article>
-        <article class="card">
-          <p class="flag" data-i18n="src.search.flag">查询与结果</p>
-          <h3 data-i18n="src.search.title">搜索</h3>
-          <p class="one" data-i18n="src.search.text">查询词与结果页成对返回，可按国家或城市定位。引擎含 Google、Bing、Yandex、DuckDuckGo。平均响应时间低于 1 秒。</p>
-        </article>
-        <article class="card">
-          <p class="flag" data-i18n="src.corp.flag">垂直文本</p>
-          <h3 data-i18n="src.corp.title">公司与行业</h3>
-          <p class="one" data-i18n="src.corp.text">融资、营收、创始人、公告，以及医疗、法律、招聘等行业文本。不提供股价与逐笔成交数据。</p>
-        </article>
-      </div>
+      <p class="label" data-i18n="domains.label">来源</p>
+      <h2 data-i18n="domains.title">现成目录覆盖四类</h2>
+      <div class="lineup" style="--cols:2"><article class="card"><p class="flag" data-i18n="domains.b0.i0.flag">商品与评价</p><h3 data-i18n="domains.b0.i0.title">电商</h3><p class="one" data-i18n="domains.b0.i0.text">标题、价格、类目、卖家、库存、评价。亚马逊、eBay、沃尔玛已就绪。</p></article><article class="card"><p class="flag" data-i18n="domains.b0.i1.flag">对话与音视频</p><h3 data-i18n="domains.b0.i1.title">社交</h3><p class="one" data-i18n="domains.b0.i1.text">帖子、评论、播放与互动，以及与画面对齐的字幕。覆盖 Facebook、Instagram、Reddit、TikTok、YouTube，以及领英与 X 的主页。</p></article><article class="card"><p class="flag" data-i18n="domains.b0.i2.flag">查询与结果</p><h3 data-i18n="domains.b0.i2.title">搜索</h3><p class="one" data-i18n="domains.b0.i2.text">查询词与结果页成对返回，可按国家或城市定位。引擎含 Google、Bing、Yandex、DuckDuckGo。平均响应时间低于 1 秒。</p></article><article class="card"><p class="flag" data-i18n="domains.b0.i3.flag">垂直文本</p><h3 data-i18n="domains.b0.i3.title">公司与行业</h3><p class="one" data-i18n="domains.b0.i3.text">融资、营收、创始人、公告，以及医疗、法律、招聘等行业文本。不提供股价与逐笔成交数据。</p></article></div>
     </div>
   </section>
 
@@ -866,30 +526,9 @@
     <div class="wrap">
       <p class="label" data-i18n="fee.label">按次采集</p>
       <h2><span data-i18n="fee.title">增量补采，按次计价</span><span class="sub" data-i18n="fee.sub">整库采购另议</span></h2>
-      <div class="prices">
-        <article>
-          <p class="num"><span data-i18n="fee.p1.amt">¥8</span><small data-i18n="fee.p1.unit">/千条</small></p>
-          <h3 data-i18n="fee.p1.title">热门网站</h3>
-          <p data-i18n="fee.p1.note">体验包约 6,000 条</p>
-        </article>
-        <article>
-          <p class="num"><span data-i18n="fee.p2.amt">¥1</span><small data-i18n="fee.p2.unit">/千次</small></p>
-          <h3 data-i18n="fee.p2.title">搜索</h3>
-          <p data-i18n="fee.p2.note">体验包约 5,000 次</p>
-        </article>
-        <article>
-          <p class="num"><span data-i18n="fee.p3.amt">¥15</span><small data-i18n="fee.p3.unit">/千次</small></p>
-          <h3 data-i18n="fee.p3.title">任意网页</h3>
-          <p data-i18n="fee.p3.note">体验包约 3,300 次</p>
-        </article>
-        <article>
-          <p class="num"><span data-i18n="fee.p4.amt">¥4.8</span><small data-i18n="fee.p4.unit">/GB</small></p>
-          <h3 data-i18n="fee.p4.title">视频</h3>
-          <p data-i18n="fee.p4.note">体验包约 10 GB，单批可提交一万个以上地址</p>
-        </article>
-      </div>
-      <p class="lede" data-i18n="fee.lede">未交付的请求不计费。各方式均提供 50 元、7 天体验包。搜索服务可用性目标为 99.9%。</p>
-      <p class="aside fx" data-i18n="fee.fx"></p>
+      <div class="prices" style="--cols:4"><article><p class="num"><span data-cny="8">¥8</span><small data-i18n="fee.b0.i0.unit">/千条</small></p><h3 data-i18n="fee.b0.i0.title">热门网站</h3><p data-i18n="fee.b0.i0.note">体验包约 6,000 条</p></article><article><p class="num"><span data-cny="1">¥1</span><small data-i18n="fee.b0.i1.unit">/千次</small></p><h3 data-i18n="fee.b0.i1.title">搜索</h3><p data-i18n="fee.b0.i1.note">体验包约 5,000 次</p></article><article><p class="num"><span data-cny="15">¥15</span><small data-i18n="fee.b0.i2.unit">/千次</small></p><h3 data-i18n="fee.b0.i2.title">任意网页</h3><p data-i18n="fee.b0.i2.note">体验包约 3,300 次</p></article><article><p class="num"><span data-cny="4.8">¥4.8</span><small data-i18n="fee.b0.i3.unit">/GB</small></p><h3 data-i18n="fee.b0.i3.title">视频</h3><p data-i18n="fee.b0.i3.note">体验包约 10 GB，单批可提交一万个以上地址</p></article></div>
+      <p class="lede" data-i18n="fee.b1.text">未交付的请求不计费。各方式均提供 50 元、7 天体验包。搜索服务可用性目标为 99.9%。</p>
+      <p class="aside fx" data-i18n="fee.b2.text" hidden></p>
     </div>
   </section>
 
@@ -897,469 +536,80 @@
     <div class="wrap">
       <p class="label" data-i18n="bounds.label">边界与支持</p>
       <h2 data-i18n="bounds.title">纳入合同前需确认的三项</h2>
-      <dl class="specs">
-        <div><dt data-i18n="bounds.excl.k">不采集的范围</dt><dd data-i18n="bounds.excl.v">需登录、付费或设有访问限制的数据，以及组织内部数据，数据控制者另行授权的除外；证券行情类数据，如股价、逐笔成交与交易所公告；中国境内来源的数据。涉及个人信息的数据，交付前作去标识化处理，处理范围以必要为限。</dd></div>
-        <div><dt data-i18n="bounds.qa.k">质量巡检</dt><dd data-i18n="bounds.qa.v">交付期内每周核查一次数据质量。问题项按约定周期修正。</dd></div>
-        <div><dt data-i18n="bounds.sla.k">响应与 SLA</dt><dd data-i18n="bounds.sla.v">7×24 可联系，首次响应不超过 15 分钟。可用性与并发可写入合同。</dd></div>
-      </dl>
+      <dl class="specs"><div><dt data-i18n="bounds.b0.i0.term">不采集的范围</dt><dd data-i18n="bounds.b0.i0.text">需登录、付费或设有访问限制的数据，以及组织内部数据，数据控制者另行授权的除外；证券行情类数据，如股价、逐笔成交与交易所公告；中国境内来源的数据。涉及个人信息的数据，交付前作去标识化处理，处理范围以必要为限。</dd></div><div><dt data-i18n="bounds.b0.i1.term">质量巡检</dt><dd data-i18n="bounds.b0.i1.text">交付期内每周核查一次数据质量。问题项按约定周期修正。</dd></div><div><dt data-i18n="bounds.b0.i2.term">响应与 SLA</dt><dd data-i18n="bounds.b0.i2.text">7×24 可联系，首次响应不超过 15 分钟。可用性与并发可写入合同。</dd></div></dl>
     </div>
   </section>
 
   <section class="band wash" id="start">
     <div class="wrap">
-      <p class="label" data-i18n="proc.label">定制流程</p>
-      <h2 data-i18n="proc.title">先定范围，再交付</h2>
-      <div class="steps">
-        <article class="step">
-          <p class="n">01</p>
-          <h3 data-i18n="proc.s1.t">提出需求</h3>
-          <p data-i18n="proc.s1.d">提交需求说明，列明采集对象、字段结构与交付要求</p>
-        </article>
-        <article class="step">
-          <p class="n">02</p>
-          <h3 data-i18n="proc.s2.t">评估与样本</h3>
-          <p data-i18n="proc.s2.d">评估通过后提供样本，核对字段与格式是否符合约定</p>
-        </article>
-        <article class="step">
-          <p class="n">03</p>
-          <h3 data-i18n="proc.s3.t">按约定交付</h3>
-          <p data-i18n="proc.s3.d">按约定格式与周期交付，需持续更新的按增量执行</p>
-        </article>
-      </div>
-      <div class="cta">
-        <a class="btn" href="#bounds" data-i18n="proc.cta">查看边界与支持</a>
-      </div>
+      <p class="label" data-i18n="start.label">定制流程</p>
+      <h2 data-i18n="start.title">先定范围，再交付</h2>
+      <div class="steps" style="--cols:3"><article class="step"><p class="n">01</p><h3 data-i18n="start.b0.i0.title">提出需求</h3><p data-i18n="start.b0.i0.text">提交需求说明，列明采集对象、字段结构与交付要求</p></article><article class="step"><p class="n">02</p><h3 data-i18n="start.b0.i1.title">评估与样本</h3><p data-i18n="start.b0.i1.text">评估通过后提供样本，核对字段与格式是否符合约定</p></article><article class="step"><p class="n">03</p><h3 data-i18n="start.b0.i2.title">按约定交付</h3><p data-i18n="start.b0.i2.text">按约定格式与周期交付，需持续更新的按增量执行</p></article></div>
+      <div class="cta"><a class="btn" data-i18n="start.b1.text" href="#bounds">查看边界与支持</a></div>
     </div>
   </section>
-
 <script>
 (() => {
-  const LANGS = [
-    ["zh-CN", "简体中文"], ["zh-TW", "繁體中文（台灣）"], ["en", "English (US)"], ["ja", "日本語"], ["ko", "한국어"],
-    ["es", "Español (España)"], ["fr", "Français (France)"], ["de", "Deutsch"], ["pt", "Português (Brasil)"], ["ru", "Русский"]
-  ];
-
-  const LOCALE = {
-    "zh-CN": { tag: "zh-CN", currency: "CNY" },
-    "zh-TW": { tag: "zh-TW", currency: "TWD", numberLocale: "en-US" },
-    "en": { tag: "en-US", currency: "USD" },
-    "ja": { tag: "ja-JP", currency: "JPY" },
-    "ko": { tag: "ko-KR", currency: "KRW" },
-    "es": { tag: "es-ES", currency: "EUR" },
-    "fr": { tag: "fr-FR", currency: "EUR" },
-    "de": { tag: "de-DE", currency: "EUR" },
-    "pt": { tag: "pt-BR", currency: "BRL" },
-    "ru": { tag: "ru-RU", currency: "RUB" }
-  };
-
-  const FX = {
-    date: "2026-10-10",
-    rates: { CNY: 1, TWD: 4.764173, USD: 0.149111, JPY: 23.611984, KRW: 200.160128, EUR: 0.133157, BRL: 0.748559, RUB: 12.690355 }
-  };
-
-  const PRICES_CNY = { p1: 8, p2: 1, p3: 15, p4: 4.8, trial: 50 };
-
-  const T = {
-    "zh-TW": {
-      "meta.title": "客製化資料蒐集",
-      "nav.mark": "客製化資料蒐集", "nav.custom": "客製", "nav.scale": "規模", "nav.sources": "來源", "nav.fee": "按次計費", "nav.bounds": "範圍與支援", "nav.process": "客製流程",
-      "hero.eyebrow": "產品手冊", "hero.title": "依需求客製資料蒐集", "hero.statement": "蒐集對象、欄位結構、交付方式與更新週期，均依需求方的規格確定",
-      "custom.label": "客製", "custom.title": "目錄內的來源可直接呼叫", "custom.sub": "目錄以外，依需求單獨立案",
-      "custom.scope.k": "可指定的範圍", "custom.scope.v": "目標網站或網址、欄位、語言、地區、時間範圍、解析度與字幕語言",
-      "custom.delivery.k": "可指定的交付", "custom.delivery.v": "表格、API 或物件儲存，可一次性交付、按次補蒐或依約定增量更新",
-      "custom.eval.k": "評估週期", "custom.eval.v": "欄位、網站或交付方式超出現有目錄時，約 48 小時回覆評估",
-      "custom.audience.k": "適用對象", "custom.audience.v": "凡有客製蒐集需求的團隊均可提出，包括模型訓練、業務監測與研究取數",
-      "scale.label": "規模", "scale.title": "現有資料的規模",
-      "scale.n1": "2,000 億+", "scale.l1": "多模態紀錄", "scale.n2": "1,700 億+", "scale.l2": "影音", "scale.n3": "百億級", "scale.l3": "文字", "scale.n4": "39 億+", "scale.l4": "圖像", "scale.l5": "成品資料集",
-      "scale.train.k": "亦可依訓練階段組織", "scale.train.v": "用於模型訓練時，可依預訓練、微調、評測組織，並附來源說明。某一來源能否用於訓練，由該來源的使用條款決定。",
-      "scale.clean.k": "資料潔淨度", "scale.clean.v": "成品資料經去重並整理為穩定欄位。影片與字幕、逐字稿時間對齊，字幕涵蓋一百餘種語言。依網址臨時蒐集的頁面保留當次內容。",
-      "scale.delivery.k": "交付鏈路", "scale.delivery.v": "成品資料寫入物件儲存，依分區拉取，支援增量更新。臨時補蒐經 API 完成。",
-      "src.label": "來源", "src.title": "現有目錄涵蓋四類",
-      "src.ec.flag": "商品與評價", "src.ec.title": "電商", "src.ec.text": "標題、價格、類目、賣家、庫存、評價。Amazon、eBay、Walmart 已就緒。",
-      "src.social.flag": "對話與影音", "src.social.title": "社群", "src.social.text": "貼文、留言、播放與互動，以及與畫面對齊的字幕。涵蓋 Facebook、Instagram、Reddit、TikTok、YouTube，以及 LinkedIn 與 X 的個人頁面。",
-      "src.search.flag": "查詢與結果", "src.search.title": "搜尋", "src.search.text": "查詢詞與結果頁成對回傳，可依國家或城市定位。引擎包含 Google、Bing、Yandex、DuckDuckGo。平均回應時間低於 1 秒。",
-      "src.corp.flag": "垂直文本", "src.corp.title": "公司與產業", "src.corp.text": "募資、營收、創辦人、公告，以及醫療、法律、招聘等產業文本。不提供股價與逐筆成交資料。",
-      "fee.label": "按次計費", "fee.title": "增量補蒐，按次計價", "fee.sub": "整庫採購另議",
-      "fee.p1.unit": "/千筆", "fee.p1.title": "熱門網站", "fee.p1.note": "體驗包約 6,000 筆",
-      "fee.p2.unit": "/千次", "fee.p2.title": "搜尋", "fee.p2.note": "體驗包約 5,000 次",
-      "fee.p3.unit": "/千次", "fee.p3.title": "任意網頁", "fee.p3.note": "體驗包約 3,300 次",
-      "fee.p4.unit": "/GB", "fee.p4.title": "影片", "fee.p4.note": "體驗包約 10 GB，單批可提交一萬個以上網址",
-      "fee.lede": "未交付的請求不計費。各方式均提供 {trial}、7 天體驗包。搜尋服務可用性目標為 99.9%。", "fee.fx": "新台幣價格依{date}匯率由人民幣換算，僅供參考。結算幣別以合約約定為準。",
-      "bounds.label": "範圍與支援", "bounds.title": "簽約前需確認的三項",
-      "bounds.excl.k": "不蒐集的範圍", "bounds.excl.v": "需登入、付費或設有存取限制的資料，以及組織內部資料，資料控制者另行授權者除外；證券行情類資料，如股價、逐筆成交與交易所公告；中國大陸來源的資料。含個人資料者，交付前進行去識別化處理，處理範圍以必要為限。",
-      "bounds.qa.k": "品質巡檢", "bounds.qa.v": "交付期間每週檢查一次資料品質。問題項依約定週期修正。",
-      "bounds.sla.k": "回應與 SLA", "bounds.sla.v": "7×24 可聯繫，首次回應不超過 15 分鐘。可用性與並行量可寫入合約。",
-      "proc.label": "客製流程", "proc.title": "先定範圍，再交付",
-      "proc.s1.t": "提出需求", "proc.s1.d": "提交需求說明，列明蒐集對象、欄位結構與交付要求",
-      "proc.s2.t": "評估與樣本", "proc.s2.d": "評估通過後提供樣本，核對欄位與格式是否符合約定",
-      "proc.s3.t": "依約定交付", "proc.s3.d": "依約定格式與週期交付，需持續更新者以增量執行",
-      "proc.cta": "查看範圍與支援"
-    },
-
-    "en": {
-      "meta.title": "Custom Data Collection",
-      "nav.mark": "Custom Data Collection", "nav.custom": "Customization", "nav.scale": "Scale", "nav.sources": "Sources", "nav.fee": "Per-request pricing", "nav.bounds": "Scope & support", "nav.process": "Process",
-      "hero.eyebrow": "Product brief", "hero.title": "Data collection, built to your specification", "hero.statement": "Targets, field schema, delivery method and update cadence are all defined by your requirements",
-      "custom.label": "Customization", "custom.title": "Catalog sources are ready to call", "custom.sub": "Anything outside the catalog is scoped as a dedicated project",
-      "custom.scope.k": "What you can specify", "custom.scope.v": "Target sites or URLs, fields, languages, regions, time ranges, video resolution and subtitle languages",
-      "custom.delivery.k": "Delivery options", "custom.delivery.v": "Tables, API or object storage, as a one-time delivery, on-demand top-ups or scheduled incremental updates",
-      "custom.eval.k": "Assessment time", "custom.eval.v": "Requirements beyond the existing catalog are assessed within about 48 hours",
-      "custom.audience.k": "Who it is for", "custom.audience.v": "Any team with a custom collection need, including model training, business monitoring and research",
-      "scale.label": "Scale", "scale.title": "Data already on hand",
-      "scale.n1": "200B+", "scale.l1": "multimodal records", "scale.n2": "170B+", "scale.l2": "audio & video", "scale.n3": "~10B", "scale.l3": "text", "scale.n4": "3.9B+", "scale.l4": "images", "scale.l5": "ready-made datasets",
-      "scale.train.k": "Training-ready organization", "scale.train.v": "For model training, data can be organized for pre-training, fine-tuning and evaluation, with source documentation. Whether a given source may be used for training is governed by that source's terms of use.",
-      "scale.clean.k": "Data quality", "scale.clean.v": "Finished data is deduplicated and normalized into stable fields. Video is time-aligned with subtitles and transcripts, with subtitles in more than 100 languages. Pages collected ad hoc by URL retain their content as captured.",
-      "scale.delivery.k": "Delivery pipeline", "scale.delivery.v": "Finished data is written to object storage, pulled by partition and supports incremental updates. Ad-hoc top-ups run through the API.",
-      "src.label": "Sources", "src.title": "Four categories in the existing catalog",
-      "src.ec.flag": "Products & reviews", "src.ec.title": "E-commerce", "src.ec.text": "Titles, prices, categories, sellers, inventory and reviews. Amazon, eBay and Walmart are ready.",
-      "src.social.flag": "Conversations & media", "src.social.title": "Social", "src.social.text": "Posts, comments, views and engagement, plus subtitles aligned with video. Covers Facebook, Instagram, Reddit, TikTok, YouTube, and LinkedIn and X profiles.",
-      "src.search.flag": "Queries & results", "src.search.title": "Search", "src.search.text": "Queries and result pages are returned as pairs, targetable by country or city. Engines include Google, Bing, Yandex and DuckDuckGo. Average response time is under 1 second.",
-      "src.corp.flag": "Vertical text", "src.corp.title": "Companies & industries", "src.corp.text": "Funding, revenue, founders and announcements, plus industry text in healthcare, law, recruiting and more. Stock prices and tick-level trade data are not provided.",
-      "fee.label": "Per-request pricing", "fee.title": "Pay per request for incremental collection", "fee.sub": "Full-dataset purchases are quoted separately",
-      "fee.p1.unit": "/1K results", "fee.p1.title": "Popular sites", "fee.p1.note": "Trial pack: about 6,000 results",
-      "fee.p2.unit": "/1K requests", "fee.p2.title": "Search", "fee.p2.note": "Trial pack: about 5,000 requests",
-      "fee.p3.unit": "/1K requests", "fee.p3.title": "Any web page", "fee.p3.note": "Trial pack: about 3,300 requests",
-      "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Trial pack: about 10 GB, over 10,000 URLs per batch",
-      "fee.lede": "Undelivered requests are not billed. Each method offers a {trial}, 7-day trial pack. The search service targets 99.9% availability.", "fee.fx": "USD prices are converted from CNY at the exchange rate of {date} and are for reference only. The billing currency is specified in the contract.",
-      "bounds.label": "Scope & support", "bounds.title": "Three items to confirm before contracting",
-      "bounds.excl.k": "Not collected", "bounds.excl.v": "Data behind logins, paywalls or other access controls, and internal organizational data, unless the data controller grants authorization; market data such as stock prices, tick-level trades and exchange announcements; data originating from mainland China. Data that may contain personal information is de-identified before delivery, limited to what is necessary.",
-      "bounds.qa.k": "Quality checks", "bounds.qa.v": "Data quality is reviewed weekly during the delivery period. Issues are corrected on the agreed schedule.",
-      "bounds.sla.k": "Response & SLA", "bounds.sla.v": "Reachable 24/7, with first response within 15 minutes. Availability and concurrency can be written into the contract.",
-      "proc.label": "Process", "proc.title": "Scope first, then delivery",
-      "proc.s1.t": "Submit requirements", "proc.s1.d": "Provide a brief listing targets, field schema and delivery needs",
-      "proc.s2.t": "Assessment & sample", "proc.s2.d": "Once assessed, a sample is provided to verify fields and format against the agreement",
-      "proc.s3.t": "Delivery as agreed", "proc.s3.d": "Delivered in the agreed format and cadence, with incremental runs for ongoing updates",
-      "proc.cta": "View scope & support"
-    },
-
-    "ja": {
-      "meta.title": "カスタムデータ収集",
-      "nav.mark": "カスタムデータ収集", "nav.custom": "カスタマイズ", "nav.scale": "規模", "nav.sources": "ソース", "nav.fee": "従量課金", "nav.bounds": "範囲とサポート", "nav.process": "導入の流れ",
-      "hero.eyebrow": "製品資料", "hero.title": "要件に合わせたデータ収集", "hero.statement": "収集対象、フィールド構成、納品方法、更新頻度は、すべてご要件の仕様に基づいて決定します",
-      "custom.label": "カスタマイズ", "custom.title": "カタログ内のソースは即時に利用可能", "custom.sub": "カタログ外は要件に応じて個別に案件化",
-      "custom.scope.k": "指定できる範囲", "custom.scope.v": "対象サイトまたは URL、フィールド、言語、地域、期間、解像度、字幕言語",
-      "custom.delivery.k": "指定できる納品形態", "custom.delivery.v": "表形式、API、オブジェクトストレージに対応し、一括納品、都度の追加収集、合意に基づく差分更新から選択可能",
-      "custom.eval.k": "評価期間", "custom.eval.v": "フィールド、サイト、納品方法が既存カタログを超える場合、約 48 時間で評価結果を回答",
-      "custom.audience.k": "対象", "custom.audience.v": "モデル学習、業務モニタリング、研究用データ取得を含め、カスタム収集のニーズがあるあらゆるチーム",
-      "scale.label": "規模", "scale.title": "保有データの規模",
-      "scale.n1": "2,000億+", "scale.l1": "マルチモーダルレコード", "scale.n2": "1,700億+", "scale.l2": "音声・動画", "scale.n3": "百億規模", "scale.l3": "テキスト", "scale.n4": "39億+", "scale.l4": "画像", "scale.l5": "既製データセット",
-      "scale.train.k": "学習段階別の構成にも対応", "scale.train.v": "モデル学習に用いる場合は、事前学習、ファインチューニング、評価の各段階に合わせて構成し、出所に関する説明を添付します。特定のソースを学習に使用できるかどうかは、当該ソースの利用規約に従います。",
-      "scale.clean.k": "データ品質", "scale.clean.v": "既製データは重複を除去し、安定したフィールドに整理しています。動画は字幕・文字起こしと時間同期しており、字幕は 100 以上の言語に対応します。URL 指定で臨時に収集したページは、取得時の内容をそのまま保持します。",
-      "scale.delivery.k": "納品経路", "scale.delivery.v": "既製データはオブジェクトストレージに書き込まれ、パーティション単位で取得でき、差分更新に対応します。臨時の追加収集は API で行います。",
-      "src.label": "ソース", "src.title": "既存カタログは 4 分野をカバー",
-      "src.ec.flag": "商品とレビュー", "src.ec.title": "EC", "src.ec.text": "タイトル、価格、カテゴリ、販売者、在庫、レビュー。Amazon、eBay、Walmart に対応済みです。",
-      "src.social.flag": "会話と音声・動画", "src.social.title": "ソーシャル", "src.social.text": "投稿、コメント、再生数とエンゲージメント、映像と同期した字幕。Facebook、Instagram、Reddit、TikTok、YouTube、および LinkedIn と X のプロフィールに対応します。",
-      "src.search.flag": "クエリと結果", "src.search.title": "検索", "src.search.text": "クエリと結果ページをペアで返し、国や都市単位で指定できます。対応エンジンは Google、Bing、Yandex、DuckDuckGo です。平均応答時間は 1 秒未満です。",
-      "src.corp.flag": "業界テキスト", "src.corp.title": "企業と業界", "src.corp.text": "資金調達、売上、創業者、発表に加え、医療、法律、採用などの業界テキスト。株価およびティック単位の約定データは提供しません。",
-      "fee.label": "従量課金", "fee.title": "差分収集はリクエスト単位で課金", "fee.sub": "データセットの一括購入は別途お見積り",
-      "fee.p1.unit": "/1,000件", "fee.p1.title": "人気サイト", "fee.p1.note": "お試しパック 約 6,000 件",
-      "fee.p2.unit": "/1,000回", "fee.p2.title": "検索", "fee.p2.note": "お試しパック 約 5,000 回",
-      "fee.p3.unit": "/1,000回", "fee.p3.title": "任意のウェブページ", "fee.p3.note": "お試しパック 約 3,300 回",
-      "fee.p4.unit": "/GB", "fee.p4.title": "動画", "fee.p4.note": "お試しパック 約 10 GB、1 回あたり 1 万件以上の URL を送信可能",
-      "fee.lede": "未納品のリクエストには課金しません。各方式とも {trial}・7 日間のお試しパックをご用意しています。検索サービスの可用性目標は 99.9% です。", "fee.fx": "円建て価格は{date}の為替レートで人民元から換算した参考値です。決済通貨は契約で定めます。",
-      "bounds.label": "範囲とサポート", "bounds.title": "契約前に確認すべき 3 項目",
-      "bounds.excl.k": "収集対象外", "bounds.excl.v": "ログイン、有料、またはアクセス制限のあるデータ、および組織内部のデータ（データ管理者による個別の許諾がある場合を除く）。株価、ティック単位の約定、取引所の開示などの証券市場データ。中国国内を発信元とするデータ。個人情報を含む可能性のあるデータは、納品前に必要な範囲で非識別化処理を行います。",
-      "bounds.qa.k": "品質点検", "bounds.qa.v": "納品期間中は毎週データ品質を点検します。不備は合意した周期で修正します。",
-      "bounds.sla.k": "応答と SLA", "bounds.sla.v": "24 時間 365 日対応し、初回応答は 15 分以内です。可用性と同時実行数は契約に明記できます。",
-      "proc.label": "導入の流れ", "proc.title": "範囲を定めてから納品へ",
-      "proc.s1.t": "要件の提出", "proc.s1.d": "収集対象、フィールド構成、納品要件を記した要件書を提出",
-      "proc.s2.t": "評価とサンプル", "proc.s2.d": "評価完了後にサンプルを提供し、フィールドと形式が合意どおりか確認",
-      "proc.s3.t": "合意どおりに納品", "proc.s3.d": "合意した形式と周期で納品し、継続更新は差分で実行",
-      "proc.cta": "範囲とサポートを見る"
-    },
-
-    "ko": {
-      "meta.title": "맞춤형 데이터 수집",
-      "nav.mark": "맞춤형 데이터 수집", "nav.custom": "맞춤 설정", "nav.scale": "규모", "nav.sources": "소스", "nav.fee": "건별 요금", "nav.bounds": "범위와 지원", "nav.process": "진행 절차",
-      "hero.eyebrow": "제품 소개서", "hero.title": "요구 사항에 맞춘 데이터 수집", "hero.statement": "수집 대상, 필드 구조, 전달 방식, 업데이트 주기는 모두 고객의 사양에 따라 정합니다",
-      "custom.label": "맞춤 설정", "custom.title": "카탈로그 내 소스는 바로 호출 가능", "custom.sub": "카탈로그 밖의 요구는 별도 프로젝트로 진행",
-      "custom.scope.k": "지정 가능한 범위", "custom.scope.v": "대상 사이트 또는 URL, 필드, 언어, 지역, 기간, 해상도, 자막 언어",
-      "custom.delivery.k": "지정 가능한 전달 방식", "custom.delivery.v": "표, API 또는 객체 스토리지로 제공하며 일회성 전달, 건별 추가 수집, 약정에 따른 증분 업데이트 중 선택 가능",
-      "custom.eval.k": "검토 기간", "custom.eval.v": "필드, 사이트 또는 전달 방식이 기존 카탈로그를 벗어나는 경우 약 48시간 내 검토 결과 회신",
-      "custom.audience.k": "대상", "custom.audience.v": "모델 학습, 비즈니스 모니터링, 연구용 데이터 확보를 포함해 맞춤 수집이 필요한 모든 팀",
-      "scale.label": "규모", "scale.title": "보유 데이터 규모",
-      "scale.n1": "2,000억+", "scale.l1": "멀티모달 레코드", "scale.n2": "1,700억+", "scale.l2": "오디오·비디오", "scale.n3": "100억 규모", "scale.l3": "텍스트", "scale.n4": "39억+", "scale.l4": "이미지", "scale.l5": "기성 데이터셋",
-      "scale.train.k": "학습 단계별 구성 가능", "scale.train.v": "모델 학습에 사용하는 경우 사전 학습, 파인튜닝, 평가 단계에 맞춰 구성하고 출처 설명을 첨부합니다. 특정 소스를 학습에 사용할 수 있는지는 해당 소스의 이용 약관에 따릅니다.",
-      "scale.clean.k": "데이터 정제 수준", "scale.clean.v": "기성 데이터는 중복을 제거하고 안정된 필드로 정리합니다. 영상은 자막·전사본과 시간 동기화되어 있으며, 자막은 100개 이상의 언어를 지원합니다. URL로 임시 수집한 페이지는 수집 시점의 내용을 그대로 보존합니다.",
-      "scale.delivery.k": "전달 경로", "scale.delivery.v": "기성 데이터는 객체 스토리지에 기록되어 파티션 단위로 가져갈 수 있으며 증분 업데이트를 지원합니다. 임시 추가 수집은 API로 진행합니다.",
-      "src.label": "소스", "src.title": "기존 카탈로그는 네 가지 분야를 포괄",
-      "src.ec.flag": "상품과 리뷰", "src.ec.title": "이커머스", "src.ec.text": "제목, 가격, 카테고리, 판매자, 재고, 리뷰. Amazon, eBay, Walmart가 준비되어 있습니다.",
-      "src.social.flag": "대화와 오디오·비디오", "src.social.title": "소셜", "src.social.text": "게시물, 댓글, 조회수와 참여 지표, 그리고 영상과 동기화된 자막. Facebook, Instagram, Reddit, TikTok, YouTube와 LinkedIn, X의 프로필을 포함합니다.",
-      "src.search.flag": "검색어와 결과", "src.search.title": "검색", "src.search.text": "검색어와 결과 페이지를 쌍으로 반환하며 국가 또는 도시 단위로 지정할 수 있습니다. Google, Bing, Yandex, DuckDuckGo를 지원합니다. 평균 응답 시간은 1초 미만입니다.",
-      "src.corp.flag": "산업 텍스트", "src.corp.title": "기업과 산업", "src.corp.text": "투자 유치, 매출, 창업자, 공시와 함께 의료, 법률, 채용 등 산업 텍스트. 주가 및 체결 단위 거래 데이터는 제공하지 않습니다.",
-      "fee.label": "건별 요금", "fee.title": "증분 수집은 건별 과금", "fee.sub": "데이터셋 일괄 구매는 별도 견적",
-      "fee.p1.unit": "/1,000건", "fee.p1.title": "인기 사이트", "fee.p1.note": "체험 패키지 약 6,000건",
-      "fee.p2.unit": "/1,000회", "fee.p2.title": "검색", "fee.p2.note": "체험 패키지 약 5,000회",
-      "fee.p3.unit": "/1,000회", "fee.p3.title": "모든 웹 페이지", "fee.p3.note": "체험 패키지 약 3,300회",
-      "fee.p4.unit": "/GB", "fee.p4.title": "비디오", "fee.p4.note": "체험 패키지 약 10 GB, 배치당 URL 1만 개 이상 제출 가능",
-      "fee.lede": "전달되지 않은 요청은 과금하지 않습니다. 모든 방식에 {trial}, 7일 체험 패키지를 제공합니다. 검색 서비스의 가용성 목표는 99.9%입니다.", "fee.fx": "원화 가격은 {date} 환율로 위안화에서 환산한 참고 금액입니다. 결제 통화는 계약에서 정합니다.",
-      "bounds.label": "범위와 지원", "bounds.title": "계약 전 확인할 세 가지",
-      "bounds.excl.k": "수집하지 않는 범위", "bounds.excl.v": "로그인, 유료 또는 접근 제한이 있는 데이터와 조직 내부 데이터(데이터 관리자가 별도로 승인한 경우 제외), 주가·체결 내역·거래소 공시 등 증권 시세 데이터, 중국 본토 출처의 데이터. 개인정보가 포함될 수 있는 데이터는 전달 전에 필요한 범위 내에서 비식별 처리합니다.",
-      "bounds.qa.k": "품질 점검", "bounds.qa.v": "전달 기간 중 매주 데이터 품질을 점검합니다. 문제 항목은 약정한 주기에 따라 수정합니다.",
-      "bounds.sla.k": "응답과 SLA", "bounds.sla.v": "연중무휴 24시간 연락 가능하며 최초 응답은 15분 이내입니다. 가용성과 동시 처리량은 계약서에 명시할 수 있습니다.",
-      "proc.label": "진행 절차", "proc.title": "범위를 먼저 정하고 전달",
-      "proc.s1.t": "요구 사항 제출", "proc.s1.d": "수집 대상, 필드 구조, 전달 요건을 담은 요구 사항 문서 제출",
-      "proc.s2.t": "검토와 샘플", "proc.s2.d": "검토 후 샘플을 제공하여 필드와 형식이 약정과 일치하는지 확인",
-      "proc.s3.t": "약정에 따른 전달", "proc.s3.d": "약정한 형식과 주기로 전달하며 지속 업데이트는 증분으로 진행",
-      "proc.cta": "범위와 지원 보기"
-    },
-
-    "es": {
-      "meta.title": "Recopilación de datos a medida",
-      "nav.mark": "Recopilación de datos a medida", "nav.custom": "Personalización", "nav.scale": "Escala", "nav.sources": "Fuentes", "nav.fee": "Precio por solicitud", "nav.bounds": "Alcance y soporte", "nav.process": "Proceso",
-      "hero.eyebrow": "Ficha de producto", "hero.title": "Recopilación de datos según sus especificaciones", "hero.statement": "Los objetivos, el esquema de campos, el método de entrega y la frecuencia de actualización se definen según sus requisitos",
-      "custom.label": "Personalización", "custom.title": "Las fuentes del catálogo están listas para usar", "custom.sub": "Lo que queda fuera del catálogo se plantea como un proyecto específico",
-      "custom.scope.k": "Qué puede especificar", "custom.scope.v": "Sitios o URL de destino, campos, idiomas, regiones, rangos de fechas, resolución de vídeo e idiomas de subtítulos",
-      "custom.delivery.k": "Opciones de entrega", "custom.delivery.v": "Tablas, API o almacenamiento de objetos, con entrega única, recopilaciones puntuales o actualizaciones incrementales programadas",
-      "custom.eval.k": "Plazo de evaluación", "custom.eval.v": "Los requisitos que exceden el catálogo se evalúan en unas 48 horas",
-      "custom.audience.k": "A quién va dirigido", "custom.audience.v": "Cualquier equipo con necesidades de recopilación a medida, incluidos entrenamiento de modelos, monitorización de negocio e investigación",
-      "scale.label": "Escala", "scale.title": "Datos disponibles",
-      "scale.n1": "200 mil M+", "scale.l1": "registros multimodales", "scale.n2": "170 mil M+", "scale.l2": "audio y vídeo", "scale.n3": "~10 mil M", "scale.l3": "texto", "scale.n4": "3900 M+", "scale.l4": "imágenes", "scale.l5": "conjuntos de datos listos",
-      "scale.train.k": "Organización por fase de entrenamiento", "scale.train.v": "Para el entrenamiento de modelos, los datos pueden organizarse para preentrenamiento, ajuste fino y evaluación, con documentación de origen. Que una fuente pueda utilizarse para entrenamiento depende de sus condiciones de uso.",
-      "scale.clean.k": "Calidad de los datos", "scale.clean.v": "Los datos terminados se deduplican y se normalizan en campos estables. El vídeo está alineado temporalmente con subtítulos y transcripciones, con subtítulos en más de 100 idiomas. Las páginas recopiladas de forma puntual por URL conservan el contenido tal como se capturó.",
-      "scale.delivery.k": "Canal de entrega", "scale.delivery.v": "Los datos terminados se escriben en almacenamiento de objetos, se descargan por particiones y admiten actualizaciones incrementales. Las recopilaciones puntuales se realizan mediante la API.",
-      "src.label": "Fuentes", "src.title": "El catálogo actual cubre cuatro categorías",
-      "src.ec.flag": "Productos y reseñas", "src.ec.title": "Comercio electrónico", "src.ec.text": "Títulos, precios, categorías, vendedores, inventario y reseñas. Amazon, eBay y Walmart están disponibles.",
-      "src.social.flag": "Conversaciones y multimedia", "src.social.title": "Redes sociales", "src.social.text": "Publicaciones, comentarios, reproducciones e interacción, además de subtítulos alineados con el vídeo. Incluye Facebook, Instagram, Reddit, TikTok, YouTube y perfiles de LinkedIn y X.",
-      "src.search.flag": "Consultas y resultados", "src.search.title": "Búsqueda", "src.search.text": "Las consultas y las páginas de resultados se devuelven por pares, con segmentación por país o ciudad. Motores: Google, Bing, Yandex y DuckDuckGo. Tiempo medio de respuesta inferior a 1 segundo.",
-      "src.corp.flag": "Texto sectorial", "src.corp.title": "Empresas y sectores", "src.corp.text": "Financiación, ingresos, fundadores y comunicados, además de textos sectoriales de salud, derecho, contratación y otros ámbitos. No se proporcionan cotizaciones bursátiles ni datos de operaciones a nivel de tick.",
-      "fee.label": "Precio por solicitud", "fee.title": "Recopilación incremental con pago por solicitud", "fee.sub": "Las compras de conjuntos completos se cotizan aparte",
-      "fee.p1.unit": "/1000 resultados", "fee.p1.title": "Sitios populares", "fee.p1.note": "Paquete de prueba: unos 6000 resultados",
-      "fee.p2.unit": "/1000 solicitudes", "fee.p2.title": "Búsqueda", "fee.p2.note": "Paquete de prueba: unas 5000 solicitudes",
-      "fee.p3.unit": "/1000 solicitudes", "fee.p3.title": "Cualquier página web", "fee.p3.note": "Paquete de prueba: unas 3300 solicitudes",
-      "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Paquete de prueba: unos 10 GB, más de 10 000 URL por lote",
-      "fee.lede": "Las solicitudes no entregadas no se facturan. Cada método ofrece un paquete de prueba de {trial} durante 7 días. El servicio de búsqueda tiene un objetivo de disponibilidad del 99,9 %.", "fee.fx": "Los precios en euros se han convertido desde CNY con el tipo de cambio del {date} y son orientativos. La moneda de facturación se fija en el contrato.",
-      "bounds.label": "Alcance y soporte", "bounds.title": "Tres aspectos que confirmar antes de contratar",
-      "bounds.excl.k": "No se recopila", "bounds.excl.v": "Datos tras inicio de sesión, de pago o con acceso restringido, y datos internos de organizaciones, salvo autorización del responsable de los datos; datos de mercado como cotizaciones, operaciones a nivel de tick y avisos bursátiles; datos con origen en China continental. Los datos que puedan contener información personal se desidentifican antes de la entrega, en la medida necesaria.",
-      "bounds.qa.k": "Control de calidad", "bounds.qa.v": "La calidad de los datos se revisa semanalmente durante el periodo de entrega. Las incidencias se corrigen según el calendario acordado.",
-      "bounds.sla.k": "Respuesta y SLA", "bounds.sla.v": "Disponible 24/7, con primera respuesta en un máximo de 15 minutos. La disponibilidad y la concurrencia pueden incluirse en el contrato.",
-      "proc.label": "Proceso", "proc.title": "Primero el alcance, después la entrega",
-      "proc.s1.t": "Presentar requisitos", "proc.s1.d": "Envíe una descripción con los objetivos, el esquema de campos y los requisitos de entrega",
-      "proc.s2.t": "Evaluación y muestra", "proc.s2.d": "Tras la evaluación se entrega una muestra para verificar campos y formato frente a lo acordado",
-      "proc.s3.t": "Entrega según lo acordado", "proc.s3.d": "Entrega en el formato y la frecuencia acordados, con ejecuciones incrementales para actualizaciones continuas",
-      "proc.cta": "Ver alcance y soporte"
-    },
-
-    "fr": {
-      "meta.title": "Collecte de données sur mesure",
-      "nav.mark": "Collecte de données sur mesure", "nav.custom": "Personnalisation", "nav.scale": "Volume", "nav.sources": "Sources", "nav.fee": "Tarif à la requête", "nav.bounds": "Périmètre et assistance", "nav.process": "Processus",
-      "hero.eyebrow": "Fiche produit", "hero.title": "Une collecte de données conforme à vos spécifications", "hero.statement": "Cibles, schéma des champs, mode de livraison et fréquence de mise à jour sont définis selon vos besoins",
-      "custom.label": "Personnalisation", "custom.title": "Les sources du catalogue sont prêtes à l'emploi", "custom.sub": "Les besoins hors catalogue font l'objet d'un projet dédié",
-      "custom.scope.k": "Ce que vous pouvez préciser", "custom.scope.v": "Sites ou URL cibles, champs, langues, régions, périodes, résolution vidéo et langues des sous-titres",
-      "custom.delivery.k": "Modes de livraison", "custom.delivery.v": "Tableaux, API ou stockage objet, en livraison unique, en collectes ponctuelles ou en mises à jour incrémentielles planifiées",
-      "custom.eval.k": "Délai d'évaluation", "custom.eval.v": "Les besoins dépassant le catalogue sont évalués sous 48 heures environ",
-      "custom.audience.k": "Public concerné", "custom.audience.v": "Toute équipe ayant un besoin de collecte sur mesure, y compris l'entraînement de modèles, le suivi d'activité et la recherche",
-      "scale.label": "Volume", "scale.title": "Données déjà disponibles",
-      "scale.n1": "200 Md+", "scale.l1": "enregistrements multimodaux", "scale.n2": "170 Md+", "scale.l2": "audio et vidéo", "scale.n3": "~10 Md", "scale.l3": "texte", "scale.n4": "3,9 Md+", "scale.l4": "images", "scale.l5": "jeux de données prêts à l'emploi",
-      "scale.train.k": "Organisation par phase d'entraînement", "scale.train.v": "Pour l'entraînement de modèles, les données peuvent être organisées pour le pré-entraînement, l'ajustement fin et l'évaluation, avec une documentation des sources. L'usage d'une source pour l'entraînement dépend de ses conditions d'utilisation.",
-      "scale.clean.k": "Qualité des données", "scale.clean.v": "Les données finalisées sont dédupliquées et normalisées en champs stables. La vidéo est synchronisée avec les sous-titres et les transcriptions, disponibles en plus de 100 langues. Les pages collectées ponctuellement par URL conservent leur contenu tel que capturé.",
-      "scale.delivery.k": "Chaîne de livraison", "scale.delivery.v": "Les données finalisées sont écrites dans un stockage objet, récupérées par partition et prennent en charge les mises à jour incrémentielles. Les collectes ponctuelles passent par l'API.",
-      "src.label": "Sources", "src.title": "Le catalogue actuel couvre quatre catégories",
-      "src.ec.flag": "Produits et avis", "src.ec.title": "E-commerce", "src.ec.text": "Titres, prix, catégories, vendeurs, stocks et avis. Amazon, eBay et Walmart sont disponibles.",
-      "src.social.flag": "Conversations et médias", "src.social.title": "Réseaux sociaux", "src.social.text": "Publications, commentaires, vues et interactions, ainsi que des sous-titres synchronisés avec la vidéo. Couvre Facebook, Instagram, Reddit, TikTok, YouTube et les profils LinkedIn et X.",
-      "src.search.flag": "Requêtes et résultats", "src.search.title": "Recherche", "src.search.text": "Les requêtes et les pages de résultats sont renvoyées par paires, avec ciblage par pays ou par ville. Moteurs : Google, Bing, Yandex et DuckDuckGo. Temps de réponse moyen inférieur à 1 seconde.",
-      "src.corp.flag": "Textes sectoriels", "src.corp.title": "Entreprises et secteurs", "src.corp.text": "Levées de fonds, chiffre d'affaires, fondateurs et annonces, ainsi que des textes sectoriels en santé, droit, recrutement et autres domaines. Les cours boursiers et les données de transactions au tick ne sont pas fournis.",
-      "fee.label": "Tarif à la requête", "fee.title": "Collecte incrémentielle facturée à la requête", "fee.sub": "L'achat de jeux de données complets fait l'objet d'un devis distinct",
-      "fee.p1.unit": "/1000 résultats", "fee.p1.title": "Sites populaires", "fee.p1.note": "Pack d'essai : environ 6000 résultats",
-      "fee.p2.unit": "/1000 requêtes", "fee.p2.title": "Recherche", "fee.p2.note": "Pack d'essai : environ 5000 requêtes",
-      "fee.p3.unit": "/1000 requêtes", "fee.p3.title": "Toute page web", "fee.p3.note": "Pack d'essai : environ 3300 requêtes",
-      "fee.p4.unit": "/Go", "fee.p4.title": "Vidéo", "fee.p4.note": "Pack d'essai : environ 10 Go, plus de 10 000 URL par lot",
-      "fee.lede": "Les requêtes non livrées ne sont pas facturées. Chaque mode propose un pack d'essai de {trial} valable 7 jours. Le service de recherche vise une disponibilité de 99,9 %.", "fee.fx": "Les prix en euros sont convertis depuis le CNY au taux du {date}, à titre indicatif. La devise de facturation est fixée au contrat.",
-      "bounds.label": "Périmètre et assistance", "bounds.title": "Trois points à valider avant contractualisation",
-      "bounds.excl.k": "Non collecté", "bounds.excl.v": "Données soumises à connexion, payantes ou à accès restreint, et données internes d'organisations, sauf autorisation du responsable des données ; données de marché telles que cours boursiers, transactions au tick et annonces boursières ; données provenant de Chine continentale. Les données susceptibles de contenir des informations personnelles sont désidentifiées avant livraison, dans la limite du nécessaire.",
-      "bounds.qa.k": "Contrôle qualité", "bounds.qa.v": "La qualité des données est vérifiée chaque semaine pendant la période de livraison. Les anomalies sont corrigées selon le calendrier convenu.",
-      "bounds.sla.k": "Réactivité et SLA", "bounds.sla.v": "Joignable 24 h/24 et 7 j/7, avec une première réponse sous 15 minutes. La disponibilité et la concurrence peuvent être inscrites au contrat.",
-      "proc.label": "Processus", "proc.title": "D'abord le périmètre, ensuite la livraison",
-      "proc.s1.t": "Exprimer le besoin", "proc.s1.d": "Transmettre un cahier des charges précisant les cibles, le schéma des champs et les exigences de livraison",
-      "proc.s2.t": "Évaluation et échantillon", "proc.s2.d": "Après évaluation, un échantillon est fourni pour vérifier champs et format au regard de l'accord",
-      "proc.s3.t": "Livraison conforme", "proc.s3.d": "Livraison au format et à la fréquence convenus, avec des exécutions incrémentielles pour les mises à jour continues",
-      "proc.cta": "Voir le périmètre et l'assistance"
-    },
-
-    "de": {
-      "meta.title": "Individuelle Datenerhebung",
-      "nav.mark": "Individuelle Datenerhebung", "nav.custom": "Individualisierung", "nav.scale": "Umfang", "nav.sources": "Quellen", "nav.fee": "Preis pro Anfrage", "nav.bounds": "Rahmen & Support", "nav.process": "Ablauf",
-      "hero.eyebrow": "Produktdatenblatt", "hero.title": "Datenerhebung nach Ihren Vorgaben", "hero.statement": "Erhebungsziele, Feldschema, Lieferweg und Aktualisierungsrhythmus richten sich nach Ihren Anforderungen",
-      "custom.label": "Individualisierung", "custom.title": "Katalogquellen sind sofort abrufbar", "custom.sub": "Alles außerhalb des Katalogs wird als eigenes Projekt umgesetzt",
-      "custom.scope.k": "Festlegbarer Umfang", "custom.scope.v": "Zielseiten oder URLs, Felder, Sprachen, Regionen, Zeiträume, Videoauflösung und Untertitelsprachen",
-      "custom.delivery.k": "Lieferoptionen", "custom.delivery.v": "Tabellen, API oder Objektspeicher, als Einmallieferung, als Nacherhebung bei Bedarf oder als vereinbarte inkrementelle Aktualisierung",
-      "custom.eval.k": "Prüfdauer", "custom.eval.v": "Anforderungen außerhalb des bestehenden Katalogs werden in etwa 48 Stunden bewertet",
-      "custom.audience.k": "Zielgruppe", "custom.audience.v": "Jedes Team mit individuellem Erhebungsbedarf, einschließlich Modelltraining, Geschäftsmonitoring und Forschung",
-      "scale.label": "Umfang", "scale.title": "Vorhandener Datenbestand",
-      "scale.n1": "200 Mrd.+", "scale.l1": "multimodale Einträge", "scale.n2": "170 Mrd.+", "scale.l2": "Audio & Video", "scale.n3": "~10 Mrd.", "scale.l3": "Text", "scale.n4": "3,9 Mrd.+", "scale.l4": "Bilder", "scale.l5": "fertige Datensätze",
-      "scale.train.k": "Gliederung nach Trainingsphase", "scale.train.v": "Für das Modelltraining lassen sich die Daten nach Pre-Training, Fine-Tuning und Evaluation gliedern, mit Herkunftsdokumentation. Ob eine Quelle für das Training genutzt werden darf, richtet sich nach deren Nutzungsbedingungen.",
-      "scale.clean.k": "Datenqualität", "scale.clean.v": "Fertige Daten werden dedupliziert und in stabile Felder überführt. Videos sind zeitlich mit Untertiteln und Transkripten synchronisiert; Untertitel liegen in über 100 Sprachen vor. Ad hoc per URL erhobene Seiten behalten den Inhalt zum Erhebungszeitpunkt.",
-      "scale.delivery.k": "Lieferkette", "scale.delivery.v": "Fertige Daten werden in Objektspeicher geschrieben, partitionsweise abgerufen und unterstützen inkrementelle Aktualisierungen. Nacherhebungen laufen über die API.",
-      "src.label": "Quellen", "src.title": "Der bestehende Katalog umfasst vier Kategorien",
-      "src.ec.flag": "Produkte & Bewertungen", "src.ec.title": "E-Commerce", "src.ec.text": "Titel, Preise, Kategorien, Händler, Lagerbestand und Bewertungen. Amazon, eBay und Walmart sind verfügbar.",
-      "src.social.flag": "Gespräche & Medien", "src.social.title": "Social Media", "src.social.text": "Beiträge, Kommentare, Aufrufe und Interaktionen sowie mit dem Video synchronisierte Untertitel. Umfasst Facebook, Instagram, Reddit, TikTok, YouTube sowie Profile auf LinkedIn und X.",
-      "src.search.flag": "Suchanfragen & Ergebnisse", "src.search.title": "Suche", "src.search.text": "Suchanfragen und Ergebnisseiten werden paarweise geliefert, wahlweise nach Land oder Stadt. Unterstützte Suchmaschinen: Google, Bing, Yandex und DuckDuckGo. Die durchschnittliche Antwortzeit liegt unter 1 Sekunde.",
-      "src.corp.flag": "Branchentexte", "src.corp.title": "Unternehmen & Branchen", "src.corp.text": "Finanzierung, Umsatz, Gründer und Mitteilungen sowie Branchentexte aus Gesundheitswesen, Recht, Personalwesen und weiteren Bereichen. Aktienkurse und Transaktionsdaten auf Tick-Ebene werden nicht bereitgestellt.",
-      "fee.label": "Preis pro Anfrage", "fee.title": "Inkrementelle Erhebung, abgerechnet pro Anfrage", "fee.sub": "Komplette Datensätze werden gesondert angeboten",
-      "fee.p1.unit": "/1.000 Ergebnisse", "fee.p1.title": "Beliebte Websites", "fee.p1.note": "Testpaket: ca. 6.000 Ergebnisse",
-      "fee.p2.unit": "/1.000 Anfragen", "fee.p2.title": "Suche", "fee.p2.note": "Testpaket: ca. 5.000 Anfragen",
-      "fee.p3.unit": "/1.000 Anfragen", "fee.p3.title": "Beliebige Webseite", "fee.p3.note": "Testpaket: ca. 3.300 Anfragen",
-      "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Testpaket: ca. 10 GB, über 10.000 URLs pro Batch",
-      "fee.lede": "Nicht gelieferte Anfragen werden nicht berechnet. Für jede Methode gibt es ein Testpaket für {trial} mit 7 Tagen Laufzeit. Der Suchdienst ist auf 99,9 % Verfügbarkeit ausgelegt.", "fee.fx": "Die Euro-Preise wurden zum Wechselkurs vom {date} aus CNY umgerechnet und dienen zur Orientierung. Die Abrechnungswährung wird im Vertrag festgelegt.",
-      "bounds.label": "Rahmen & Support", "bounds.title": "Drei Punkte vor Vertragsabschluss",
-      "bounds.excl.k": "Nicht erhoben", "bounds.excl.v": "Daten hinter Logins, Bezahlschranken oder sonstigen Zugangsbeschränkungen sowie interne Unternehmensdaten, sofern der Verantwortliche nicht ausdrücklich zustimmt; Marktdaten wie Aktienkurse, Tick-Transaktionen und Börsenmitteilungen; Daten mit Ursprung in Festlandchina. Daten, die personenbezogene Informationen enthalten können, werden vor der Lieferung im erforderlichen Umfang de-identifiziert.",
-      "bounds.qa.k": "Qualitätsprüfung", "bounds.qa.v": "Die Datenqualität wird während der Lieferphase wöchentlich geprüft. Mängel werden im vereinbarten Rhythmus behoben.",
-      "bounds.sla.k": "Reaktionszeit & SLA", "bounds.sla.v": "Rund um die Uhr erreichbar, Erstreaktion innerhalb von 15 Minuten. Verfügbarkeit und Parallelität können vertraglich festgelegt werden.",
-      "proc.label": "Ablauf", "proc.title": "Erst den Umfang festlegen, dann liefern",
-      "proc.s1.t": "Anforderungen einreichen", "proc.s1.d": "Anforderungsbeschreibung mit Erhebungszielen, Feldschema und Lieferanforderungen einreichen",
-      "proc.s2.t": "Prüfung & Muster", "proc.s2.d": "Nach der Prüfung wird ein Muster bereitgestellt, um Felder und Format mit der Vereinbarung abzugleichen",
-      "proc.s3.t": "Lieferung wie vereinbart", "proc.s3.d": "Lieferung in vereinbartem Format und Rhythmus, fortlaufende Aktualisierungen inkrementell",
-      "proc.cta": "Rahmen & Support ansehen"
-    },
-
-    "pt": {
-      "meta.title": "Coleta de dados sob medida",
-      "nav.mark": "Coleta de dados sob medida", "nav.custom": "Personalização", "nav.scale": "Escala", "nav.sources": "Fontes", "nav.fee": "Preço por requisição", "nav.bounds": "Escopo e suporte", "nav.process": "Processo",
-      "hero.eyebrow": "Ficha do produto", "hero.title": "Coleta de dados conforme suas especificações", "hero.statement": "Alvos, esquema de campos, forma de entrega e frequência de atualização são definidos de acordo com seus requisitos",
-      "custom.label": "Personalização", "custom.title": "As fontes do catálogo estão prontas para uso", "custom.sub": "O que estiver fora do catálogo é tratado como projeto dedicado",
-      "custom.scope.k": "O que pode ser especificado", "custom.scope.v": "Sites ou URLs de destino, campos, idiomas, regiões, períodos, resolução de vídeo e idiomas de legenda",
-      "custom.delivery.k": "Opções de entrega", "custom.delivery.v": "Tabelas, API ou armazenamento de objetos, com entrega única, coletas avulsas ou atualizações incrementais programadas",
-      "custom.eval.k": "Prazo de avaliação", "custom.eval.v": "Requisitos fora do catálogo existente são avaliados em cerca de 48 horas",
-      "custom.audience.k": "Para quem", "custom.audience.v": "Qualquer equipe com necessidade de coleta sob medida, incluindo treinamento de modelos, monitoramento de negócios e pesquisa",
-      "scale.label": "Escala", "scale.title": "Dados já disponíveis",
-      "scale.n1": "200 bi+", "scale.l1": "registros multimodais", "scale.n2": "170 bi+", "scale.l2": "áudio e vídeo", "scale.n3": "~10 bi", "scale.l3": "texto", "scale.n4": "3,9 bi+", "scale.l4": "imagens", "scale.l5": "conjuntos de dados prontos",
-      "scale.train.k": "Organização por fase de treinamento", "scale.train.v": "Para treinamento de modelos, os dados podem ser organizados para pré-treinamento, ajuste fino e avaliação, com documentação de origem. O uso de uma fonte para treinamento depende dos termos de uso dessa fonte.",
-      "scale.clean.k": "Qualidade dos dados", "scale.clean.v": "Os dados finalizados são deduplicados e normalizados em campos estáveis. O vídeo é sincronizado com legendas e transcrições, com legendas em mais de 100 idiomas. Páginas coletadas avulsamente por URL mantêm o conteúdo do momento da coleta.",
-      "scale.delivery.k": "Fluxo de entrega", "scale.delivery.v": "Os dados finalizados são gravados em armazenamento de objetos, obtidos por partição e suportam atualizações incrementais. Coletas avulsas são feitas pela API.",
-      "src.label": "Fontes", "src.title": "O catálogo atual abrange quatro categorias",
-      "src.ec.flag": "Produtos e avaliações", "src.ec.title": "E-commerce", "src.ec.text": "Títulos, preços, categorias, vendedores, estoque e avaliações. Amazon, eBay e Walmart estão disponíveis.",
-      "src.social.flag": "Conversas e mídia", "src.social.title": "Redes sociais", "src.social.text": "Publicações, comentários, visualizações e engajamento, além de legendas sincronizadas com o vídeo. Abrange Facebook, Instagram, Reddit, TikTok, YouTube e perfis do LinkedIn e do X.",
-      "src.search.flag": "Consultas e resultados", "src.search.title": "Busca", "src.search.text": "Consultas e páginas de resultados são retornadas em pares, com segmentação por país ou cidade. Mecanismos: Google, Bing, Yandex e DuckDuckGo. Tempo médio de resposta inferior a 1 segundo.",
-      "src.corp.flag": "Textos setoriais", "src.corp.title": "Empresas e setores", "src.corp.text": "Captação de recursos, receita, fundadores e comunicados, além de textos setoriais de saúde, direito, recrutamento e outras áreas. Cotações de ações e dados de negociação em nível de tick não são fornecidos.",
-      "fee.label": "Preço por requisição", "fee.title": "Coleta incremental cobrada por requisição", "fee.sub": "Compras de conjuntos completos são orçadas à parte",
-      "fee.p1.unit": "/1.000 resultados", "fee.p1.title": "Sites populares", "fee.p1.note": "Pacote de teste: cerca de 6.000 resultados",
-      "fee.p2.unit": "/1.000 requisições", "fee.p2.title": "Busca", "fee.p2.note": "Pacote de teste: cerca de 5.000 requisições",
-      "fee.p3.unit": "/1.000 requisições", "fee.p3.title": "Qualquer página web", "fee.p3.note": "Pacote de teste: cerca de 3.300 requisições",
-      "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Pacote de teste: cerca de 10 GB, mais de 10.000 URLs por lote",
-      "fee.lede": "Requisições não entregues não são cobradas. Cada modalidade oferece um pacote de teste de {trial} por 7 dias. O serviço de busca tem meta de disponibilidade de 99,9%.", "fee.fx": "Os preços em reais foram convertidos de CNY pela cotação de {date} e são apenas referenciais. A moeda de faturamento é definida em contrato.",
-      "bounds.label": "Escopo e suporte", "bounds.title": "Três pontos a confirmar antes da contratação",
-      "bounds.excl.k": "Não coletado", "bounds.excl.v": "Dados que exigem login, pagos ou com acesso restrito, e dados internos de organizações, salvo autorização do controlador dos dados; dados de mercado como cotações, negociações em nível de tick e comunicados de bolsa; dados originados na China continental. Dados que possam conter informações pessoais são desidentificados antes da entrega, na medida do necessário.",
-      "bounds.qa.k": "Controle de qualidade", "bounds.qa.v": "A qualidade dos dados é verificada semanalmente durante o período de entrega. Problemas são corrigidos no prazo acordado.",
-      "bounds.sla.k": "Atendimento e SLA", "bounds.sla.v": "Disponível 24 horas, 7 dias por semana, com primeira resposta em até 15 minutos. Disponibilidade e concorrência podem constar em contrato.",
-      "proc.label": "Processo", "proc.title": "Primeiro o escopo, depois a entrega",
-      "proc.s1.t": "Enviar requisitos", "proc.s1.d": "Envie uma descrição com os alvos, o esquema de campos e os requisitos de entrega",
-      "proc.s2.t": "Avaliação e amostra", "proc.s2.d": "Após a avaliação, é fornecida uma amostra para conferir campos e formato com o acordado",
-      "proc.s3.t": "Entrega conforme acordado", "proc.s3.d": "Entrega no formato e na frequência acordados, com execuções incrementais para atualizações contínuas",
-      "proc.cta": "Ver escopo e suporte"
-    },
-
-    "ru": {
-      "meta.title": "Сбор данных под заказ",
-      "nav.mark": "Сбор данных под заказ", "nav.custom": "Настройка", "nav.scale": "Объём", "nav.sources": "Источники", "nav.fee": "Оплата за запрос", "nav.bounds": "Границы и поддержка", "nav.process": "Порядок работы",
-      "hero.eyebrow": "Описание продукта", "hero.title": "Сбор данных по вашим требованиям", "hero.statement": "Объекты сбора, структура полей, способ поставки и периодичность обновления определяются вашей спецификацией",
-      "custom.label": "Настройка", "custom.title": "Источники из каталога доступны сразу", "custom.sub": "Всё, что вне каталога, оформляется отдельным проектом",
-      "custom.scope.k": "Что можно задать", "custom.scope.v": "Целевые сайты или URL, поля, языки, регионы, временной диапазон, разрешение видео и языки субтитров",
-      "custom.delivery.k": "Варианты поставки", "custom.delivery.v": "Таблицы, API или объектное хранилище: разовая поставка, дозапросы по мере необходимости или плановые инкрементальные обновления",
-      "custom.eval.k": "Срок оценки", "custom.eval.v": "Требования за пределами каталога оцениваются примерно за 48 часов",
-      "custom.audience.k": "Для кого", "custom.audience.v": "Для любых команд с потребностью в сборе данных под заказ, включая обучение моделей, бизнес-мониторинг и исследования",
-      "scale.label": "Объём", "scale.title": "Имеющиеся данные",
-      "scale.n1": "200 млрд+", "scale.l1": "мультимодальных записей", "scale.n2": "170 млрд+", "scale.l2": "аудио и видео", "scale.n3": "~10 млрд", "scale.l3": "текст", "scale.n4": "3,9 млрд+", "scale.l4": "изображения", "scale.l5": "готовых наборов данных",
-      "scale.train.k": "Структура по этапам обучения", "scale.train.v": "Для обучения моделей данные можно организовать под предобучение, дообучение и оценку, с описанием источников. Возможность использовать источник для обучения определяется его условиями использования.",
-      "scale.clean.k": "Чистота данных", "scale.clean.v": "Готовые данные очищены от дубликатов и приведены к стабильным полям. Видео синхронизировано с субтитрами и расшифровками; субтитры доступны более чем на 100 языках. Страницы, собранные разово по URL, сохраняют содержимое на момент сбора.",
-      "scale.delivery.k": "Канал поставки", "scale.delivery.v": "Готовые данные записываются в объектное хранилище, выгружаются по разделам и поддерживают инкрементальные обновления. Разовые дозапросы выполняются через API.",
-      "src.label": "Источники", "src.title": "Текущий каталог охватывает четыре категории",
-      "src.ec.flag": "Товары и отзывы", "src.ec.title": "Электронная коммерция", "src.ec.text": "Названия, цены, категории, продавцы, остатки и отзывы. Amazon, eBay и Walmart уже доступны.",
-      "src.social.flag": "Общение и медиа", "src.social.title": "Соцсети", "src.social.text": "Публикации, комментарии, просмотры и вовлечённость, а также субтитры, синхронизированные с видео. Охватывает Facebook, Instagram, Reddit, TikTok, YouTube, а также профили LinkedIn и X.",
-      "src.search.flag": "Запросы и выдача", "src.search.title": "Поиск", "src.search.text": "Запросы и страницы выдачи возвращаются парами, с таргетингом по стране или городу. Поисковые системы: Google, Bing, Yandex и DuckDuckGo. Среднее время ответа — менее 1 секунды.",
-      "src.corp.flag": "Отраслевые тексты", "src.corp.title": "Компании и отрасли", "src.corp.text": "Финансирование, выручка, основатели и сообщения, а также отраслевые тексты по медицине, праву, найму и другим направлениям. Котировки акций и потиковые данные о сделках не предоставляются.",
-      "fee.label": "Оплата за запрос", "fee.title": "Инкрементальный сбор с оплатой за запрос", "fee.sub": "Покупка полных наборов оценивается отдельно",
-      "fee.p1.unit": "/1000 результатов", "fee.p1.title": "Популярные сайты", "fee.p1.note": "Пробный пакет: около 6000 результатов",
-      "fee.p2.unit": "/1000 запросов", "fee.p2.title": "Поиск", "fee.p2.note": "Пробный пакет: около 5000 запросов",
-      "fee.p3.unit": "/1000 запросов", "fee.p3.title": "Любая веб-страница", "fee.p3.note": "Пробный пакет: около 3300 запросов",
-      "fee.p4.unit": "/ГБ", "fee.p4.title": "Видео", "fee.p4.note": "Пробный пакет: около 10 ГБ, более 10 000 URL за пакет",
-      "fee.lede": "Недоставленные запросы не оплачиваются. Для каждого способа доступен пробный пакет за {trial} на 7 дней. Целевая доступность поискового сервиса — 99,9 %.", "fee.fx": "Цены в рублях пересчитаны из юаней по курсу на {date} и носят справочный характер. Валюта расчётов определяется договором.",
-      "bounds.label": "Границы и поддержка", "bounds.title": "Три пункта для согласования до заключения договора",
-      "bounds.excl.k": "Не собирается", "bounds.excl.v": "Данные за авторизацией, платным доступом или иными ограничениями доступа, а также внутренние данные организаций, если владелец данных не дал отдельного разрешения; рыночные данные — котировки, потиковые сделки и биржевые сообщения; данные из источников в материковом Китае. Данные, которые могут содержать персональную информацию, перед поставкой обезличиваются в необходимом объёме.",
-      "bounds.qa.k": "Контроль качества", "bounds.qa.v": "В период поставки качество данных проверяется еженедельно. Замечания устраняются в согласованные сроки.",
-      "bounds.sla.k": "Отклик и SLA", "bounds.sla.v": "Связь 24/7, первый ответ — не позднее 15 минут. Доступность и параллельность можно закрепить в договоре.",
-      "proc.label": "Порядок работы", "proc.title": "Сначала объём работ, затем поставка",
-      "proc.s1.t": "Требования", "proc.s1.d": "Направьте описание с объектами сбора, структурой полей и требованиями к поставке",
-      "proc.s2.t": "Оценка и образец", "proc.s2.d": "После оценки предоставляется образец для сверки полей и формата с договорённостью",
-      "proc.s3.t": "Поставка по договорённости", "proc.s3.d": "Поставка в согласованном формате и с согласованной периодичностью, постоянные обновления — инкрементально",
-      "proc.cta": "Границы и поддержка"
-    }
-  };
+  const DATA = {"langs":[{"code":"zh-CN","label":"简体中文","locale":"zh-CN","currency":"CNY"},{"code":"zh-TW","label":"繁體中文（台灣）","locale":"zh-TW","currency":"TWD","number_locale":"en-US"},{"code":"en","label":"English (US)","locale":"en-US","currency":"USD"},{"code":"ja","label":"日本語","locale":"ja-JP","currency":"JPY"},{"code":"ko","label":"한국어","locale":"ko-KR","currency":"KRW"},{"code":"es","label":"Español (España)","locale":"es-ES","currency":"EUR"},{"code":"fr","label":"Français (France)","locale":"fr-FR","currency":"EUR"},{"code":"de","label":"Deutsch","locale":"de-DE","currency":"EUR"},{"code":"pt","label":"Português (Brasil)","locale":"pt-BR","currency":"BRL"},{"code":"ru","label":"Русский","locale":"ru-RU","currency":"RUB"}],"fx":{"date":"2026-10-10","rates":{"CNY":1,"TWD":4.769002,"USD":0.149324,"JPY":23.640745,"KRW":200.137556,"EUR":0.133304,"BRL":0.745072,"RUB":12.719395}},"ratesUrl":"https://raw.githubusercontent.com/DataLabsHub/DataLabsHub.github.io/rates/rates.json","dict":{"zh-CN":{"site.title":"数据采集定制","nav.custom":"定制","nav.sheet":"规模","nav.domains":"来源","nav.fee":"按次采集","nav.bounds":"边界与支持","nav.start":"定制流程","site.mark":"数据采集定制","hero.eyebrow":"产品手册","hero.title":"按需求定制数据采集","hero.statement":"采集对象、字段结构、交付方式与更新周期，均依需求方的规格确定","custom.title":"目录之内可直接调用","custom.sub":"目录之外，按需求单独立项","custom.b0.i0.term":"可指定的范围","custom.b0.i0.text":"目标站点或网址、字段、语种、地区、时间范围、清晰度与字幕语言","custom.b0.i1.term":"可指定的交付","custom.b0.i1.text":"表格、接口或对象存储，可一次性交付、按次补采或按约定增量更新","custom.b0.i2.term":"评估周期","custom.b0.i2.text":"字段、站点或交付方式超出现成目录时，约 48 小时返回评估","custom.b0.i3.term":"适用对象","custom.b0.i3.text":"凡有定制采集需求的团队均可提出，包括模型训练、业务监测与研究取数","custom.label":"定制","sheet.title":"现有数据的规模","sheet.b0.i0.value":"2,000 亿+","sheet.b0.i0.caption":"多模态记录","sheet.b0.i1.value":"1,700 亿+","sheet.b0.i1.caption":"音视频","sheet.b0.i2.value":"百亿级","sheet.b0.i2.caption":"文本","sheet.b0.i3.value":"39 亿+","sheet.b0.i3.caption":"图像","sheet.b0.i4.caption":"成品数据集","sheet.b1.i0.term":"亦可按训练阶段组织","sheet.b1.i0.text":"需要用于模型训练时，可按预训练、微调、评测组织，并附来源说明。某一来源能否用于训练，由该来源的使用条款决定。","sheet.b1.i1.term":"数据洁净度","sheet.b1.i1.text":"成品数据经去重并整理为稳定字段。视频与字幕、转写时间对齐，字幕覆盖一百余种语言。按地址临时采集的页面保留当次内容。","sheet.b1.i2.term":"交付链路","sheet.b1.i2.text":"成品数据写入对象存储，按分区拉取，支持增量更新。临时补采经接口完成。","sheet.label":"规模","domains.title":"现成目录覆盖四类","domains.b0.i0.flag":"商品与评价","domains.b0.i0.title":"电商","domains.b0.i0.text":"标题、价格、类目、卖家、库存、评价。亚马逊、eBay、沃尔玛已就绪。","domains.b0.i1.flag":"对话与音视频","domains.b0.i1.title":"社交","domains.b0.i1.text":"帖子、评论、播放与互动，以及与画面对齐的字幕。覆盖 Facebook、Instagram、Reddit、TikTok、YouTube，以及领英与 X 的主页。","domains.b0.i2.flag":"查询与结果","domains.b0.i2.title":"搜索","domains.b0.i2.text":"查询词与结果页成对返回，可按国家或城市定位。引擎含 Google、Bing、Yandex、DuckDuckGo。平均响应时间低于 1 秒。","domains.b0.i3.flag":"垂直文本","domains.b0.i3.title":"公司与行业","domains.b0.i3.text":"融资、营收、创始人、公告，以及医疗、法律、招聘等行业文本。不提供股价与逐笔成交数据。","domains.label":"来源","fee.title":"增量补采，按次计价","fee.sub":"整库采购另议","fee.b0.i0.unit":"/千条","fee.b0.i0.title":"热门网站","fee.b0.i0.note":"体验包约 6,000 条","fee.b0.i1.unit":"/千次","fee.b0.i1.title":"搜索","fee.b0.i1.note":"体验包约 5,000 次","fee.b0.i2.unit":"/千次","fee.b0.i2.title":"任意网页","fee.b0.i2.note":"体验包约 3,300 次","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"视频","fee.b0.i3.note":"体验包约 10 GB，单批可提交一万个以上地址","fee.b1.text":"未交付的请求不计费。各方式均提供 {cny:50}、7 天体验包。搜索服务可用性目标为 99.9%。","fee.b2.text":"","fee.label":"按次采集","bounds.title":"纳入合同前需确认的三项","bounds.b0.i0.term":"不采集的范围","bounds.b0.i0.text":"需登录、付费或设有访问限制的数据，以及组织内部数据，数据控制者另行授权的除外；证券行情类数据，如股价、逐笔成交与交易所公告；中国境内来源的数据。涉及个人信息的数据，交付前作去标识化处理，处理范围以必要为限。","bounds.b0.i1.term":"质量巡检","bounds.b0.i1.text":"交付期内每周核查一次数据质量。问题项按约定周期修正。","bounds.b0.i2.term":"响应与 SLA","bounds.b0.i2.text":"7×24 可联系，首次响应不超过 15 分钟。可用性与并发可写入合同。","bounds.label":"边界与支持","start.title":"先定范围，再交付","start.b0.i0.title":"提出需求","start.b0.i0.text":"提交需求说明，列明采集对象、字段结构与交付要求","start.b0.i1.title":"评估与样本","start.b0.i1.text":"评估通过后提供样本，核对字段与格式是否符合约定","start.b0.i2.title":"按约定交付","start.b0.i2.text":"按约定格式与周期交付，需持续更新的按增量执行","start.b1.text":"查看边界与支持","start.label":"定制流程"},"zh-TW":{"site.title":"客製化資料蒐集","nav.custom":"客製","nav.sheet":"規模","nav.domains":"來源","nav.fee":"按次計費","nav.bounds":"範圍與支援","nav.start":"客製流程","site.mark":"客製化資料蒐集","hero.eyebrow":"產品手冊","hero.title":"依需求客製資料蒐集","hero.statement":"蒐集對象、欄位結構、交付方式與更新週期，均依需求方的規格確定","custom.title":"目錄內的來源可直接呼叫","custom.sub":"目錄以外，依需求單獨立案","custom.b0.i0.term":"可指定的範圍","custom.b0.i0.text":"目標網站或網址、欄位、語言、地區、時間範圍、解析度與字幕語言","custom.b0.i1.term":"可指定的交付","custom.b0.i1.text":"表格、API 或物件儲存，可一次性交付、按次補蒐或依約定增量更新","custom.b0.i2.term":"評估週期","custom.b0.i2.text":"欄位、網站或交付方式超出現有目錄時，約 48 小時回覆評估","custom.b0.i3.term":"適用對象","custom.b0.i3.text":"凡有客製蒐集需求的團隊均可提出，包括模型訓練、業務監測與研究取數","custom.label":"客製","sheet.title":"現有資料的規模","sheet.b0.i0.value":"2,000 億+","sheet.b0.i0.caption":"多模態紀錄","sheet.b0.i1.value":"1,700 億+","sheet.b0.i1.caption":"影音","sheet.b0.i2.value":"百億級","sheet.b0.i2.caption":"文字","sheet.b0.i3.value":"39 億+","sheet.b0.i3.caption":"圖像","sheet.b0.i4.caption":"成品資料集","sheet.b1.i0.term":"亦可依訓練階段組織","sheet.b1.i0.text":"用於模型訓練時，可依預訓練、微調、評測組織，並附來源說明。某一來源能否用於訓練，由該來源的使用條款決定。","sheet.b1.i1.term":"資料潔淨度","sheet.b1.i1.text":"成品資料經去重並整理為穩定欄位。影片與字幕、逐字稿時間對齊，字幕涵蓋一百餘種語言。依網址臨時蒐集的頁面保留當次內容。","sheet.b1.i2.term":"交付鏈路","sheet.b1.i2.text":"成品資料寫入物件儲存，依分區拉取，支援增量更新。臨時補蒐經 API 完成。","sheet.label":"規模","domains.title":"現有目錄涵蓋四類","domains.b0.i0.flag":"商品與評價","domains.b0.i0.title":"電商","domains.b0.i0.text":"標題、價格、類目、賣家、庫存、評價。Amazon、eBay、Walmart 已就緒。","domains.b0.i1.flag":"對話與影音","domains.b0.i1.title":"社群","domains.b0.i1.text":"貼文、留言、播放與互動，以及與畫面對齊的字幕。涵蓋 Facebook、Instagram、Reddit、TikTok、YouTube，以及 LinkedIn 與 X 的個人頁面。","domains.b0.i2.flag":"查詢與結果","domains.b0.i2.title":"搜尋","domains.b0.i2.text":"查詢詞與結果頁成對回傳，可依國家或城市定位。引擎包含 Google、Bing、Yandex、DuckDuckGo。平均回應時間低於 1 秒。","domains.b0.i3.flag":"垂直文本","domains.b0.i3.title":"公司與產業","domains.b0.i3.text":"募資、營收、創辦人、公告，以及醫療、法律、招聘等產業文本。不提供股價與逐筆成交資料。","domains.label":"來源","fee.title":"增量補蒐，按次計價","fee.sub":"整庫採購另議","fee.b0.i0.unit":"/千筆","fee.b0.i0.title":"熱門網站","fee.b0.i0.note":"體驗包約 6,000 筆","fee.b0.i1.unit":"/千次","fee.b0.i1.title":"搜尋","fee.b0.i1.note":"體驗包約 5,000 次","fee.b0.i2.unit":"/千次","fee.b0.i2.title":"任意網頁","fee.b0.i2.note":"體驗包約 3,300 次","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"影片","fee.b0.i3.note":"體驗包約 10 GB，單批可提交一萬個以上網址","fee.b1.text":"未交付的請求不計費。各方式均提供 {cny:50}、7 天體驗包。搜尋服務可用性目標為 99.9%。","fee.b2.text":"新台幣價格依{date}匯率由人民幣換算，僅供參考。結算幣別以合約約定為準。","fee.label":"按次計費","bounds.title":"簽約前需確認的三項","bounds.b0.i0.term":"不蒐集的範圍","bounds.b0.i0.text":"需登入、付費或設有存取限制的資料，以及組織內部資料，資料控制者另行授權者除外；證券行情類資料，如股價、逐筆成交與交易所公告；中國大陸來源的資料。含個人資料者，交付前進行去識別化處理，處理範圍以必要為限。","bounds.b0.i1.term":"品質巡檢","bounds.b0.i1.text":"交付期間每週檢查一次資料品質。問題項依約定週期修正。","bounds.b0.i2.term":"回應與 SLA","bounds.b0.i2.text":"7×24 可聯繫，首次回應不超過 15 分鐘。可用性與並行量可寫入合約。","bounds.label":"範圍與支援","start.title":"先定範圍，再交付","start.b0.i0.title":"提出需求","start.b0.i0.text":"提交需求說明，列明蒐集對象、欄位結構與交付要求","start.b0.i1.title":"評估與樣本","start.b0.i1.text":"評估通過後提供樣本，核對欄位與格式是否符合約定","start.b0.i2.title":"依約定交付","start.b0.i2.text":"依約定格式與週期交付，需持續更新者以增量執行","start.b1.text":"查看範圍與支援","start.label":"客製流程"},"en":{"site.title":"Custom Data Collection","nav.custom":"Customization","nav.sheet":"Scale","nav.domains":"Sources","nav.fee":"Per-request pricing","nav.bounds":"Scope & support","nav.start":"Process","site.mark":"Custom Data Collection","hero.eyebrow":"Product brief","hero.title":"Data collection, built to your specification","hero.statement":"Targets, field schema, delivery method and update cadence are all defined by your requirements","custom.title":"Catalog sources are ready to call","custom.sub":"Anything outside the catalog is scoped as a dedicated project","custom.b0.i0.term":"What you can specify","custom.b0.i0.text":"Target sites or URLs, fields, languages, regions, time ranges, video resolution and subtitle languages","custom.b0.i1.term":"Delivery options","custom.b0.i1.text":"Tables, API or object storage, as a one-time delivery, on-demand top-ups or scheduled incremental updates","custom.b0.i2.term":"Assessment time","custom.b0.i2.text":"Requirements beyond the existing catalog are assessed within about 48 hours","custom.b0.i3.term":"Who it is for","custom.b0.i3.text":"Any team with a custom collection need, including model training, business monitoring and research","custom.label":"Customization","sheet.title":"Data already on hand","sheet.b0.i0.value":"200B+","sheet.b0.i0.caption":"multimodal records","sheet.b0.i1.value":"170B+","sheet.b0.i1.caption":"audio & video","sheet.b0.i2.value":"~10B","sheet.b0.i2.caption":"text","sheet.b0.i3.value":"3.9B+","sheet.b0.i3.caption":"images","sheet.b0.i4.caption":"ready-made datasets","sheet.b1.i0.term":"Training-ready organization","sheet.b1.i0.text":"For model training, data can be organized for pre-training, fine-tuning and evaluation, with source documentation. Whether a given source may be used for training is governed by that source's terms of use.","sheet.b1.i1.term":"Data quality","sheet.b1.i1.text":"Finished data is deduplicated and normalized into stable fields. Video is time-aligned with subtitles and transcripts, with subtitles in more than 100 languages. Pages collected ad hoc by URL retain their content as captured.","sheet.b1.i2.term":"Delivery pipeline","sheet.b1.i2.text":"Finished data is written to object storage, pulled by partition and supports incremental updates. Ad-hoc top-ups run through the API.","sheet.label":"Scale","domains.title":"Four categories in the existing catalog","domains.b0.i0.flag":"Products & reviews","domains.b0.i0.title":"E-commerce","domains.b0.i0.text":"Titles, prices, categories, sellers, inventory and reviews. Amazon, eBay and Walmart are ready.","domains.b0.i1.flag":"Conversations & media","domains.b0.i1.title":"Social","domains.b0.i1.text":"Posts, comments, views and engagement, plus subtitles aligned with video. Covers Facebook, Instagram, Reddit, TikTok, YouTube, and LinkedIn and X profiles.","domains.b0.i2.flag":"Queries & results","domains.b0.i2.title":"Search","domains.b0.i2.text":"Queries and result pages are returned as pairs, targetable by country or city. Engines include Google, Bing, Yandex and DuckDuckGo. Average response time is under 1 second.","domains.b0.i3.flag":"Vertical text","domains.b0.i3.title":"Companies & industries","domains.b0.i3.text":"Funding, revenue, founders and announcements, plus industry text in healthcare, law, recruiting and more. Stock prices and tick-level trade data are not provided.","domains.label":"Sources","fee.title":"Pay per request for incremental collection","fee.sub":"Full-dataset purchases are quoted separately","fee.b0.i0.unit":"/1K results","fee.b0.i0.title":"Popular sites","fee.b0.i0.note":"Trial pack: about 6,000 results","fee.b0.i1.unit":"/1K requests","fee.b0.i1.title":"Search","fee.b0.i1.note":"Trial pack: about 5,000 requests","fee.b0.i2.unit":"/1K requests","fee.b0.i2.title":"Any web page","fee.b0.i2.note":"Trial pack: about 3,300 requests","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"Video","fee.b0.i3.note":"Trial pack: about 10 GB, over 10,000 URLs per batch","fee.b1.text":"Undelivered requests are not billed. Each method offers a {cny:50}, 7-day trial pack. The search service targets 99.9% availability.","fee.b2.text":"USD prices are converted from CNY at the exchange rate of {date} and are for reference only. The billing currency is specified in the contract.","fee.label":"Per-request pricing","bounds.title":"Three items to confirm before contracting","bounds.b0.i0.term":"Not collected","bounds.b0.i0.text":"Data behind logins, paywalls or other access controls, and internal organizational data, unless the data controller grants authorization; market data such as stock prices, tick-level trades and exchange announcements; data originating from mainland China. Data that may contain personal information is de-identified before delivery, limited to what is necessary.","bounds.b0.i1.term":"Quality checks","bounds.b0.i1.text":"Data quality is reviewed weekly during the delivery period. Issues are corrected on the agreed schedule.","bounds.b0.i2.term":"Response & SLA","bounds.b0.i2.text":"Reachable 24/7, with first response within 15 minutes. Availability and concurrency can be written into the contract.","bounds.label":"Scope & support","start.title":"Scope first, then delivery","start.b0.i0.title":"Submit requirements","start.b0.i0.text":"Provide a brief listing targets, field schema and delivery needs","start.b0.i1.title":"Assessment & sample","start.b0.i1.text":"Once assessed, a sample is provided to verify fields and format against the agreement","start.b0.i2.title":"Delivery as agreed","start.b0.i2.text":"Delivered in the agreed format and cadence, with incremental runs for ongoing updates","start.b1.text":"View scope & support","start.label":"Process"},"ja":{"site.title":"カスタムデータ収集","nav.custom":"カスタマイズ","nav.sheet":"規模","nav.domains":"ソース","nav.fee":"従量課金","nav.bounds":"範囲とサポート","nav.start":"導入の流れ","site.mark":"カスタムデータ収集","hero.eyebrow":"製品資料","hero.title":"要件に合わせたデータ収集","hero.statement":"収集対象、フィールド構成、納品方法、更新頻度は、すべてご要件の仕様に基づいて決定します","custom.title":"カタログ内のソースは即時に利用可能","custom.sub":"カタログ外は要件に応じて個別に案件化","custom.b0.i0.term":"指定できる範囲","custom.b0.i0.text":"対象サイトまたは URL、フィールド、言語、地域、期間、解像度、字幕言語","custom.b0.i1.term":"指定できる納品形態","custom.b0.i1.text":"表形式、API、オブジェクトストレージに対応し、一括納品、都度の追加収集、合意に基づく差分更新から選択可能","custom.b0.i2.term":"評価期間","custom.b0.i2.text":"フィールド、サイト、納品方法が既存カタログを超える場合、約 48 時間で評価結果を回答","custom.b0.i3.term":"対象","custom.b0.i3.text":"モデル学習、業務モニタリング、研究用データ取得を含め、カスタム収集のニーズがあるあらゆるチーム","custom.label":"カスタマイズ","sheet.title":"保有データの規模","sheet.b0.i0.value":"2,000億+","sheet.b0.i0.caption":"マルチモーダルレコード","sheet.b0.i1.value":"1,700億+","sheet.b0.i1.caption":"音声・動画","sheet.b0.i2.value":"百億規模","sheet.b0.i2.caption":"テキスト","sheet.b0.i3.value":"39億+","sheet.b0.i3.caption":"画像","sheet.b0.i4.caption":"既製データセット","sheet.b1.i0.term":"学習段階別の構成にも対応","sheet.b1.i0.text":"モデル学習に用いる場合は、事前学習、ファインチューニング、評価の各段階に合わせて構成し、出所に関する説明を添付します。特定のソースを学習に使用できるかどうかは、当該ソースの利用規約に従います。","sheet.b1.i1.term":"データ品質","sheet.b1.i1.text":"既製データは重複を除去し、安定したフィールドに整理しています。動画は字幕・文字起こしと時間同期しており、字幕は 100 以上の言語に対応します。URL 指定で臨時に収集したページは、取得時の内容をそのまま保持します。","sheet.b1.i2.term":"納品経路","sheet.b1.i2.text":"既製データはオブジェクトストレージに書き込まれ、パーティション単位で取得でき、差分更新に対応します。臨時の追加収集は API で行います。","sheet.label":"規模","domains.title":"既存カタログは 4 分野をカバー","domains.b0.i0.flag":"商品とレビュー","domains.b0.i0.title":"EC","domains.b0.i0.text":"タイトル、価格、カテゴリ、販売者、在庫、レビュー。Amazon、eBay、Walmart に対応済みです。","domains.b0.i1.flag":"会話と音声・動画","domains.b0.i1.title":"ソーシャル","domains.b0.i1.text":"投稿、コメント、再生数とエンゲージメント、映像と同期した字幕。Facebook、Instagram、Reddit、TikTok、YouTube、および LinkedIn と X のプロフィールに対応します。","domains.b0.i2.flag":"クエリと結果","domains.b0.i2.title":"検索","domains.b0.i2.text":"クエリと結果ページをペアで返し、国や都市単位で指定できます。対応エンジンは Google、Bing、Yandex、DuckDuckGo です。平均応答時間は 1 秒未満です。","domains.b0.i3.flag":"業界テキスト","domains.b0.i3.title":"企業と業界","domains.b0.i3.text":"資金調達、売上、創業者、発表に加え、医療、法律、採用などの業界テキスト。株価およびティック単位の約定データは提供しません。","domains.label":"ソース","fee.title":"差分収集はリクエスト単位で課金","fee.sub":"データセットの一括購入は別途お見積り","fee.b0.i0.unit":"/1,000件","fee.b0.i0.title":"人気サイト","fee.b0.i0.note":"お試しパック 約 6,000 件","fee.b0.i1.unit":"/1,000回","fee.b0.i1.title":"検索","fee.b0.i1.note":"お試しパック 約 5,000 回","fee.b0.i2.unit":"/1,000回","fee.b0.i2.title":"任意のウェブページ","fee.b0.i2.note":"お試しパック 約 3,300 回","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"動画","fee.b0.i3.note":"お試しパック 約 10 GB、1 回あたり 1 万件以上の URL を送信可能","fee.b1.text":"未納品のリクエストには課金しません。各方式とも {cny:50}・7 日間のお試しパックをご用意しています。検索サービスの可用性目標は 99.9% です。","fee.b2.text":"円建て価格は{date}の為替レートで人民元から換算した参考値です。決済通貨は契約で定めます。","fee.label":"従量課金","bounds.title":"契約前に確認すべき 3 項目","bounds.b0.i0.term":"収集対象外","bounds.b0.i0.text":"ログイン、有料、またはアクセス制限のあるデータ、および組織内部のデータ（データ管理者による個別の許諾がある場合を除く）。株価、ティック単位の約定、取引所の開示などの証券市場データ。中国国内を発信元とするデータ。個人情報を含む可能性のあるデータは、納品前に必要な範囲で非識別化処理を行います。","bounds.b0.i1.term":"品質点検","bounds.b0.i1.text":"納品期間中は毎週データ品質を点検します。不備は合意した周期で修正します。","bounds.b0.i2.term":"応答と SLA","bounds.b0.i2.text":"24 時間 365 日対応し、初回応答は 15 分以内です。可用性と同時実行数は契約に明記できます。","bounds.label":"範囲とサポート","start.title":"範囲を定めてから納品へ","start.b0.i0.title":"要件の提出","start.b0.i0.text":"収集対象、フィールド構成、納品要件を記した要件書を提出","start.b0.i1.title":"評価とサンプル","start.b0.i1.text":"評価完了後にサンプルを提供し、フィールドと形式が合意どおりか確認","start.b0.i2.title":"合意どおりに納品","start.b0.i2.text":"合意した形式と周期で納品し、継続更新は差分で実行","start.b1.text":"範囲とサポートを見る","start.label":"導入の流れ"},"ko":{"site.title":"맞춤형 데이터 수집","nav.custom":"맞춤 설정","nav.sheet":"규모","nav.domains":"소스","nav.fee":"건별 요금","nav.bounds":"범위와 지원","nav.start":"진행 절차","site.mark":"맞춤형 데이터 수집","hero.eyebrow":"제품 소개서","hero.title":"요구 사항에 맞춘 데이터 수집","hero.statement":"수집 대상, 필드 구조, 전달 방식, 업데이트 주기는 모두 고객의 사양에 따라 정합니다","custom.title":"카탈로그 내 소스는 바로 호출 가능","custom.sub":"카탈로그 밖의 요구는 별도 프로젝트로 진행","custom.b0.i0.term":"지정 가능한 범위","custom.b0.i0.text":"대상 사이트 또는 URL, 필드, 언어, 지역, 기간, 해상도, 자막 언어","custom.b0.i1.term":"지정 가능한 전달 방식","custom.b0.i1.text":"표, API 또는 객체 스토리지로 제공하며 일회성 전달, 건별 추가 수집, 약정에 따른 증분 업데이트 중 선택 가능","custom.b0.i2.term":"검토 기간","custom.b0.i2.text":"필드, 사이트 또는 전달 방식이 기존 카탈로그를 벗어나는 경우 약 48시간 내 검토 결과 회신","custom.b0.i3.term":"대상","custom.b0.i3.text":"모델 학습, 비즈니스 모니터링, 연구용 데이터 확보를 포함해 맞춤 수집이 필요한 모든 팀","custom.label":"맞춤 설정","sheet.title":"보유 데이터 규모","sheet.b0.i0.value":"2,000억+","sheet.b0.i0.caption":"멀티모달 레코드","sheet.b0.i1.value":"1,700억+","sheet.b0.i1.caption":"오디오·비디오","sheet.b0.i2.value":"100억 규모","sheet.b0.i2.caption":"텍스트","sheet.b0.i3.value":"39억+","sheet.b0.i3.caption":"이미지","sheet.b0.i4.caption":"기성 데이터셋","sheet.b1.i0.term":"학습 단계별 구성 가능","sheet.b1.i0.text":"모델 학습에 사용하는 경우 사전 학습, 파인튜닝, 평가 단계에 맞춰 구성하고 출처 설명을 첨부합니다. 특정 소스를 학습에 사용할 수 있는지는 해당 소스의 이용 약관에 따릅니다.","sheet.b1.i1.term":"데이터 정제 수준","sheet.b1.i1.text":"기성 데이터는 중복을 제거하고 안정된 필드로 정리합니다. 영상은 자막·전사본과 시간 동기화되어 있으며, 자막은 100개 이상의 언어를 지원합니다. URL로 임시 수집한 페이지는 수집 시점의 내용을 그대로 보존합니다.","sheet.b1.i2.term":"전달 경로","sheet.b1.i2.text":"기성 데이터는 객체 스토리지에 기록되어 파티션 단위로 가져갈 수 있으며 증분 업데이트를 지원합니다. 임시 추가 수집은 API로 진행합니다.","sheet.label":"규모","domains.title":"기존 카탈로그는 네 가지 분야를 포괄","domains.b0.i0.flag":"상품과 리뷰","domains.b0.i0.title":"이커머스","domains.b0.i0.text":"제목, 가격, 카테고리, 판매자, 재고, 리뷰. Amazon, eBay, Walmart가 준비되어 있습니다.","domains.b0.i1.flag":"대화와 오디오·비디오","domains.b0.i1.title":"소셜","domains.b0.i1.text":"게시물, 댓글, 조회수와 참여 지표, 그리고 영상과 동기화된 자막. Facebook, Instagram, Reddit, TikTok, YouTube와 LinkedIn, X의 프로필을 포함합니다.","domains.b0.i2.flag":"검색어와 결과","domains.b0.i2.title":"검색","domains.b0.i2.text":"검색어와 결과 페이지를 쌍으로 반환하며 국가 또는 도시 단위로 지정할 수 있습니다. Google, Bing, Yandex, DuckDuckGo를 지원합니다. 평균 응답 시간은 1초 미만입니다.","domains.b0.i3.flag":"산업 텍스트","domains.b0.i3.title":"기업과 산업","domains.b0.i3.text":"투자 유치, 매출, 창업자, 공시와 함께 의료, 법률, 채용 등 산업 텍스트. 주가 및 체결 단위 거래 데이터는 제공하지 않습니다.","domains.label":"소스","fee.title":"증분 수집은 건별 과금","fee.sub":"데이터셋 일괄 구매는 별도 견적","fee.b0.i0.unit":"/1,000건","fee.b0.i0.title":"인기 사이트","fee.b0.i0.note":"체험 패키지 약 6,000건","fee.b0.i1.unit":"/1,000회","fee.b0.i1.title":"검색","fee.b0.i1.note":"체험 패키지 약 5,000회","fee.b0.i2.unit":"/1,000회","fee.b0.i2.title":"모든 웹 페이지","fee.b0.i2.note":"체험 패키지 약 3,300회","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"비디오","fee.b0.i3.note":"체험 패키지 약 10 GB, 배치당 URL 1만 개 이상 제출 가능","fee.b1.text":"전달되지 않은 요청은 과금하지 않습니다. 모든 방식에 {cny:50}, 7일 체험 패키지를 제공합니다. 검색 서비스의 가용성 목표는 99.9%입니다.","fee.b2.text":"원화 가격은 {date} 환율로 위안화에서 환산한 참고 금액입니다. 결제 통화는 계약에서 정합니다.","fee.label":"건별 요금","bounds.title":"계약 전 확인할 세 가지","bounds.b0.i0.term":"수집하지 않는 범위","bounds.b0.i0.text":"로그인, 유료 또는 접근 제한이 있는 데이터와 조직 내부 데이터(데이터 관리자가 별도로 승인한 경우 제외), 주가·체결 내역·거래소 공시 등 증권 시세 데이터, 중국 본토 출처의 데이터. 개인정보가 포함될 수 있는 데이터는 전달 전에 필요한 범위 내에서 비식별 처리합니다.","bounds.b0.i1.term":"품질 점검","bounds.b0.i1.text":"전달 기간 중 매주 데이터 품질을 점검합니다. 문제 항목은 약정한 주기에 따라 수정합니다.","bounds.b0.i2.term":"응답과 SLA","bounds.b0.i2.text":"연중무휴 24시간 연락 가능하며 최초 응답은 15분 이내입니다. 가용성과 동시 처리량은 계약서에 명시할 수 있습니다.","bounds.label":"범위와 지원","start.title":"범위를 먼저 정하고 전달","start.b0.i0.title":"요구 사항 제출","start.b0.i0.text":"수집 대상, 필드 구조, 전달 요건을 담은 요구 사항 문서 제출","start.b0.i1.title":"검토와 샘플","start.b0.i1.text":"검토 후 샘플을 제공하여 필드와 형식이 약정과 일치하는지 확인","start.b0.i2.title":"약정에 따른 전달","start.b0.i2.text":"약정한 형식과 주기로 전달하며 지속 업데이트는 증분으로 진행","start.b1.text":"범위와 지원 보기","start.label":"진행 절차"},"es":{"site.title":"Recopilación de datos a medida","nav.custom":"Personalización","nav.sheet":"Escala","nav.domains":"Fuentes","nav.fee":"Precio por solicitud","nav.bounds":"Alcance y soporte","nav.start":"Proceso","site.mark":"Recopilación de datos a medida","hero.eyebrow":"Ficha de producto","hero.title":"Recopilación de datos según sus especificaciones","hero.statement":"Los objetivos, el esquema de campos, el método de entrega y la frecuencia de actualización se definen según sus requisitos","custom.title":"Las fuentes del catálogo están listas para usar","custom.sub":"Lo que queda fuera del catálogo se plantea como un proyecto específico","custom.b0.i0.term":"Qué puede especificar","custom.b0.i0.text":"Sitios o URL de destino, campos, idiomas, regiones, rangos de fechas, resolución de vídeo e idiomas de subtítulos","custom.b0.i1.term":"Opciones de entrega","custom.b0.i1.text":"Tablas, API o almacenamiento de objetos, con entrega única, recopilaciones puntuales o actualizaciones incrementales programadas","custom.b0.i2.term":"Plazo de evaluación","custom.b0.i2.text":"Los requisitos que exceden el catálogo se evalúan en unas 48 horas","custom.b0.i3.term":"A quién va dirigido","custom.b0.i3.text":"Cualquier equipo con necesidades de recopilación a medida, incluidos entrenamiento de modelos, monitorización de negocio e investigación","custom.label":"Personalización","sheet.title":"Datos disponibles","sheet.b0.i0.value":"200 mil M+","sheet.b0.i0.caption":"registros multimodales","sheet.b0.i1.value":"170 mil M+","sheet.b0.i1.caption":"audio y vídeo","sheet.b0.i2.value":"~10 mil M","sheet.b0.i2.caption":"texto","sheet.b0.i3.value":"3900 M+","sheet.b0.i3.caption":"imágenes","sheet.b0.i4.caption":"conjuntos de datos listos","sheet.b1.i0.term":"Organización por fase de entrenamiento","sheet.b1.i0.text":"Para el entrenamiento de modelos, los datos pueden organizarse para preentrenamiento, ajuste fino y evaluación, con documentación de origen. Que una fuente pueda utilizarse para entrenamiento depende de sus condiciones de uso.","sheet.b1.i1.term":"Calidad de los datos","sheet.b1.i1.text":"Los datos terminados se deduplican y se normalizan en campos estables. El vídeo está alineado temporalmente con subtítulos y transcripciones, con subtítulos en más de 100 idiomas. Las páginas recopiladas de forma puntual por URL conservan el contenido tal como se capturó.","sheet.b1.i2.term":"Canal de entrega","sheet.b1.i2.text":"Los datos terminados se escriben en almacenamiento de objetos, se descargan por particiones y admiten actualizaciones incrementales. Las recopilaciones puntuales se realizan mediante la API.","sheet.label":"Escala","domains.title":"El catálogo actual cubre cuatro categorías","domains.b0.i0.flag":"Productos y reseñas","domains.b0.i0.title":"Comercio electrónico","domains.b0.i0.text":"Títulos, precios, categorías, vendedores, inventario y reseñas. Amazon, eBay y Walmart están disponibles.","domains.b0.i1.flag":"Conversaciones y multimedia","domains.b0.i1.title":"Redes sociales","domains.b0.i1.text":"Publicaciones, comentarios, reproducciones e interacción, además de subtítulos alineados con el vídeo. Incluye Facebook, Instagram, Reddit, TikTok, YouTube y perfiles de LinkedIn y X.","domains.b0.i2.flag":"Consultas y resultados","domains.b0.i2.title":"Búsqueda","domains.b0.i2.text":"Las consultas y las páginas de resultados se devuelven por pares, con segmentación por país o ciudad. Motores: Google, Bing, Yandex y DuckDuckGo. Tiempo medio de respuesta inferior a 1 segundo.","domains.b0.i3.flag":"Texto sectorial","domains.b0.i3.title":"Empresas y sectores","domains.b0.i3.text":"Financiación, ingresos, fundadores y comunicados, además de textos sectoriales de salud, derecho, contratación y otros ámbitos. No se proporcionan cotizaciones bursátiles ni datos de operaciones a nivel de tick.","domains.label":"Fuentes","fee.title":"Recopilación incremental con pago por solicitud","fee.sub":"Las compras de conjuntos completos se cotizan aparte","fee.b0.i0.unit":"/1000 resultados","fee.b0.i0.title":"Sitios populares","fee.b0.i0.note":"Paquete de prueba: unos 6000 resultados","fee.b0.i1.unit":"/1000 solicitudes","fee.b0.i1.title":"Búsqueda","fee.b0.i1.note":"Paquete de prueba: unas 5000 solicitudes","fee.b0.i2.unit":"/1000 solicitudes","fee.b0.i2.title":"Cualquier página web","fee.b0.i2.note":"Paquete de prueba: unas 3300 solicitudes","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"Vídeo","fee.b0.i3.note":"Paquete de prueba: unos 10 GB, más de 10 000 URL por lote","fee.b1.text":"Las solicitudes no entregadas no se facturan. Cada método ofrece un paquete de prueba de {cny:50} durante 7 días. El servicio de búsqueda tiene un objetivo de disponibilidad del 99,9 %.","fee.b2.text":"Los precios en euros se han convertido desde CNY con el tipo de cambio del {date} y son orientativos. La moneda de facturación se fija en el contrato.","fee.label":"Precio por solicitud","bounds.title":"Tres aspectos que confirmar antes de contratar","bounds.b0.i0.term":"No se recopila","bounds.b0.i0.text":"Datos tras inicio de sesión, de pago o con acceso restringido, y datos internos de organizaciones, salvo autorización del responsable de los datos; datos de mercado como cotizaciones, operaciones a nivel de tick y avisos bursátiles; datos con origen en China continental. Los datos que puedan contener información personal se desidentifican antes de la entrega, en la medida necesaria.","bounds.b0.i1.term":"Control de calidad","bounds.b0.i1.text":"La calidad de los datos se revisa semanalmente durante el periodo de entrega. Las incidencias se corrigen según el calendario acordado.","bounds.b0.i2.term":"Respuesta y SLA","bounds.b0.i2.text":"Disponible 24/7, con primera respuesta en un máximo de 15 minutos. La disponibilidad y la concurrencia pueden incluirse en el contrato.","bounds.label":"Alcance y soporte","start.title":"Primero el alcance, después la entrega","start.b0.i0.title":"Presentar requisitos","start.b0.i0.text":"Envíe una descripción con los objetivos, el esquema de campos y los requisitos de entrega","start.b0.i1.title":"Evaluación y muestra","start.b0.i1.text":"Tras la evaluación se entrega una muestra para verificar campos y formato frente a lo acordado","start.b0.i2.title":"Entrega según lo acordado","start.b0.i2.text":"Entrega en el formato y la frecuencia acordados, con ejecuciones incrementales para actualizaciones continuas","start.b1.text":"Ver alcance y soporte","start.label":"Proceso"},"fr":{"site.title":"Collecte de données sur mesure","nav.custom":"Personnalisation","nav.sheet":"Volume","nav.domains":"Sources","nav.fee":"Tarif à la requête","nav.bounds":"Périmètre et assistance","nav.start":"Processus","site.mark":"Collecte de données sur mesure","hero.eyebrow":"Fiche produit","hero.title":"Une collecte de données conforme à vos spécifications","hero.statement":"Cibles, schéma des champs, mode de livraison et fréquence de mise à jour sont définis selon vos besoins","custom.title":"Les sources du catalogue sont prêtes à l'emploi","custom.sub":"Les besoins hors catalogue font l'objet d'un projet dédié","custom.b0.i0.term":"Ce que vous pouvez préciser","custom.b0.i0.text":"Sites ou URL cibles, champs, langues, régions, périodes, résolution vidéo et langues des sous-titres","custom.b0.i1.term":"Modes de livraison","custom.b0.i1.text":"Tableaux, API ou stockage objet, en livraison unique, en collectes ponctuelles ou en mises à jour incrémentielles planifiées","custom.b0.i2.term":"Délai d'évaluation","custom.b0.i2.text":"Les besoins dépassant le catalogue sont évalués sous 48 heures environ","custom.b0.i3.term":"Public concerné","custom.b0.i3.text":"Toute équipe ayant un besoin de collecte sur mesure, y compris l'entraînement de modèles, le suivi d'activité et la recherche","custom.label":"Personnalisation","sheet.title":"Données déjà disponibles","sheet.b0.i0.value":"200 Md+","sheet.b0.i0.caption":"enregistrements multimodaux","sheet.b0.i1.value":"170 Md+","sheet.b0.i1.caption":"audio et vidéo","sheet.b0.i2.value":"~10 Md","sheet.b0.i2.caption":"texte","sheet.b0.i3.value":"3,9 Md+","sheet.b0.i3.caption":"images","sheet.b0.i4.caption":"jeux de données prêts à l'emploi","sheet.b1.i0.term":"Organisation par phase d'entraînement","sheet.b1.i0.text":"Pour l'entraînement de modèles, les données peuvent être organisées pour le pré-entraînement, l'ajustement fin et l'évaluation, avec une documentation des sources. L'usage d'une source pour l'entraînement dépend de ses conditions d'utilisation.","sheet.b1.i1.term":"Qualité des données","sheet.b1.i1.text":"Les données finalisées sont dédupliquées et normalisées en champs stables. La vidéo est synchronisée avec les sous-titres et les transcriptions, disponibles en plus de 100 langues. Les pages collectées ponctuellement par URL conservent leur contenu tel que capturé.","sheet.b1.i2.term":"Chaîne de livraison","sheet.b1.i2.text":"Les données finalisées sont écrites dans un stockage objet, récupérées par partition et prennent en charge les mises à jour incrémentielles. Les collectes ponctuelles passent par l'API.","sheet.label":"Volume","domains.title":"Le catalogue actuel couvre quatre catégories","domains.b0.i0.flag":"Produits et avis","domains.b0.i0.title":"E-commerce","domains.b0.i0.text":"Titres, prix, catégories, vendeurs, stocks et avis. Amazon, eBay et Walmart sont disponibles.","domains.b0.i1.flag":"Conversations et médias","domains.b0.i1.title":"Réseaux sociaux","domains.b0.i1.text":"Publications, commentaires, vues et interactions, ainsi que des sous-titres synchronisés avec la vidéo. Couvre Facebook, Instagram, Reddit, TikTok, YouTube et les profils LinkedIn et X.","domains.b0.i2.flag":"Requêtes et résultats","domains.b0.i2.title":"Recherche","domains.b0.i2.text":"Les requêtes et les pages de résultats sont renvoyées par paires, avec ciblage par pays ou par ville. Moteurs : Google, Bing, Yandex et DuckDuckGo. Temps de réponse moyen inférieur à 1 seconde.","domains.b0.i3.flag":"Textes sectoriels","domains.b0.i3.title":"Entreprises et secteurs","domains.b0.i3.text":"Levées de fonds, chiffre d'affaires, fondateurs et annonces, ainsi que des textes sectoriels en santé, droit, recrutement et autres domaines. Les cours boursiers et les données de transactions au tick ne sont pas fournis.","domains.label":"Sources","fee.title":"Collecte incrémentielle facturée à la requête","fee.sub":"L'achat de jeux de données complets fait l'objet d'un devis distinct","fee.b0.i0.unit":"/1000 résultats","fee.b0.i0.title":"Sites populaires","fee.b0.i0.note":"Pack d'essai : environ 6000 résultats","fee.b0.i1.unit":"/1000 requêtes","fee.b0.i1.title":"Recherche","fee.b0.i1.note":"Pack d'essai : environ 5000 requêtes","fee.b0.i2.unit":"/1000 requêtes","fee.b0.i2.title":"Toute page web","fee.b0.i2.note":"Pack d'essai : environ 3300 requêtes","fee.b0.i3.unit":"/Go","fee.b0.i3.title":"Vidéo","fee.b0.i3.note":"Pack d'essai : environ 10 Go, plus de 10 000 URL par lot","fee.b1.text":"Les requêtes non livrées ne sont pas facturées. Chaque mode propose un pack d'essai de {cny:50} valable 7 jours. Le service de recherche vise une disponibilité de 99,9 %.","fee.b2.text":"Les prix en euros sont convertis depuis le CNY au taux du {date}, à titre indicatif. La devise de facturation est fixée au contrat.","fee.label":"Tarif à la requête","bounds.title":"Trois points à valider avant contractualisation","bounds.b0.i0.term":"Non collecté","bounds.b0.i0.text":"Données soumises à connexion, payantes ou à accès restreint, et données internes d'organisations, sauf autorisation du responsable des données ; données de marché telles que cours boursiers, transactions au tick et annonces boursières ; données provenant de Chine continentale. Les données susceptibles de contenir des informations personnelles sont désidentifiées avant livraison, dans la limite du nécessaire.","bounds.b0.i1.term":"Contrôle qualité","bounds.b0.i1.text":"La qualité des données est vérifiée chaque semaine pendant la période de livraison. Les anomalies sont corrigées selon le calendrier convenu.","bounds.b0.i2.term":"Réactivité et SLA","bounds.b0.i2.text":"Joignable 24 h/24 et 7 j/7, avec une première réponse sous 15 minutes. La disponibilité et la concurrence peuvent être inscrites au contrat.","bounds.label":"Périmètre et assistance","start.title":"D'abord le périmètre, ensuite la livraison","start.b0.i0.title":"Exprimer le besoin","start.b0.i0.text":"Transmettre un cahier des charges précisant les cibles, le schéma des champs et les exigences de livraison","start.b0.i1.title":"Évaluation et échantillon","start.b0.i1.text":"Après évaluation, un échantillon est fourni pour vérifier champs et format au regard de l'accord","start.b0.i2.title":"Livraison conforme","start.b0.i2.text":"Livraison au format et à la fréquence convenus, avec des exécutions incrémentielles pour les mises à jour continues","start.b1.text":"Voir le périmètre et l'assistance","start.label":"Processus"},"de":{"site.title":"Individuelle Datenerhebung","nav.custom":"Individualisierung","nav.sheet":"Umfang","nav.domains":"Quellen","nav.fee":"Preis pro Anfrage","nav.bounds":"Rahmen & Support","nav.start":"Ablauf","site.mark":"Individuelle Datenerhebung","hero.eyebrow":"Produktdatenblatt","hero.title":"Datenerhebung nach Ihren Vorgaben","hero.statement":"Erhebungsziele, Feldschema, Lieferweg und Aktualisierungsrhythmus richten sich nach Ihren Anforderungen","custom.title":"Katalogquellen sind sofort abrufbar","custom.sub":"Alles außerhalb des Katalogs wird als eigenes Projekt umgesetzt","custom.b0.i0.term":"Festlegbarer Umfang","custom.b0.i0.text":"Zielseiten oder URLs, Felder, Sprachen, Regionen, Zeiträume, Videoauflösung und Untertitelsprachen","custom.b0.i1.term":"Lieferoptionen","custom.b0.i1.text":"Tabellen, API oder Objektspeicher, als Einmallieferung, als Nacherhebung bei Bedarf oder als vereinbarte inkrementelle Aktualisierung","custom.b0.i2.term":"Prüfdauer","custom.b0.i2.text":"Anforderungen außerhalb des bestehenden Katalogs werden in etwa 48 Stunden bewertet","custom.b0.i3.term":"Zielgruppe","custom.b0.i3.text":"Jedes Team mit individuellem Erhebungsbedarf, einschließlich Modelltraining, Geschäftsmonitoring und Forschung","custom.label":"Individualisierung","sheet.title":"Vorhandener Datenbestand","sheet.b0.i0.value":"200 Mrd.+","sheet.b0.i0.caption":"multimodale Einträge","sheet.b0.i1.value":"170 Mrd.+","sheet.b0.i1.caption":"Audio & Video","sheet.b0.i2.value":"~10 Mrd.","sheet.b0.i2.caption":"Text","sheet.b0.i3.value":"3,9 Mrd.+","sheet.b0.i3.caption":"Bilder","sheet.b0.i4.caption":"fertige Datensätze","sheet.b1.i0.term":"Gliederung nach Trainingsphase","sheet.b1.i0.text":"Für das Modelltraining lassen sich die Daten nach Pre-Training, Fine-Tuning und Evaluation gliedern, mit Herkunftsdokumentation. Ob eine Quelle für das Training genutzt werden darf, richtet sich nach deren Nutzungsbedingungen.","sheet.b1.i1.term":"Datenqualität","sheet.b1.i1.text":"Fertige Daten werden dedupliziert und in stabile Felder überführt. Videos sind zeitlich mit Untertiteln und Transkripten synchronisiert; Untertitel liegen in über 100 Sprachen vor. Ad hoc per URL erhobene Seiten behalten den Inhalt zum Erhebungszeitpunkt.","sheet.b1.i2.term":"Lieferkette","sheet.b1.i2.text":"Fertige Daten werden in Objektspeicher geschrieben, partitionsweise abgerufen und unterstützen inkrementelle Aktualisierungen. Nacherhebungen laufen über die API.","sheet.label":"Umfang","domains.title":"Der bestehende Katalog umfasst vier Kategorien","domains.b0.i0.flag":"Produkte & Bewertungen","domains.b0.i0.title":"E-Commerce","domains.b0.i0.text":"Titel, Preise, Kategorien, Händler, Lagerbestand und Bewertungen. Amazon, eBay und Walmart sind verfügbar.","domains.b0.i1.flag":"Gespräche & Medien","domains.b0.i1.title":"Social Media","domains.b0.i1.text":"Beiträge, Kommentare, Aufrufe und Interaktionen sowie mit dem Video synchronisierte Untertitel. Umfasst Facebook, Instagram, Reddit, TikTok, YouTube sowie Profile auf LinkedIn und X.","domains.b0.i2.flag":"Suchanfragen & Ergebnisse","domains.b0.i2.title":"Suche","domains.b0.i2.text":"Suchanfragen und Ergebnisseiten werden paarweise geliefert, wahlweise nach Land oder Stadt. Unterstützte Suchmaschinen: Google, Bing, Yandex und DuckDuckGo. Die durchschnittliche Antwortzeit liegt unter 1 Sekunde.","domains.b0.i3.flag":"Branchentexte","domains.b0.i3.title":"Unternehmen & Branchen","domains.b0.i3.text":"Finanzierung, Umsatz, Gründer und Mitteilungen sowie Branchentexte aus Gesundheitswesen, Recht, Personalwesen und weiteren Bereichen. Aktienkurse und Transaktionsdaten auf Tick-Ebene werden nicht bereitgestellt.","domains.label":"Quellen","fee.title":"Inkrementelle Erhebung, abgerechnet pro Anfrage","fee.sub":"Komplette Datensätze werden gesondert angeboten","fee.b0.i0.unit":"/1.000 Ergebnisse","fee.b0.i0.title":"Beliebte Websites","fee.b0.i0.note":"Testpaket: ca. 6.000 Ergebnisse","fee.b0.i1.unit":"/1.000 Anfragen","fee.b0.i1.title":"Suche","fee.b0.i1.note":"Testpaket: ca. 5.000 Anfragen","fee.b0.i2.unit":"/1.000 Anfragen","fee.b0.i2.title":"Beliebige Webseite","fee.b0.i2.note":"Testpaket: ca. 3.300 Anfragen","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"Video","fee.b0.i3.note":"Testpaket: ca. 10 GB, über 10.000 URLs pro Batch","fee.b1.text":"Nicht gelieferte Anfragen werden nicht berechnet. Für jede Methode gibt es ein Testpaket für {cny:50} mit 7 Tagen Laufzeit. Der Suchdienst ist auf 99,9 % Verfügbarkeit ausgelegt.","fee.b2.text":"Die Euro-Preise wurden zum Wechselkurs vom {date} aus CNY umgerechnet und dienen zur Orientierung. Die Abrechnungswährung wird im Vertrag festgelegt.","fee.label":"Preis pro Anfrage","bounds.title":"Drei Punkte vor Vertragsabschluss","bounds.b0.i0.term":"Nicht erhoben","bounds.b0.i0.text":"Daten hinter Logins, Bezahlschranken oder sonstigen Zugangsbeschränkungen sowie interne Unternehmensdaten, sofern der Verantwortliche nicht ausdrücklich zustimmt; Marktdaten wie Aktienkurse, Tick-Transaktionen und Börsenmitteilungen; Daten mit Ursprung in Festlandchina. Daten, die personenbezogene Informationen enthalten können, werden vor der Lieferung im erforderlichen Umfang de-identifiziert.","bounds.b0.i1.term":"Qualitätsprüfung","bounds.b0.i1.text":"Die Datenqualität wird während der Lieferphase wöchentlich geprüft. Mängel werden im vereinbarten Rhythmus behoben.","bounds.b0.i2.term":"Reaktionszeit & SLA","bounds.b0.i2.text":"Rund um die Uhr erreichbar, Erstreaktion innerhalb von 15 Minuten. Verfügbarkeit und Parallelität können vertraglich festgelegt werden.","bounds.label":"Rahmen & Support","start.title":"Erst den Umfang festlegen, dann liefern","start.b0.i0.title":"Anforderungen einreichen","start.b0.i0.text":"Anforderungsbeschreibung mit Erhebungszielen, Feldschema und Lieferanforderungen einreichen","start.b0.i1.title":"Prüfung & Muster","start.b0.i1.text":"Nach der Prüfung wird ein Muster bereitgestellt, um Felder und Format mit der Vereinbarung abzugleichen","start.b0.i2.title":"Lieferung wie vereinbart","start.b0.i2.text":"Lieferung in vereinbartem Format und Rhythmus, fortlaufende Aktualisierungen inkrementell","start.b1.text":"Rahmen & Support ansehen","start.label":"Ablauf"},"pt":{"site.title":"Coleta de dados sob medida","nav.custom":"Personalização","nav.sheet":"Escala","nav.domains":"Fontes","nav.fee":"Preço por requisição","nav.bounds":"Escopo e suporte","nav.start":"Processo","site.mark":"Coleta de dados sob medida","hero.eyebrow":"Ficha do produto","hero.title":"Coleta de dados conforme suas especificações","hero.statement":"Alvos, esquema de campos, forma de entrega e frequência de atualização são definidos de acordo com seus requisitos","custom.title":"As fontes do catálogo estão prontas para uso","custom.sub":"O que estiver fora do catálogo é tratado como projeto dedicado","custom.b0.i0.term":"O que pode ser especificado","custom.b0.i0.text":"Sites ou URLs de destino, campos, idiomas, regiões, períodos, resolução de vídeo e idiomas de legenda","custom.b0.i1.term":"Opções de entrega","custom.b0.i1.text":"Tabelas, API ou armazenamento de objetos, com entrega única, coletas avulsas ou atualizações incrementais programadas","custom.b0.i2.term":"Prazo de avaliação","custom.b0.i2.text":"Requisitos fora do catálogo existente são avaliados em cerca de 48 horas","custom.b0.i3.term":"Para quem","custom.b0.i3.text":"Qualquer equipe com necessidade de coleta sob medida, incluindo treinamento de modelos, monitoramento de negócios e pesquisa","custom.label":"Personalização","sheet.title":"Dados já disponíveis","sheet.b0.i0.value":"200 bi+","sheet.b0.i0.caption":"registros multimodais","sheet.b0.i1.value":"170 bi+","sheet.b0.i1.caption":"áudio e vídeo","sheet.b0.i2.value":"~10 bi","sheet.b0.i2.caption":"texto","sheet.b0.i3.value":"3,9 bi+","sheet.b0.i3.caption":"imagens","sheet.b0.i4.caption":"conjuntos de dados prontos","sheet.b1.i0.term":"Organização por fase de treinamento","sheet.b1.i0.text":"Para treinamento de modelos, os dados podem ser organizados para pré-treinamento, ajuste fino e avaliação, com documentação de origem. O uso de uma fonte para treinamento depende dos termos de uso dessa fonte.","sheet.b1.i1.term":"Qualidade dos dados","sheet.b1.i1.text":"Os dados finalizados são deduplicados e normalizados em campos estáveis. O vídeo é sincronizado com legendas e transcrições, com legendas em mais de 100 idiomas. Páginas coletadas avulsamente por URL mantêm o conteúdo do momento da coleta.","sheet.b1.i2.term":"Fluxo de entrega","sheet.b1.i2.text":"Os dados finalizados são gravados em armazenamento de objetos, obtidos por partição e suportam atualizações incrementais. Coletas avulsas são feitas pela API.","sheet.label":"Escala","domains.title":"O catálogo atual abrange quatro categorias","domains.b0.i0.flag":"Produtos e avaliações","domains.b0.i0.title":"E-commerce","domains.b0.i0.text":"Títulos, preços, categorias, vendedores, estoque e avaliações. Amazon, eBay e Walmart estão disponíveis.","domains.b0.i1.flag":"Conversas e mídia","domains.b0.i1.title":"Redes sociais","domains.b0.i1.text":"Publicações, comentários, visualizações e engajamento, além de legendas sincronizadas com o vídeo. Abrange Facebook, Instagram, Reddit, TikTok, YouTube e perfis do LinkedIn e do X.","domains.b0.i2.flag":"Consultas e resultados","domains.b0.i2.title":"Busca","domains.b0.i2.text":"Consultas e páginas de resultados são retornadas em pares, com segmentação por país ou cidade. Mecanismos: Google, Bing, Yandex e DuckDuckGo. Tempo médio de resposta inferior a 1 segundo.","domains.b0.i3.flag":"Textos setoriais","domains.b0.i3.title":"Empresas e setores","domains.b0.i3.text":"Captação de recursos, receita, fundadores e comunicados, além de textos setoriais de saúde, direito, recrutamento e outras áreas. Cotações de ações e dados de negociação em nível de tick não são fornecidos.","domains.label":"Fontes","fee.title":"Coleta incremental cobrada por requisição","fee.sub":"Compras de conjuntos completos são orçadas à parte","fee.b0.i0.unit":"/1.000 resultados","fee.b0.i0.title":"Sites populares","fee.b0.i0.note":"Pacote de teste: cerca de 6.000 resultados","fee.b0.i1.unit":"/1.000 requisições","fee.b0.i1.title":"Busca","fee.b0.i1.note":"Pacote de teste: cerca de 5.000 requisições","fee.b0.i2.unit":"/1.000 requisições","fee.b0.i2.title":"Qualquer página web","fee.b0.i2.note":"Pacote de teste: cerca de 3.300 requisições","fee.b0.i3.unit":"/GB","fee.b0.i3.title":"Vídeo","fee.b0.i3.note":"Pacote de teste: cerca de 10 GB, mais de 10.000 URLs por lote","fee.b1.text":"Requisições não entregues não são cobradas. Cada modalidade oferece um pacote de teste de {cny:50} por 7 dias. O serviço de busca tem meta de disponibilidade de 99,9%.","fee.b2.text":"Os preços em reais foram convertidos de CNY pela cotação de {date} e são apenas referenciais. A moeda de faturamento é definida em contrato.","fee.label":"Preço por requisição","bounds.title":"Três pontos a confirmar antes da contratação","bounds.b0.i0.term":"Não coletado","bounds.b0.i0.text":"Dados que exigem login, pagos ou com acesso restrito, e dados internos de organizações, salvo autorização do controlador dos dados; dados de mercado como cotações, negociações em nível de tick e comunicados de bolsa; dados originados na China continental. Dados que possam conter informações pessoais são desidentificados antes da entrega, na medida do necessário.","bounds.b0.i1.term":"Controle de qualidade","bounds.b0.i1.text":"A qualidade dos dados é verificada semanalmente durante o período de entrega. Problemas são corrigidos no prazo acordado.","bounds.b0.i2.term":"Atendimento e SLA","bounds.b0.i2.text":"Disponível 24 horas, 7 dias por semana, com primeira resposta em até 15 minutos. Disponibilidade e concorrência podem constar em contrato.","bounds.label":"Escopo e suporte","start.title":"Primeiro o escopo, depois a entrega","start.b0.i0.title":"Enviar requisitos","start.b0.i0.text":"Envie uma descrição com os alvos, o esquema de campos e os requisitos de entrega","start.b0.i1.title":"Avaliação e amostra","start.b0.i1.text":"Após a avaliação, é fornecida uma amostra para conferir campos e formato com o acordado","start.b0.i2.title":"Entrega conforme acordado","start.b0.i2.text":"Entrega no formato e na frequência acordados, com execuções incrementais para atualizações contínuas","start.b1.text":"Ver escopo e suporte","start.label":"Processo"},"ru":{"site.title":"Сбор данных под заказ","nav.custom":"Настройка","nav.sheet":"Объём","nav.domains":"Источники","nav.fee":"Оплата за запрос","nav.bounds":"Границы и поддержка","nav.start":"Порядок работы","site.mark":"Сбор данных под заказ","hero.eyebrow":"Описание продукта","hero.title":"Сбор данных по вашим требованиям","hero.statement":"Объекты сбора, структура полей, способ поставки и периодичность обновления определяются вашей спецификацией","custom.title":"Источники из каталога доступны сразу","custom.sub":"Всё, что вне каталога, оформляется отдельным проектом","custom.b0.i0.term":"Что можно задать","custom.b0.i0.text":"Целевые сайты или URL, поля, языки, регионы, временной диапазон, разрешение видео и языки субтитров","custom.b0.i1.term":"Варианты поставки","custom.b0.i1.text":"Таблицы, API или объектное хранилище: разовая поставка, дозапросы по мере необходимости или плановые инкрементальные обновления","custom.b0.i2.term":"Срок оценки","custom.b0.i2.text":"Требования за пределами каталога оцениваются примерно за 48 часов","custom.b0.i3.term":"Для кого","custom.b0.i3.text":"Для любых команд с потребностью в сборе данных под заказ, включая обучение моделей, бизнес-мониторинг и исследования","custom.label":"Настройка","sheet.title":"Имеющиеся данные","sheet.b0.i0.value":"200 млрд+","sheet.b0.i0.caption":"мультимодальных записей","sheet.b0.i1.value":"170 млрд+","sheet.b0.i1.caption":"аудио и видео","sheet.b0.i2.value":"~10 млрд","sheet.b0.i2.caption":"текст","sheet.b0.i3.value":"3,9 млрд+","sheet.b0.i3.caption":"изображения","sheet.b0.i4.caption":"готовых наборов данных","sheet.b1.i0.term":"Структура по этапам обучения","sheet.b1.i0.text":"Для обучения моделей данные можно организовать под предобучение, дообучение и оценку, с описанием источников. Возможность использовать источник для обучения определяется его условиями использования.","sheet.b1.i1.term":"Чистота данных","sheet.b1.i1.text":"Готовые данные очищены от дубликатов и приведены к стабильным полям. Видео синхронизировано с субтитрами и расшифровками; субтитры доступны более чем на 100 языках. Страницы, собранные разово по URL, сохраняют содержимое на момент сбора.","sheet.b1.i2.term":"Канал поставки","sheet.b1.i2.text":"Готовые данные записываются в объектное хранилище, выгружаются по разделам и поддерживают инкрементальные обновления. Разовые дозапросы выполняются через API.","sheet.label":"Объём","domains.title":"Текущий каталог охватывает четыре категории","domains.b0.i0.flag":"Товары и отзывы","domains.b0.i0.title":"Электронная коммерция","domains.b0.i0.text":"Названия, цены, категории, продавцы, остатки и отзывы. Amazon, eBay и Walmart уже доступны.","domains.b0.i1.flag":"Общение и медиа","domains.b0.i1.title":"Соцсети","domains.b0.i1.text":"Публикации, комментарии, просмотры и вовлечённость, а также субтитры, синхронизированные с видео. Охватывает Facebook, Instagram, Reddit, TikTok, YouTube, а также профили LinkedIn и X.","domains.b0.i2.flag":"Запросы и выдача","domains.b0.i2.title":"Поиск","domains.b0.i2.text":"Запросы и страницы выдачи возвращаются парами, с таргетингом по стране или городу. Поисковые системы: Google, Bing, Yandex и DuckDuckGo. Среднее время ответа — менее 1 секунды.","domains.b0.i3.flag":"Отраслевые тексты","domains.b0.i3.title":"Компании и отрасли","domains.b0.i3.text":"Финансирование, выручка, основатели и сообщения, а также отраслевые тексты по медицине, праву, найму и другим направлениям. Котировки акций и потиковые данные о сделках не предоставляются.","domains.label":"Источники","fee.title":"Инкрементальный сбор с оплатой за запрос","fee.sub":"Покупка полных наборов оценивается отдельно","fee.b0.i0.unit":"/1000 результатов","fee.b0.i0.title":"Популярные сайты","fee.b0.i0.note":"Пробный пакет: около 6000 результатов","fee.b0.i1.unit":"/1000 запросов","fee.b0.i1.title":"Поиск","fee.b0.i1.note":"Пробный пакет: около 5000 запросов","fee.b0.i2.unit":"/1000 запросов","fee.b0.i2.title":"Любая веб-страница","fee.b0.i2.note":"Пробный пакет: около 3300 запросов","fee.b0.i3.unit":"/ГБ","fee.b0.i3.title":"Видео","fee.b0.i3.note":"Пробный пакет: около 10 ГБ, более 10 000 URL за пакет","fee.b1.text":"Недоставленные запросы не оплачиваются. Для каждого способа доступен пробный пакет за {cny:50} на 7 дней. Целевая доступность поискового сервиса — 99,9 %.","fee.b2.text":"Цены в рублях пересчитаны из юаней по курсу на {date} и носят справочный характер. Валюта расчётов определяется договором.","fee.label":"Оплата за запрос","bounds.title":"Три пункта для согласования до заключения договора","bounds.b0.i0.term":"Не собирается","bounds.b0.i0.text":"Данные за авторизацией, платным доступом или иными ограничениями доступа, а также внутренние данные организаций, если владелец данных не дал отдельного разрешения; рыночные данные — котировки, потиковые сделки и биржевые сообщения; данные из источников в материковом Китае. Данные, которые могут содержать персональную информацию, перед поставкой обезличиваются в необходимом объёме.","bounds.b0.i1.term":"Контроль качества","bounds.b0.i1.text":"В период поставки качество данных проверяется еженедельно. Замечания устраняются в согласованные сроки.","bounds.b0.i2.term":"Отклик и SLA","bounds.b0.i2.text":"Связь 24/7, первый ответ — не позднее 15 минут. Доступность и параллельность можно закрепить в договоре.","bounds.label":"Границы и поддержка","start.title":"Сначала объём работ, затем поставка","start.b0.i0.title":"Требования","start.b0.i0.text":"Направьте описание с объектами сбора, структурой полей и требованиями к поставке","start.b0.i1.title":"Оценка и образец","start.b0.i1.text":"После оценки предоставляется образец для сверки полей и формата с договорённостью","start.b0.i2.title":"Поставка по договорённости","start.b0.i2.text":"Поставка в согласованном формате и с согласованной периодичностью, постоянные обновления — инкрементально","start.b1.text":"Границы и поддержка","start.label":"Порядок работы"}}};
 
   const nodes = document.querySelectorAll("[data-i18n]");
-  const base = { "meta.title": document.title };
-  nodes.forEach((n) => { base[n.dataset.i18n] = n.textContent; });
-  base["fee.lede"] = "未交付的请求不计费。各方式均提供 {trial}、7 天体验包。搜索服务可用性目标为 99.9%。";
-  base["fee.fx"] = "";
-  T["zh-CN"] = base;
-  ["p1", "p2", "p3", "p4"].forEach((p) => {
-    Object.values(T).forEach((dict) => { dict["fee." + p + ".amt"] = "{" + p + "}"; });
+  const amounts = document.querySelectorAll("[data-cny]");
+  const select = document.getElementById("lang");
+  const byCode = Object.fromEntries(DATA.langs.map((l) => [l.code, l]));
+  const fallback = DATA.langs[0].code;
+
+  DATA.langs.forEach((l) => {
+    const option = document.createElement("option");
+    option.value = l.code;
+    option.textContent = l.label;
+    select.appendChild(option);
   });
 
-  const money = (cny, lang) => {
-    const loc = LOCALE[lang] || LOCALE["zh-CN"];
-    if (loc.currency === "CNY") return cny === PRICES_CNY.trial ? cny + " 元" : "¥" + cny;
-    const digits = { USD: 2, EUR: 2, BRL: 2, TWD: 2, JPY: 0, KRW: 0, RUB: 0 }[loc.currency];
-    let value = cny * FX.rates[loc.currency];
+  const money = (cny, lang, inline) => {
+    const loc = byCode[lang] || byCode[fallback];
+    if (loc.currency === "CNY") return inline ? cny + " 元" : "¥" + cny;
+    const digits = { JPY: 0, KRW: 0, RUB: 0 }[loc.currency] ?? 2;
+    let value = cny * DATA.fx.rates[loc.currency];
     value = loc.currency === "KRW" ? Math.round(value / 10) * 10 : Math.round(value * 10 ** digits) / 10 ** digits;
-    return new Intl.NumberFormat(loc.numberLocale || loc.tag, {
+    return new Intl.NumberFormat(loc.number_locale || loc.locale, {
       style: "currency", currency: loc.currency, minimumFractionDigits: digits, maximumFractionDigits: digits
     }).format(value);
   };
 
   const fill = (text, lang) => {
-    const loc = LOCALE[lang] || LOCALE["zh-CN"];
-    const vars = { date: new Intl.DateTimeFormat(loc.tag, { year: "numeric", month: "long", day: "numeric" }).format(new Date(FX.date + "T12:00:00")) };
-    Object.keys(PRICES_CNY).forEach((k) => { vars[k] = money(PRICES_CNY[k], lang); });
-    return text.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+    const loc = byCode[lang] || byCode[fallback];
+    return text
+      .replace(/\{cny:([\d.]+)\}/g, (m, v) => money(Number(v), lang, true))
+      .replace(/\{date\}/g, () => new Intl.DateTimeFormat(loc.locale, { year: "numeric", month: "long", day: "numeric" })
+        .format(new Date(DATA.fx.date + "T12:00:00")));
   };
 
-  const select = document.getElementById("lang");
-  LANGS.forEach(([code, name]) => {
-    const option = document.createElement("option");
-    option.value = code;
-    option.textContent = name;
-    select.appendChild(option);
-  });
+  const apply = (lang) => {
+    const dict = DATA.dict[lang] || DATA.dict[fallback];
+    nodes.forEach((n) => {
+      const key = n.dataset.i18n;
+      const text = fill(dict[key] ?? DATA.dict[fallback][key], lang);
+      n.textContent = text;
+      if (n.classList.contains("fx")) n.hidden = !text;
+    });
+    amounts.forEach((n) => { n.textContent = money(Number(n.dataset.cny), lang, false); });
+    document.title = fill(dict["site.title"], lang);
+    document.documentElement.lang = byCode[lang].locale;
+    select.value = lang;
+  };
 
   const match = (code) => {
     if (!code) return null;
     const c = code.toLowerCase();
     if (c.startsWith("zh")) return /tw|hk|mo|hant/.test(c) ? "zh-TW" : "zh-CN";
     const primary = c.split("-")[0];
-    return T[primary] ? primary : null;
-  };
-
-  const apply = (lang) => {
-    const dict = T[lang] || base;
-    nodes.forEach((n) => {
-      const key = n.dataset.i18n;
-      const text = fill(dict[key] ?? base[key], lang);
-      n.textContent = text;
-      if (key === "fee.fx") n.hidden = !text;
-    });
-    document.title = dict["meta.title"] ?? base["meta.title"];
-    document.documentElement.lang = (LOCALE[lang] || LOCALE["zh-CN"]).tag;
-    select.value = lang;
+    return byCode[primary] ? primary : null;
   };
 
   let saved = null;
   try { saved = localStorage.getItem("lang"); } catch (e) {}
   const fromBrowser = (navigator.languages || [navigator.language]).map(match).find(Boolean);
-  const initial = match(new URLSearchParams(location.search).get("lang")) || match(saved) || fromBrowser || "zh-CN";
-  apply(initial);
-
-  fetch("https://raw.githubusercontent.com/DataLabsHub/DataLabsHub.github.io/rates/rates.json")
-    .then((r) => (r.ok ? r.json() : null))
-    .then((data) => {
-      const needed = Object.keys(FX.rates).filter((c) => c !== "CNY");
-      const valid = data && data.base === "CNY" && /^\d{4}-\d{2}-\d{2}$/.test(data.date) &&
-        needed.every((c) => Number(data.rates?.[c]) > 0);
-      if (!valid) return;
-      FX.date = data.date;
-      needed.forEach((c) => { FX.rates[c] = Number(data.rates[c]); });
-      apply(select.value);
-    })
-    .catch(() => {});
+  apply(match(new URLSearchParams(location.search).get("lang")) || match(saved) || fromBrowser || fallback);
 
   select.addEventListener("change", () => {
     apply(select.value);
@@ -1368,6 +618,19 @@
     url.searchParams.set("lang", select.value);
     history.replaceState(null, "", url);
   });
+
+  fetch(DATA.ratesUrl)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((data) => {
+      const needed = Object.keys(DATA.fx.rates).filter((c) => c !== "CNY");
+      const valid = data && data.base === "CNY" && /^\d{4}-\d{2}-\d{2}$/.test(data.date) &&
+        needed.every((c) => Number(data.rates?.[c]) > 0);
+      if (!valid) return;
+      DATA.fx.date = data.date;
+      needed.forEach((c) => { DATA.fx.rates[c] = Number(data.rates[c]); });
+      apply(select.value);
+    })
+    .catch(() => {});
 })();
 </script>
 </body>
