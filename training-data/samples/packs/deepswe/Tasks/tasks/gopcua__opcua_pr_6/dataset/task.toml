@@ -3,7 +3,7 @@ schema_version = "1.3"
 artifacts = ["/logs/artifacts/model.patch"]
 
 [task]
-name = "mindforge/gopcua__opcua_pr_6"
+name = "gopcua__opcua_pr_6"
 description = ""
 authors = []
 keywords = []

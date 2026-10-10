@@ -3,7 +3,7 @@ schema_version = "1.3"
 artifacts = ["/logs/artifacts/model.patch"]
 
 [task]
-name = "mindforge/demisto__content_pr_42070"
+name = "demisto__content_pr_42070"
 description = ""
 authors = []
 keywords = []

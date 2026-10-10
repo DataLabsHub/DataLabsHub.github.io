@@ -1,4 +1,4 @@
-# MindForge A100/H200/B200 AutoResearch
+# A100/H200/B200 AutoResearch
 
 This bundle contains 13 GPU kernel optimization tasks and their corresponding Codex optimization trajectories across NVIDIA A100, H200, and B200 GPUs.
 

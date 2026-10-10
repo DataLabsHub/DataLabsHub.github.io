@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
 
-os.environ["PATH"] = "/home/zhangjiayi/github/kernelfactory-runtime/a100-20260824/site/bin:" + os.environ.get("PATH", "")
+os.environ["PATH"] = "/home/user/github/kernelfactory-runtime/a100-20260824/site/bin:" + os.environ.get("PATH", "")
 os.environ["TORCH_CUDA_ARCH_LIST"] = "8.0"
 
 
