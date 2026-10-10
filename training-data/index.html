@@ -19,6 +19,7 @@
   <a href="#space">仿真与具身</a>
   <a href="#exam">公开基准</a>
   <a href="#pick">选型</a>
+  <label class="lang"><select id="lang" aria-label="Language"></select></label>
 </nav>
 <header class="hero" id="top">
   <p class="eyebrow">训练数据集 · 大模型后训练与评测</p>
@@ -480,6 +481,32 @@
     font-size: 18px;
     color: var(--ink);
   }
+  .lang { flex: none; margin-left: auto; }
+  .lang select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 6px 30px 6px 12px;
+    border: 1px solid rgba(28, 27, 25, .22);
+    border-radius: 8px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236f6d66' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 11px center;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .lang select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  html:lang(zh-TW) {
+    --sans: "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti TC", "PMingLiU", Georgia, serif;
+  }
+  html:lang(ja) {
+    --sans: "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  }
+  html:lang(ko) {
+    --sans: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "AppleMyungjo", "Batang", Georgia, serif;
+  }
   .hero {
     max-width: 1120px;
     margin: 0 auto;
@@ -699,7 +726,7 @@
     letter-spacing: .12em;
     color: var(--accent);
   }
-  dl::before { content: "规格"; grid-column: 1 / -1; margin: 0; }
+  dl::before { content: var(--spec-label, "规格"); grid-column: 1 / -1; margin: 0; }
   .bench > div {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -1043,7 +1070,7 @@
   .dv-pane img { max-width: 100%; border: 1px solid var(--dv-line); border-radius: 9px; }
   .dv-frame { width: 100%; height: 100%; min-height: 520px; border: 0; }
   .dv-note { margin: 0 0 12px; color: var(--dv-muted); font-family: var(--dv-mono); font-size: 12px; }
-  .dv-more {
+  .dv-omit {
     margin: 0 0 16px;
     padding: 14px 18px;
     border: 1px dashed var(--dv-line);
@@ -1052,8 +1079,8 @@
     line-height: 1.7;
     color: var(--dv-muted);
   }
-  .dv-more b { display: block; margin: 0 0 4px; font-size: 12px; letter-spacing: .08em; color: var(--dv-gold); }
-  .dv-more p { margin: 0; }
+  .dv-omit b { display: block; margin: 0 0 4px; font-size: 12px; letter-spacing: .08em; color: var(--dv-gold); }
+  .dv-omit p { margin: 0; }
   .dv-office h4 { margin: 14px 0 8px; font-size: 13px; color: var(--dv-gold); }
   .dv-office table { border-collapse: collapse; margin: 0 0 16px; font-family: var(--dv-mono); font-size: 11px; }
   .dv-office td { max-width: 300px; padding: 3px 6px; border: 1px solid var(--dv-line); vertical-align: top; }
@@ -1088,8 +1115,43 @@
     .chapter.dark, .hero, footer { background: #fff; color: #000; }
   }
 </style>
+<script src="i18n.js"></script>
 <script>
 (function () {
+  var LANGS = [
+    ["zh-CN", "简体中文"], ["zh-TW", "繁體中文（台灣）"], ["en", "English (US)"], ["ja", "日本語"], ["ko", "한국어"],
+    ["es", "Español"], ["fr", "Français"], ["de", "Deutsch"], ["pt", "Português (Brasil)"], ["ru", "Русский"]
+  ];
+  var LOCALE = {
+    "zh-CN": { tag: "zh-CN" },
+    "zh-TW": { tag: "zh-TW", numberLocale: "en-US" },
+    "en": { tag: "en-US" },
+    "ja": { tag: "ja-JP" },
+    "ko": { tag: "ko-KR" },
+    "es": { tag: "es-ES" },
+    "fr": { tag: "fr-FR" },
+    "de": { tag: "de-DE" },
+    "pt": { tag: "pt-BR" },
+    "ru": { tag: "ru-RU" }
+  };
+  var UNITS = {
+    fr: ["o", "Ko", "Mo", "Go"],
+    ru: ["Б", "КБ", "МБ", "ГБ"]
+  };
+  var I18N = window.I18N || {};
+  var lang = "zh-CN";
+  function t(src, vars) {
+    var dict = I18N[lang];
+    var out = (dict && dict[src]) || src;
+    if (vars) {
+      out = out.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; });
+    }
+    return out;
+  }
+  function numberTag() {
+    var loc = LOCALE[lang] || LOCALE["zh-CN"];
+    return loc.numberLocale || loc.tag;
+  }
   var CATALOG = "精选浏览";
   var LIST = "完整数据包";
   var LINKS = {
@@ -1152,12 +1214,14 @@
     return node;
   }
   function size(n) {
-    if (n >= 1e9) return (n / 1e9).toFixed(2) + " GB";
-    if (n >= 1e6) return (n / 1e6).toFixed(1) + " MB";
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + " KB";
-    return n + " B";
+    var units = UNITS[lang] || ["B", "KB", "MB", "GB"];
+    var step = n >= 1e9 ? 3 : n >= 1e6 ? 2 : n >= 1e3 ? 1 : 0;
+    var digits = step === 3 ? 2 : step ? 1 : 0;
+    var value = new Intl.NumberFormat(numberTag(), { minimumFractionDigits: digits, maximumFractionDigits: digits })
+      .format(n / Math.pow(1e3, step));
+    return value + "\u00a0" + units[step];
   }
-  function count(n) { return n.toLocaleString("en-US"); }
+  function count(n) { return new Intl.NumberFormat(numberTag()).format(n); }
   function extOf(name) {
     var i = name.lastIndexOf(".");
     return i < 0 ? "" : name.slice(i + 1).toLowerCase();
@@ -1209,7 +1273,7 @@
     }
     var groups = Object.keys(cur.dirs).sort(byName).map(function (k) { return cur.dirs[k]; });
     if (cur.files.length) {
-      var loose = treeNode("其他文件", cur.path);
+      var loose = treeNode(t("其他文件"), cur.path);
       loose.files = cur.files;
       loose.count = cur.files.length;
       loose.bytes = cur.files.reduce(function (sum, f) { return sum + f.size; }, 0);
@@ -1225,21 +1289,21 @@
   }
 
   function showHtml(src) {
-    stage.innerHTML = '<iframe title="样例" src="' + src + '"></iframe>';
+    stage.innerHTML = '<iframe title="' + esc(t("样例")) + '" src="' + src + '"></iframe>';
   }
 
   function showPack(key) {
-    stage.innerHTML = '<div class="dv"><div class="dv-main"><p class="dv-note">正在读取数据包目录…</p></div></div>';
+    stage.innerHTML = '<div class="dv"><div class="dv-main"><p class="dv-note">' + esc(t("正在读取数据包目录…")) + "</p></div></div>";
     var main = stage.querySelector(".dv-main");
     loadManifest(key).then(function (m) {
       var grouped = groupsOf(makeTree(m.entries));
       main.innerHTML = "";
       if (m.omitted && m.omitted.length) {
-        var more = el("div", "dv-more");
-        more.innerHTML = "<b>完整数据包另含</b>" + m.omitted.map(function (line) {
-          return "<p>" + esc(line) + "</p>";
+        var omit = el("div", "dv-omit");
+        omit.innerHTML = "<b>" + esc(t("完整数据包另含")) + "</b>" + m.omitted.map(function (item) {
+          return "<p>" + esc(omittedText(item)) + "</p>";
         }).join("");
-        main.appendChild(more);
+        main.appendChild(omit);
       }
       grouped.groups.forEach(function (group) {
         var fold = el("details", "dv-fold");
@@ -1253,7 +1317,7 @@
         main.appendChild(fold);
       });
     }).catch(function () {
-      main.innerHTML = '<p class="dv-note">无法读取数据包目录，请刷新后重试</p>';
+      main.innerHTML = '<p class="dv-note">' + esc(t("无法读取数据包目录，请刷新后重试")) + "</p>";
     });
   }
 
@@ -1261,9 +1325,9 @@
     var card = el("div", "dv-card");
     card.innerHTML = '<div class="dv-head"><span class="dv-mono">' + esc(group.name) +
       '</span><span class="dv-caption">Delivery package</span></div>' +
-      '<div class="dv-grid"><div class="dv-tree"><div class="dv-find"><input class="dv-search" type="search" placeholder="搜索文件"></div>' +
+      '<div class="dv-grid"><div class="dv-tree"><div class="dv-find"><input class="dv-search" type="search" placeholder="' + esc(t("搜索文件")) + '"></div>' +
       '<div class="dv-tree-body"></div><div class="dv-hits" hidden></div></div>' +
-      '<div class="dv-previews"><div class="dv-label"><span class="path">选择左侧文件</span></div><div class="dv-pane"></div></div></div>';
+      '<div class="dv-previews"><div class="dv-label"><span class="path">' + esc(t("选择左侧文件")) + '</span></div><div class="dv-pane"></div></div></div>';
     fold.appendChild(card);
     var treeBody = card.querySelector(".dv-tree-body");
     var hits = card.querySelector(".dv-hits");
@@ -1336,8 +1400,8 @@
         if (!q) { hits.hidden = true; treeBody.hidden = false; return; }
         flat = flat || allFiles(group);
         var found = flat.filter(function (f) { return f.path.toLowerCase().indexOf(q) >= 0; });
-        hits.innerHTML = '<div class="dv-hits-note">匹配 ' + count(found.length) + " 个文件" +
-          (found.length > 500 ? "，显示前 500 个" : "") + "</div>";
+        hits.innerHTML = '<div class="dv-hits-note">' + esc(t("匹配 {n} 个文件", { n: count(found.length) }) +
+          (found.length > 500 ? t("，显示前 {n} 个", { n: count(500) }) : "")) + "</div>";
         found.slice(0, 500).forEach(function (file) {
           var row = el("div", "dv-row");
           var rel = group.path ? file.path.slice(group.path.length + 1) : file.path;
@@ -1373,7 +1437,7 @@
   function preview(key, file, label, pane, shown) {
     var ext = extOf(file.name);
     label.innerHTML = '<span class="path" data-path="' + esc(file.path) + '">' + esc(shown) + "</span><span>" + size(file.size) + "</span>";
-    pane.innerHTML = '<p class="dv-note">加载中…</p>';
+    pane.innerHTML = '<p class="dv-note">' + esc(t("加载中…")) + "</p>";
     if (IMAGE.test(ext)) {
       pane.innerHTML = '<img alt="" src="' + zipUrl(key, file.path, "raw") + '">';
       return;
@@ -1389,7 +1453,7 @@
       return;
     }
     if (BINARY.test(ext)) {
-      pane.innerHTML = '<p class="dv-note">二进制文件（' + size(file.size) + "），不提供在线预览</p>";
+      pane.innerHTML = '<p class="dv-note">' + esc(t("二进制文件（{size}），不提供在线预览", { size: size(file.size) })) + "</p>";
       return;
     }
     loadText(key, file, pane, ext === "jsonl" ? 4000000 : 1000000);
@@ -1413,17 +1477,17 @@
         }
         pane.innerHTML = "";
         if (binary) {
-          pane.innerHTML = '<p class="dv-note">二进制文件（' + size(file.size) + "），不提供在线预览</p>";
+          pane.innerHTML = '<p class="dv-note">' + esc(t("二进制文件（{size}），不提供在线预览", { size: size(file.size) })) + "</p>";
           return;
         }
         if (truncated) {
           var note = el("p", "dv-note");
-          note.innerHTML = "文件共 " + size(file.size) + "，当前显示前 " + size(limit);
+          note.textContent = t("文件共 {size}，当前显示前 {limit}", { size: size(file.size), limit: size(limit) });
           var all = el("button");
           all.type = "button";
-          all.textContent = "加载全部";
+          all.textContent = t("加载全部");
           all.addEventListener("click", function () {
-            pane.innerHTML = '<p class="dv-note">加载中…</p>';
+            pane.innerHTML = '<p class="dv-note">' + esc(t("加载中…")) + "</p>";
             loadText(key, file, pane, 0);
           });
           note.appendChild(all);
@@ -1438,7 +1502,7 @@
         pane.appendChild(pre);
       });
     }).catch(function () {
-      pane.innerHTML = '<p class="dv-note">读取失败，请刷新后重试</p>';
+      pane.innerHTML = '<p class="dv-note">' + esc(t("读取失败，请刷新后重试")) + "</p>";
     });
   }
 
@@ -1509,7 +1573,7 @@
     }
     if (!items.length) return false;
     var note = el("p", "dv-note");
-    note.textContent = "共 " + count(items.length) + " 条记录" + (truncated ? "（文件未加载完）" : "") + "，点击单条展开完整内容";
+    note.textContent = t("共 {n} 条记录", { n: count(items.length) }) + (truncated ? t("（文件未加载完）") : "") + t("，点击单条展开完整内容");
     pane.appendChild(note);
     var list = el("ol", "dv-turns");
     pane.appendChild(list);
@@ -1522,7 +1586,7 @@
       for (var j = shown; j < end; j++) list.appendChild(turn(items[j], j));
       shown = end;
       more.hidden = shown >= items.length;
-      more.textContent = "继续显示（剩余 " + count(items.length - shown) + " 条）";
+      more.textContent = t("继续显示（剩余 {n} 条）", { n: count(items.length - shown) });
     }
     more.addEventListener("click", next);
     next();
@@ -1554,16 +1618,16 @@
 
   function openSample(id) {
     var spec = LINKS[id];
-    title.textContent = spec.title;
+    title.textContent = t(spec.title);
     tabs.innerHTML = "";
     var sources = spec.sources;
     tabs.hidden = sources.length < 2;
-    kicker.textContent = "样例";
+    kicker.textContent = t("样例");
     var buttons = [];
     sources.forEach(function (src, i) {
       var btn = el("button", i === 0 ? "on" : "");
       btn.type = "button";
-      btn.textContent = "类型 " + (i + 1);
+      btn.textContent = t("类型 {n}", { n: count(i + 1) });
       btn.addEventListener("click", function () {
         buttons.forEach(function (b) { b.className = ""; });
         btn.className = "on";
@@ -1588,6 +1652,92 @@
   });
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !viewer.hidden) closeViewer();
+  });
+
+  var OMIT = {
+    tasks: "其余 {n} 道任务及其全部模型轨迹：{names}",
+    cases: "其余 {n} 个普通案例：{names}",
+    multimodal: "其余 {n} 个多模态案例：{names}",
+    roadmaps: "其余 {n} 个改造任务：{names}",
+    domains: "其余 {n} 个领域任务：{names}",
+    desktop: "其余 {n} 道桌面任务：{names}"
+  };
+  function omittedText(item) {
+    if (typeof item === "string") return item;
+    var names = item.names.map(function (entry) {
+      return typeof entry === "string" ? entry : t("{name}（{app}）", { name: entry.name, app: entry.app ? entry.app : t("桌面软件") });
+    }).join(t("、"));
+    if (item.more) names = t("{names} 等", { names: names });
+    return t(OMIT[item.kind] || "{names}", { n: count(item.n), names: names });
+  }
+
+  var CJK = /[\u3400-\u9fff]/;
+  var TITLE = document.title;
+  var texts = [];
+  var attrs = [];
+  function collect() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        var parent = node.parentNode;
+        if (!parent || /^(SCRIPT|STYLE|OPTION)$/.test(parent.nodeName) || parent.closest("#viewer-stage")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return CJK.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    while (walker.nextNode()) {
+      var raw = walker.currentNode.nodeValue;
+      texts.push({
+        node: walker.currentNode,
+        key: raw.replace(/\s+/g, " ").trim(),
+        lead: raw.match(/^\s*/)[0],
+        trail: raw.match(/\s*$/)[0]
+      });
+    }
+    document.querySelectorAll("[placeholder], [aria-label], [title]").forEach(function (node) {
+      ["placeholder", "aria-label", "title"].forEach(function (name) {
+        var value = node.getAttribute(name);
+        if (value && CJK.test(value) && !node.closest("#viewer-stage")) attrs.push({ node: node, name: name, key: value.trim() });
+      });
+    });
+  }
+
+  var select = document.getElementById("lang");
+  function applyLang(code) {
+    lang = I18N[code] || code === "zh-CN" ? code : "zh-CN";
+    texts.forEach(function (entry) { entry.node.nodeValue = entry.lead + t(entry.key) + entry.trail; });
+    attrs.forEach(function (entry) { entry.node.setAttribute(entry.name, t(entry.key)); });
+    document.title = t(TITLE);
+    document.documentElement.lang = (LOCALE[lang] || LOCALE["zh-CN"]).tag;
+    document.documentElement.style.setProperty("--spec-label", JSON.stringify(t("规格")));
+    select.value = lang;
+  }
+  function match(code) {
+    if (!code) return null;
+    var c = String(code).toLowerCase();
+    if (c.indexOf("zh") === 0) return /tw|hk|mo|hant/.test(c) ? "zh-TW" : "zh-CN";
+    var primary = c.split("-")[0];
+    return LANGS.some(function (entry) { return entry[0] === primary; }) ? primary : null;
+  }
+
+  LANGS.forEach(function (entry) {
+    var option = document.createElement("option");
+    option.value = entry[0];
+    option.textContent = entry[1];
+    select.appendChild(option);
+  });
+  collect();
+  var saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var fromBrowser = (navigator.languages || [navigator.language]).map(match).filter(Boolean)[0];
+  applyLang(match(new URLSearchParams(location.search).get("lang")) || match(saved) || fromBrowser || "zh-CN");
+  select.addEventListener("change", function () {
+    applyLang(select.value);
+    try { localStorage.setItem("lang", select.value); } catch (e) {}
+    var url = new URL(location.href);
+    url.searchParams.set("lang", select.value);
+    history.replaceState(null, "", url);
+    if (!viewer.hidden) closeViewer();
   });
 })();
 </script>
