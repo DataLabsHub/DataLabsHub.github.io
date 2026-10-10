@@ -877,6 +877,7 @@
         </article>
       </div>
       <p class="lede" data-i18n="fee.lede">未交付的请求不计费。各方式均提供 50 元、7 天体验包。搜索服务可用性目标为 99.9%。</p>
+      <p class="aside fx" data-i18n="fee.fx"></p>
     </div>
   </section>
 
@@ -922,9 +923,29 @@
 <script>
 (() => {
   const LANGS = [
-    ["zh-CN", "简体中文"], ["zh-TW", "繁體中文"], ["en", "English"], ["ja", "日本語"], ["ko", "한국어"],
-    ["es", "Español"], ["fr", "Français"], ["de", "Deutsch"], ["pt", "Português"], ["ru", "Русский"]
+    ["zh-CN", "简体中文"], ["zh-TW", "繁體中文（台灣）"], ["en", "English (US)"], ["ja", "日本語"], ["ko", "한국어"],
+    ["es", "Español (España)"], ["fr", "Français (France)"], ["de", "Deutsch"], ["pt", "Português (Brasil)"], ["ru", "Русский"]
   ];
+
+  const LOCALE = {
+    "zh-CN": { tag: "zh-CN", currency: "CNY" },
+    "zh-TW": { tag: "zh-TW", currency: "TWD", numberLocale: "en-US" },
+    "en": { tag: "en-US", currency: "USD" },
+    "ja": { tag: "ja-JP", currency: "JPY" },
+    "ko": { tag: "ko-KR", currency: "KRW" },
+    "es": { tag: "es-ES", currency: "EUR" },
+    "fr": { tag: "fr-FR", currency: "EUR" },
+    "de": { tag: "de-DE", currency: "EUR" },
+    "pt": { tag: "pt-BR", currency: "BRL" },
+    "ru": { tag: "ru-RU", currency: "RUB" }
+  };
+
+  const FX = {
+    date: "2026-10-10",
+    rates: { CNY: 1, TWD: 4.764173, USD: 0.149111, JPY: 23.611984, KRW: 200.160128, EUR: 0.133157, BRL: 0.748559, RUB: 12.690355 }
+  };
+
+  const PRICES_CNY = { p1: 8, p2: 1, p3: 15, p4: 4.8, trial: 50 };
 
   const T = {
     "zh-TW": {
@@ -947,13 +968,13 @@
       "src.search.flag": "查詢與結果", "src.search.title": "搜尋", "src.search.text": "查詢詞與結果頁成對回傳，可依國家或城市定位。引擎包含 Google、Bing、Yandex、DuckDuckGo。平均回應時間低於 1 秒。",
       "src.corp.flag": "垂直文本", "src.corp.title": "公司與產業", "src.corp.text": "募資、營收、創辦人、公告，以及醫療、法律、招聘等產業文本。不提供股價與逐筆成交資料。",
       "fee.label": "按次計費", "fee.title": "增量補蒐，按次計價", "fee.sub": "整庫採購另議",
-      "fee.p1.amt": "CN¥8", "fee.p1.unit": "/千筆", "fee.p1.title": "熱門網站", "fee.p1.note": "體驗包約 6,000 筆",
-      "fee.p2.amt": "CN¥1", "fee.p2.unit": "/千次", "fee.p2.title": "搜尋", "fee.p2.note": "體驗包約 5,000 次",
-      "fee.p3.amt": "CN¥15", "fee.p3.unit": "/千次", "fee.p3.title": "任意網頁", "fee.p3.note": "體驗包約 3,300 次",
-      "fee.p4.amt": "CN¥4.8", "fee.p4.unit": "/GB", "fee.p4.title": "影片", "fee.p4.note": "體驗包約 10 GB，單批可提交一萬個以上網址",
-      "fee.lede": "未交付的請求不計費。各方式均提供人民幣 50 元、7 天體驗包。搜尋服務可用性目標為 99.9%。",
+      "fee.p1.unit": "/千筆", "fee.p1.title": "熱門網站", "fee.p1.note": "體驗包約 6,000 筆",
+      "fee.p2.unit": "/千次", "fee.p2.title": "搜尋", "fee.p2.note": "體驗包約 5,000 次",
+      "fee.p3.unit": "/千次", "fee.p3.title": "任意網頁", "fee.p3.note": "體驗包約 3,300 次",
+      "fee.p4.unit": "/GB", "fee.p4.title": "影片", "fee.p4.note": "體驗包約 10 GB，單批可提交一萬個以上網址",
+      "fee.lede": "未交付的請求不計費。各方式均提供 {trial}、7 天體驗包。搜尋服務可用性目標為 99.9%。", "fee.fx": "新台幣價格依{date}匯率由人民幣換算，僅供參考。結算幣別以合約約定為準。",
       "bounds.label": "範圍與支援", "bounds.title": "簽約前需確認的三項",
-      "bounds.excl.k": "不蒐集的範圍", "bounds.excl.v": "需登入、付費或設有存取限制的資料，以及組織內部資料，資料控制者另行授權者除外；證券行情類資料，如股價、逐筆成交與交易所公告；中國境內來源的資料。含個人資料者，交付前進行去識別化處理，處理範圍以必要為限。",
+      "bounds.excl.k": "不蒐集的範圍", "bounds.excl.v": "需登入、付費或設有存取限制的資料，以及組織內部資料，資料控制者另行授權者除外；證券行情類資料，如股價、逐筆成交與交易所公告；中國大陸來源的資料。含個人資料者，交付前進行去識別化處理，處理範圍以必要為限。",
       "bounds.qa.k": "品質巡檢", "bounds.qa.v": "交付期間每週檢查一次資料品質。問題項依約定週期修正。",
       "bounds.sla.k": "回應與 SLA", "bounds.sla.v": "7×24 可聯繫，首次回應不超過 15 分鐘。可用性與並行量可寫入合約。",
       "proc.label": "客製流程", "proc.title": "先定範圍，再交付",
@@ -983,11 +1004,11 @@
       "src.search.flag": "Queries & results", "src.search.title": "Search", "src.search.text": "Queries and result pages are returned as pairs, targetable by country or city. Engines include Google, Bing, Yandex and DuckDuckGo. Average response time is under 1 second.",
       "src.corp.flag": "Vertical text", "src.corp.title": "Companies & industries", "src.corp.text": "Funding, revenue, founders and announcements, plus industry text in healthcare, law, recruiting and more. Stock prices and tick-level trade data are not provided.",
       "fee.label": "Per-request pricing", "fee.title": "Pay per request for incremental collection", "fee.sub": "Full-dataset purchases are quoted separately",
-      "fee.p1.amt": "CN¥8", "fee.p1.unit": "/1K results", "fee.p1.title": "Popular sites", "fee.p1.note": "Trial pack: about 6,000 results",
-      "fee.p2.amt": "CN¥1", "fee.p2.unit": "/1K requests", "fee.p2.title": "Search", "fee.p2.note": "Trial pack: about 5,000 requests",
-      "fee.p3.amt": "CN¥15", "fee.p3.unit": "/1K requests", "fee.p3.title": "Any web page", "fee.p3.note": "Trial pack: about 3,300 requests",
-      "fee.p4.amt": "CN¥4.8", "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Trial pack: about 10 GB, over 10,000 URLs per batch",
-      "fee.lede": "Undelivered requests are not billed. Each method offers a CN¥50, 7-day trial pack. The search service targets 99.9% availability.",
+      "fee.p1.unit": "/1K results", "fee.p1.title": "Popular sites", "fee.p1.note": "Trial pack: about 6,000 results",
+      "fee.p2.unit": "/1K requests", "fee.p2.title": "Search", "fee.p2.note": "Trial pack: about 5,000 requests",
+      "fee.p3.unit": "/1K requests", "fee.p3.title": "Any web page", "fee.p3.note": "Trial pack: about 3,300 requests",
+      "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Trial pack: about 10 GB, over 10,000 URLs per batch",
+      "fee.lede": "Undelivered requests are not billed. Each method offers a {trial}, 7-day trial pack. The search service targets 99.9% availability.", "fee.fx": "USD prices are converted from CNY at the exchange rate of {date} and are for reference only. The billing currency is specified in the contract.",
       "bounds.label": "Scope & support", "bounds.title": "Three items to confirm before contracting",
       "bounds.excl.k": "Not collected", "bounds.excl.v": "Data behind logins, paywalls or other access controls, and internal organizational data, unless the data controller grants authorization; market data such as stock prices, tick-level trades and exchange announcements; data originating from mainland China. Data that may contain personal information is de-identified before delivery, limited to what is necessary.",
       "bounds.qa.k": "Quality checks", "bounds.qa.v": "Data quality is reviewed weekly during the delivery period. Issues are corrected on the agreed schedule.",
@@ -1019,11 +1040,11 @@
       "src.search.flag": "クエリと結果", "src.search.title": "検索", "src.search.text": "クエリと結果ページをペアで返し、国や都市単位で指定できます。対応エンジンは Google、Bing、Yandex、DuckDuckGo です。平均応答時間は 1 秒未満です。",
       "src.corp.flag": "業界テキスト", "src.corp.title": "企業と業界", "src.corp.text": "資金調達、売上、創業者、発表に加え、医療、法律、採用などの業界テキスト。株価およびティック単位の約定データは提供しません。",
       "fee.label": "従量課金", "fee.title": "差分収集はリクエスト単位で課金", "fee.sub": "データセットの一括購入は別途お見積り",
-      "fee.p1.amt": "CN¥8", "fee.p1.unit": "/1,000件", "fee.p1.title": "人気サイト", "fee.p1.note": "お試しパック 約 6,000 件",
-      "fee.p2.amt": "CN¥1", "fee.p2.unit": "/1,000回", "fee.p2.title": "検索", "fee.p2.note": "お試しパック 約 5,000 回",
-      "fee.p3.amt": "CN¥15", "fee.p3.unit": "/1,000回", "fee.p3.title": "任意のウェブページ", "fee.p3.note": "お試しパック 約 3,300 回",
-      "fee.p4.amt": "CN¥4.8", "fee.p4.unit": "/GB", "fee.p4.title": "動画", "fee.p4.note": "お試しパック 約 10 GB、1 回あたり 1 万件以上の URL を送信可能",
-      "fee.lede": "未納品のリクエストには課金しません。各方式とも CN¥50・7 日間のお試しパックをご用意しています。検索サービスの可用性目標は 99.9% です。",
+      "fee.p1.unit": "/1,000件", "fee.p1.title": "人気サイト", "fee.p1.note": "お試しパック 約 6,000 件",
+      "fee.p2.unit": "/1,000回", "fee.p2.title": "検索", "fee.p2.note": "お試しパック 約 5,000 回",
+      "fee.p3.unit": "/1,000回", "fee.p3.title": "任意のウェブページ", "fee.p3.note": "お試しパック 約 3,300 回",
+      "fee.p4.unit": "/GB", "fee.p4.title": "動画", "fee.p4.note": "お試しパック 約 10 GB、1 回あたり 1 万件以上の URL を送信可能",
+      "fee.lede": "未納品のリクエストには課金しません。各方式とも {trial}・7 日間のお試しパックをご用意しています。検索サービスの可用性目標は 99.9% です。", "fee.fx": "円建て価格は{date}の為替レートで人民元から換算した参考値です。決済通貨は契約で定めます。",
       "bounds.label": "範囲とサポート", "bounds.title": "契約前に確認すべき 3 項目",
       "bounds.excl.k": "収集対象外", "bounds.excl.v": "ログイン、有料、またはアクセス制限のあるデータ、および組織内部のデータ（データ管理者による個別の許諾がある場合を除く）。株価、ティック単位の約定、取引所の開示などの証券市場データ。中国国内を発信元とするデータ。個人情報を含む可能性のあるデータは、納品前に必要な範囲で非識別化処理を行います。",
       "bounds.qa.k": "品質点検", "bounds.qa.v": "納品期間中は毎週データ品質を点検します。不備は合意した周期で修正します。",
@@ -1055,11 +1076,11 @@
       "src.search.flag": "검색어와 결과", "src.search.title": "검색", "src.search.text": "검색어와 결과 페이지를 쌍으로 반환하며 국가 또는 도시 단위로 지정할 수 있습니다. Google, Bing, Yandex, DuckDuckGo를 지원합니다. 평균 응답 시간은 1초 미만입니다.",
       "src.corp.flag": "산업 텍스트", "src.corp.title": "기업과 산업", "src.corp.text": "투자 유치, 매출, 창업자, 공시와 함께 의료, 법률, 채용 등 산업 텍스트. 주가 및 체결 단위 거래 데이터는 제공하지 않습니다.",
       "fee.label": "건별 요금", "fee.title": "증분 수집은 건별 과금", "fee.sub": "데이터셋 일괄 구매는 별도 견적",
-      "fee.p1.amt": "CN¥8", "fee.p1.unit": "/1,000건", "fee.p1.title": "인기 사이트", "fee.p1.note": "체험 패키지 약 6,000건",
-      "fee.p2.amt": "CN¥1", "fee.p2.unit": "/1,000회", "fee.p2.title": "검색", "fee.p2.note": "체험 패키지 약 5,000회",
-      "fee.p3.amt": "CN¥15", "fee.p3.unit": "/1,000회", "fee.p3.title": "모든 웹 페이지", "fee.p3.note": "체험 패키지 약 3,300회",
-      "fee.p4.amt": "CN¥4.8", "fee.p4.unit": "/GB", "fee.p4.title": "비디오", "fee.p4.note": "체험 패키지 약 10 GB, 배치당 URL 1만 개 이상 제출 가능",
-      "fee.lede": "전달되지 않은 요청은 과금하지 않습니다. 모든 방식에 CN¥50, 7일 체험 패키지를 제공합니다. 검색 서비스의 가용성 목표는 99.9%입니다.",
+      "fee.p1.unit": "/1,000건", "fee.p1.title": "인기 사이트", "fee.p1.note": "체험 패키지 약 6,000건",
+      "fee.p2.unit": "/1,000회", "fee.p2.title": "검색", "fee.p2.note": "체험 패키지 약 5,000회",
+      "fee.p3.unit": "/1,000회", "fee.p3.title": "모든 웹 페이지", "fee.p3.note": "체험 패키지 약 3,300회",
+      "fee.p4.unit": "/GB", "fee.p4.title": "비디오", "fee.p4.note": "체험 패키지 약 10 GB, 배치당 URL 1만 개 이상 제출 가능",
+      "fee.lede": "전달되지 않은 요청은 과금하지 않습니다. 모든 방식에 {trial}, 7일 체험 패키지를 제공합니다. 검색 서비스의 가용성 목표는 99.9%입니다.", "fee.fx": "원화 가격은 {date} 환율로 위안화에서 환산한 참고 금액입니다. 결제 통화는 계약에서 정합니다.",
       "bounds.label": "범위와 지원", "bounds.title": "계약 전 확인할 세 가지",
       "bounds.excl.k": "수집하지 않는 범위", "bounds.excl.v": "로그인, 유료 또는 접근 제한이 있는 데이터와 조직 내부 데이터(데이터 관리자가 별도로 승인한 경우 제외), 주가·체결 내역·거래소 공시 등 증권 시세 데이터, 중국 본토 출처의 데이터. 개인정보가 포함될 수 있는 데이터는 전달 전에 필요한 범위 내에서 비식별 처리합니다.",
       "bounds.qa.k": "품질 점검", "bounds.qa.v": "전달 기간 중 매주 데이터 품질을 점검합니다. 문제 항목은 약정한 주기에 따라 수정합니다.",
@@ -1091,11 +1112,11 @@
       "src.search.flag": "Consultas y resultados", "src.search.title": "Búsqueda", "src.search.text": "Las consultas y las páginas de resultados se devuelven por pares, con segmentación por país o ciudad. Motores: Google, Bing, Yandex y DuckDuckGo. Tiempo medio de respuesta inferior a 1 segundo.",
       "src.corp.flag": "Texto sectorial", "src.corp.title": "Empresas y sectores", "src.corp.text": "Financiación, ingresos, fundadores y comunicados, además de textos sectoriales de salud, derecho, contratación y otros ámbitos. No se proporcionan cotizaciones bursátiles ni datos de operaciones a nivel de tick.",
       "fee.label": "Precio por solicitud", "fee.title": "Recopilación incremental con pago por solicitud", "fee.sub": "Las compras de conjuntos completos se cotizan aparte",
-      "fee.p1.amt": "CN¥8", "fee.p1.unit": "/1000 resultados", "fee.p1.title": "Sitios populares", "fee.p1.note": "Paquete de prueba: unos 6000 resultados",
-      "fee.p2.amt": "CN¥1", "fee.p2.unit": "/1000 solicitudes", "fee.p2.title": "Búsqueda", "fee.p2.note": "Paquete de prueba: unas 5000 solicitudes",
-      "fee.p3.amt": "CN¥15", "fee.p3.unit": "/1000 solicitudes", "fee.p3.title": "Cualquier página web", "fee.p3.note": "Paquete de prueba: unas 3300 solicitudes",
-      "fee.p4.amt": "CN¥4,8", "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Paquete de prueba: unos 10 GB, más de 10 000 URL por lote",
-      "fee.lede": "Las solicitudes no entregadas no se facturan. Cada método ofrece un paquete de prueba de CN¥50 durante 7 días. El servicio de búsqueda tiene un objetivo de disponibilidad del 99,9 %.",
+      "fee.p1.unit": "/1000 resultados", "fee.p1.title": "Sitios populares", "fee.p1.note": "Paquete de prueba: unos 6000 resultados",
+      "fee.p2.unit": "/1000 solicitudes", "fee.p2.title": "Búsqueda", "fee.p2.note": "Paquete de prueba: unas 5000 solicitudes",
+      "fee.p3.unit": "/1000 solicitudes", "fee.p3.title": "Cualquier página web", "fee.p3.note": "Paquete de prueba: unas 3300 solicitudes",
+      "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Paquete de prueba: unos 10 GB, más de 10 000 URL por lote",
+      "fee.lede": "Las solicitudes no entregadas no se facturan. Cada método ofrece un paquete de prueba de {trial} durante 7 días. El servicio de búsqueda tiene un objetivo de disponibilidad del 99,9 %.", "fee.fx": "Los precios en euros se han convertido desde CNY con el tipo de cambio del {date} y son orientativos. La moneda de facturación se fija en el contrato.",
       "bounds.label": "Alcance y soporte", "bounds.title": "Tres aspectos que confirmar antes de contratar",
       "bounds.excl.k": "No se recopila", "bounds.excl.v": "Datos tras inicio de sesión, de pago o con acceso restringido, y datos internos de organizaciones, salvo autorización del responsable de los datos; datos de mercado como cotizaciones, operaciones a nivel de tick y avisos bursátiles; datos con origen en China continental. Los datos que puedan contener información personal se desidentifican antes de la entrega, en la medida necesaria.",
       "bounds.qa.k": "Control de calidad", "bounds.qa.v": "La calidad de los datos se revisa semanalmente durante el periodo de entrega. Las incidencias se corrigen según el calendario acordado.",
@@ -1127,11 +1148,11 @@
       "src.search.flag": "Requêtes et résultats", "src.search.title": "Recherche", "src.search.text": "Les requêtes et les pages de résultats sont renvoyées par paires, avec ciblage par pays ou par ville. Moteurs : Google, Bing, Yandex et DuckDuckGo. Temps de réponse moyen inférieur à 1 seconde.",
       "src.corp.flag": "Textes sectoriels", "src.corp.title": "Entreprises et secteurs", "src.corp.text": "Levées de fonds, chiffre d'affaires, fondateurs et annonces, ainsi que des textes sectoriels en santé, droit, recrutement et autres domaines. Les cours boursiers et les données de transactions au tick ne sont pas fournis.",
       "fee.label": "Tarif à la requête", "fee.title": "Collecte incrémentielle facturée à la requête", "fee.sub": "L'achat de jeux de données complets fait l'objet d'un devis distinct",
-      "fee.p1.amt": "8 CN¥", "fee.p1.unit": "/1000 résultats", "fee.p1.title": "Sites populaires", "fee.p1.note": "Pack d'essai : environ 6000 résultats",
-      "fee.p2.amt": "1 CN¥", "fee.p2.unit": "/1000 requêtes", "fee.p2.title": "Recherche", "fee.p2.note": "Pack d'essai : environ 5000 requêtes",
-      "fee.p3.amt": "15 CN¥", "fee.p3.unit": "/1000 requêtes", "fee.p3.title": "Toute page web", "fee.p3.note": "Pack d'essai : environ 3300 requêtes",
-      "fee.p4.amt": "4,8 CN¥", "fee.p4.unit": "/Go", "fee.p4.title": "Vidéo", "fee.p4.note": "Pack d'essai : environ 10 Go, plus de 10 000 URL par lot",
-      "fee.lede": "Les requêtes non livrées ne sont pas facturées. Chaque mode propose un pack d'essai de 50 CN¥ valable 7 jours. Le service de recherche vise une disponibilité de 99,9 %.",
+      "fee.p1.unit": "/1000 résultats", "fee.p1.title": "Sites populaires", "fee.p1.note": "Pack d'essai : environ 6000 résultats",
+      "fee.p2.unit": "/1000 requêtes", "fee.p2.title": "Recherche", "fee.p2.note": "Pack d'essai : environ 5000 requêtes",
+      "fee.p3.unit": "/1000 requêtes", "fee.p3.title": "Toute page web", "fee.p3.note": "Pack d'essai : environ 3300 requêtes",
+      "fee.p4.unit": "/Go", "fee.p4.title": "Vidéo", "fee.p4.note": "Pack d'essai : environ 10 Go, plus de 10 000 URL par lot",
+      "fee.lede": "Les requêtes non livrées ne sont pas facturées. Chaque mode propose un pack d'essai de {trial} valable 7 jours. Le service de recherche vise une disponibilité de 99,9 %.", "fee.fx": "Les prix en euros sont convertis depuis le CNY au taux du {date}, à titre indicatif. La devise de facturation est fixée au contrat.",
       "bounds.label": "Périmètre et assistance", "bounds.title": "Trois points à valider avant contractualisation",
       "bounds.excl.k": "Non collecté", "bounds.excl.v": "Données soumises à connexion, payantes ou à accès restreint, et données internes d'organisations, sauf autorisation du responsable des données ; données de marché telles que cours boursiers, transactions au tick et annonces boursières ; données provenant de Chine continentale. Les données susceptibles de contenir des informations personnelles sont désidentifiées avant livraison, dans la limite du nécessaire.",
       "bounds.qa.k": "Contrôle qualité", "bounds.qa.v": "La qualité des données est vérifiée chaque semaine pendant la période de livraison. Les anomalies sont corrigées selon le calendrier convenu.",
@@ -1163,11 +1184,11 @@
       "src.search.flag": "Suchanfragen & Ergebnisse", "src.search.title": "Suche", "src.search.text": "Suchanfragen und Ergebnisseiten werden paarweise geliefert, wahlweise nach Land oder Stadt. Unterstützte Suchmaschinen: Google, Bing, Yandex und DuckDuckGo. Die durchschnittliche Antwortzeit liegt unter 1 Sekunde.",
       "src.corp.flag": "Branchentexte", "src.corp.title": "Unternehmen & Branchen", "src.corp.text": "Finanzierung, Umsatz, Gründer und Mitteilungen sowie Branchentexte aus Gesundheitswesen, Recht, Personalwesen und weiteren Bereichen. Aktienkurse und Transaktionsdaten auf Tick-Ebene werden nicht bereitgestellt.",
       "fee.label": "Preis pro Anfrage", "fee.title": "Inkrementelle Erhebung, abgerechnet pro Anfrage", "fee.sub": "Komplette Datensätze werden gesondert angeboten",
-      "fee.p1.amt": "8 CN¥", "fee.p1.unit": "/1000 Ergebnisse", "fee.p1.title": "Beliebte Websites", "fee.p1.note": "Testpaket: ca. 6000 Ergebnisse",
-      "fee.p2.amt": "1 CN¥", "fee.p2.unit": "/1000 Anfragen", "fee.p2.title": "Suche", "fee.p2.note": "Testpaket: ca. 5000 Anfragen",
-      "fee.p3.amt": "15 CN¥", "fee.p3.unit": "/1000 Anfragen", "fee.p3.title": "Beliebige Webseite", "fee.p3.note": "Testpaket: ca. 3300 Anfragen",
-      "fee.p4.amt": "4,80 CN¥", "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Testpaket: ca. 10 GB, über 10.000 URLs pro Batch",
-      "fee.lede": "Nicht gelieferte Anfragen werden nicht berechnet. Für jede Methode gibt es ein Testpaket für 50 CN¥ mit 7 Tagen Laufzeit. Der Suchdienst ist auf 99,9 % Verfügbarkeit ausgelegt.",
+      "fee.p1.unit": "/1.000 Ergebnisse", "fee.p1.title": "Beliebte Websites", "fee.p1.note": "Testpaket: ca. 6.000 Ergebnisse",
+      "fee.p2.unit": "/1.000 Anfragen", "fee.p2.title": "Suche", "fee.p2.note": "Testpaket: ca. 5.000 Anfragen",
+      "fee.p3.unit": "/1.000 Anfragen", "fee.p3.title": "Beliebige Webseite", "fee.p3.note": "Testpaket: ca. 3.300 Anfragen",
+      "fee.p4.unit": "/GB", "fee.p4.title": "Video", "fee.p4.note": "Testpaket: ca. 10 GB, über 10.000 URLs pro Batch",
+      "fee.lede": "Nicht gelieferte Anfragen werden nicht berechnet. Für jede Methode gibt es ein Testpaket für {trial} mit 7 Tagen Laufzeit. Der Suchdienst ist auf 99,9 % Verfügbarkeit ausgelegt.", "fee.fx": "Die Euro-Preise wurden zum Wechselkurs vom {date} aus CNY umgerechnet und dienen zur Orientierung. Die Abrechnungswährung wird im Vertrag festgelegt.",
       "bounds.label": "Rahmen & Support", "bounds.title": "Drei Punkte vor Vertragsabschluss",
       "bounds.excl.k": "Nicht erhoben", "bounds.excl.v": "Daten hinter Logins, Bezahlschranken oder sonstigen Zugangsbeschränkungen sowie interne Unternehmensdaten, sofern der Verantwortliche nicht ausdrücklich zustimmt; Marktdaten wie Aktienkurse, Tick-Transaktionen und Börsenmitteilungen; Daten mit Ursprung in Festlandchina. Daten, die personenbezogene Informationen enthalten können, werden vor der Lieferung im erforderlichen Umfang de-identifiziert.",
       "bounds.qa.k": "Qualitätsprüfung", "bounds.qa.v": "Die Datenqualität wird während der Lieferphase wöchentlich geprüft. Mängel werden im vereinbarten Rhythmus behoben.",
@@ -1199,11 +1220,11 @@
       "src.search.flag": "Consultas e resultados", "src.search.title": "Busca", "src.search.text": "Consultas e páginas de resultados são retornadas em pares, com segmentação por país ou cidade. Mecanismos: Google, Bing, Yandex e DuckDuckGo. Tempo médio de resposta inferior a 1 segundo.",
       "src.corp.flag": "Textos setoriais", "src.corp.title": "Empresas e setores", "src.corp.text": "Captação de recursos, receita, fundadores e comunicados, além de textos setoriais de saúde, direito, recrutamento e outras áreas. Cotações de ações e dados de negociação em nível de tick não são fornecidos.",
       "fee.label": "Preço por requisição", "fee.title": "Coleta incremental cobrada por requisição", "fee.sub": "Compras de conjuntos completos são orçadas à parte",
-      "fee.p1.amt": "CN¥ 8", "fee.p1.unit": "/1000 resultados", "fee.p1.title": "Sites populares", "fee.p1.note": "Pacote de teste: cerca de 6000 resultados",
-      "fee.p2.amt": "CN¥ 1", "fee.p2.unit": "/1000 requisições", "fee.p2.title": "Busca", "fee.p2.note": "Pacote de teste: cerca de 5000 requisições",
-      "fee.p3.amt": "CN¥ 15", "fee.p3.unit": "/1000 requisições", "fee.p3.title": "Qualquer página web", "fee.p3.note": "Pacote de teste: cerca de 3300 requisições",
-      "fee.p4.amt": "CN¥ 4,80", "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Pacote de teste: cerca de 10 GB, mais de 10.000 URLs por lote",
-      "fee.lede": "Requisições não entregues não são cobradas. Cada modalidade oferece um pacote de teste de CN¥ 50 por 7 dias. O serviço de busca tem meta de disponibilidade de 99,9%.",
+      "fee.p1.unit": "/1.000 resultados", "fee.p1.title": "Sites populares", "fee.p1.note": "Pacote de teste: cerca de 6.000 resultados",
+      "fee.p2.unit": "/1.000 requisições", "fee.p2.title": "Busca", "fee.p2.note": "Pacote de teste: cerca de 5.000 requisições",
+      "fee.p3.unit": "/1.000 requisições", "fee.p3.title": "Qualquer página web", "fee.p3.note": "Pacote de teste: cerca de 3.300 requisições",
+      "fee.p4.unit": "/GB", "fee.p4.title": "Vídeo", "fee.p4.note": "Pacote de teste: cerca de 10 GB, mais de 10.000 URLs por lote",
+      "fee.lede": "Requisições não entregues não são cobradas. Cada modalidade oferece um pacote de teste de {trial} por 7 dias. O serviço de busca tem meta de disponibilidade de 99,9%.", "fee.fx": "Os preços em reais foram convertidos de CNY pela cotação de {date} e são apenas referenciais. A moeda de faturamento é definida em contrato.",
       "bounds.label": "Escopo e suporte", "bounds.title": "Três pontos a confirmar antes da contratação",
       "bounds.excl.k": "Não coletado", "bounds.excl.v": "Dados que exigem login, pagos ou com acesso restrito, e dados internos de organizações, salvo autorização do controlador dos dados; dados de mercado como cotações, negociações em nível de tick e comunicados de bolsa; dados originados na China continental. Dados que possam conter informações pessoais são desidentificados antes da entrega, na medida do necessário.",
       "bounds.qa.k": "Controle de qualidade", "bounds.qa.v": "A qualidade dos dados é verificada semanalmente durante o período de entrega. Problemas são corrigidos no prazo acordado.",
@@ -1235,11 +1256,11 @@
       "src.search.flag": "Запросы и выдача", "src.search.title": "Поиск", "src.search.text": "Запросы и страницы выдачи возвращаются парами, с таргетингом по стране или городу. Поисковые системы: Google, Bing, Yandex и DuckDuckGo. Среднее время ответа — менее 1 секунды.",
       "src.corp.flag": "Отраслевые тексты", "src.corp.title": "Компании и отрасли", "src.corp.text": "Финансирование, выручка, основатели и сообщения, а также отраслевые тексты по медицине, праву, найму и другим направлениям. Котировки акций и потиковые данные о сделках не предоставляются.",
       "fee.label": "Оплата за запрос", "fee.title": "Инкрементальный сбор с оплатой за запрос", "fee.sub": "Покупка полных наборов оценивается отдельно",
-      "fee.p1.amt": "8 CN¥", "fee.p1.unit": "/1000 результатов", "fee.p1.title": "Популярные сайты", "fee.p1.note": "Пробный пакет: около 6000 результатов",
-      "fee.p2.amt": "1 CN¥", "fee.p2.unit": "/1000 запросов", "fee.p2.title": "Поиск", "fee.p2.note": "Пробный пакет: около 5000 запросов",
-      "fee.p3.amt": "15 CN¥", "fee.p3.unit": "/1000 запросов", "fee.p3.title": "Любая веб-страница", "fee.p3.note": "Пробный пакет: около 3300 запросов",
-      "fee.p4.amt": "4,8 CN¥", "fee.p4.unit": "/ГБ", "fee.p4.title": "Видео", "fee.p4.note": "Пробный пакет: около 10 ГБ, более 10 000 URL за пакет",
-      "fee.lede": "Недоставленные запросы не оплачиваются. Для каждого способа доступен пробный пакет за 50 CN¥ на 7 дней. Целевая доступность поискового сервиса — 99,9 %.",
+      "fee.p1.unit": "/1000 результатов", "fee.p1.title": "Популярные сайты", "fee.p1.note": "Пробный пакет: около 6000 результатов",
+      "fee.p2.unit": "/1000 запросов", "fee.p2.title": "Поиск", "fee.p2.note": "Пробный пакет: около 5000 запросов",
+      "fee.p3.unit": "/1000 запросов", "fee.p3.title": "Любая веб-страница", "fee.p3.note": "Пробный пакет: около 3300 запросов",
+      "fee.p4.unit": "/ГБ", "fee.p4.title": "Видео", "fee.p4.note": "Пробный пакет: около 10 ГБ, более 10 000 URL за пакет",
+      "fee.lede": "Недоставленные запросы не оплачиваются. Для каждого способа доступен пробный пакет за {trial} на 7 дней. Целевая доступность поискового сервиса — 99,9 %.", "fee.fx": "Цены в рублях пересчитаны из юаней по курсу на {date} и носят справочный характер. Валюта расчётов определяется договором.",
       "bounds.label": "Границы и поддержка", "bounds.title": "Три пункта для согласования до заключения договора",
       "bounds.excl.k": "Не собирается", "bounds.excl.v": "Данные за авторизацией, платным доступом или иными ограничениями доступа, а также внутренние данные организаций, если владелец данных не дал отдельного разрешения; рыночные данные — котировки, потиковые сделки и биржевые сообщения; данные из источников в материковом Китае. Данные, которые могут содержать персональную информацию, перед поставкой обезличиваются в необходимом объёме.",
       "bounds.qa.k": "Контроль качества", "bounds.qa.v": "В период поставки качество данных проверяется еженедельно. Замечания устраняются в согласованные сроки.",
@@ -1255,7 +1276,30 @@
   const nodes = document.querySelectorAll("[data-i18n]");
   const base = { "meta.title": document.title };
   nodes.forEach((n) => { base[n.dataset.i18n] = n.textContent; });
+  base["fee.lede"] = "未交付的请求不计费。各方式均提供 {trial}、7 天体验包。搜索服务可用性目标为 99.9%。";
+  base["fee.fx"] = "";
   T["zh-CN"] = base;
+  ["p1", "p2", "p3", "p4"].forEach((p) => {
+    Object.values(T).forEach((dict) => { dict["fee." + p + ".amt"] = "{" + p + "}"; });
+  });
+
+  const money = (cny, lang) => {
+    const loc = LOCALE[lang] || LOCALE["zh-CN"];
+    if (loc.currency === "CNY") return cny === PRICES_CNY.trial ? cny + " 元" : "¥" + cny;
+    const digits = { USD: 2, EUR: 2, BRL: 2, TWD: 2, JPY: 0, KRW: 0, RUB: 0 }[loc.currency];
+    let value = cny * FX.rates[loc.currency];
+    value = loc.currency === "KRW" ? Math.round(value / 10) * 10 : Math.round(value * 10 ** digits) / 10 ** digits;
+    return new Intl.NumberFormat(loc.numberLocale || loc.tag, {
+      style: "currency", currency: loc.currency, minimumFractionDigits: digits, maximumFractionDigits: digits
+    }).format(value);
+  };
+
+  const fill = (text, lang) => {
+    const loc = LOCALE[lang] || LOCALE["zh-CN"];
+    const vars = { date: new Intl.DateTimeFormat(loc.tag, { year: "numeric", month: "long", day: "numeric" }).format(new Date(FX.date + "T12:00:00")) };
+    Object.keys(PRICES_CNY).forEach((k) => { vars[k] = money(PRICES_CNY[k], lang); });
+    return text.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+  };
 
   const select = document.getElementById("lang");
   LANGS.forEach(([code, name]) => {
@@ -1277,10 +1321,12 @@
     const dict = T[lang] || base;
     nodes.forEach((n) => {
       const key = n.dataset.i18n;
-      n.textContent = dict[key] ?? base[key];
+      const text = fill(dict[key] ?? base[key], lang);
+      n.textContent = text;
+      if (key === "fee.fx") n.hidden = !text;
     });
     document.title = dict["meta.title"] ?? base["meta.title"];
-    document.documentElement.lang = lang;
+    document.documentElement.lang = (LOCALE[lang] || LOCALE["zh-CN"]).tag;
     select.value = lang;
   };
 
