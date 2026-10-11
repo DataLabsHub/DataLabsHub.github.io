@@ -1,3 +1,0 @@
-Written and schema-validated:
-
-`/runtime-output/paired_claim_verdict.json`

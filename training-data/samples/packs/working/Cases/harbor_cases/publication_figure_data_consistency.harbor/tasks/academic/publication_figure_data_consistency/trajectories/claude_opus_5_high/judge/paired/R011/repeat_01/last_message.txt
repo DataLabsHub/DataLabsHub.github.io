@@ -1,1 +1,0 @@
-Wrote the required verdict to `/runtime-output/paired_claim_verdict.json`.

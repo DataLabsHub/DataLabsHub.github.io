@@ -1,3 +1,0 @@
-Packs/AggregatedScripts/Scripts/IndicatorEnrichment/IndicatorEnrichment_test.py
-Packs/AggregatedScripts/Scripts/IndicatorEnrichment/IndicatorEnrichment_authored_test.py
-Packs/AggregatedScripts/Scripts/IndicatorEnrichment/IndicatorEnrichment_p2p_test.py
